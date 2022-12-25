@@ -11,6 +11,10 @@
   --paragraph: #a7a9be;
   --bg-input: #dee1e2;
   --pink: #9a4d96;
+  --btn-submit: rgb(121, 241, 137);
+  --btn-submit-grey: rgb(175, 175, 175);
+  --btn-submit-hover: rgb(78, 240, 100);
+  --btn-submit-hover-grey: rgb(145, 145, 145);
 }
 
 * {

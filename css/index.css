@@ -4,16 +4,23 @@
     box-sizing: border-box;
 }
 
-h1 {
-    color: var(--white-text);
+h1{
+    font-weight: 700;
 }
 
 p,span {
     color: var(--white-text);
 }
 
+header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 200px;
+}
+
 main {
-    color: white;
+    /**color: white;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,6 +29,68 @@ main {
     background-image: url(../img/background.webp);
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    border : solid 3px;
+    padding: 0px 20px;
+    background-color: var(--white);
+    box-shadow: var(--background-shadow);
+    border-radius: var(--border-radius);
+    min-width: 500px;
+}
+
+form h1{
+    display: flex;
+    justify-content: center;
+    padding : 20px;
+}
+
+svg{
+    margin-right: 10px;
+}
+.username {
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    padding : 20px;
+    padding-top : 40px;
+}
+
+.mdp{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    padding : 20px;
+
+}
+
+.valider{
+    display : flex;
+    padding : 20px;
+    align-items: center;
+    justify-content: center;
+    padding : 20px;
+    padding-bottom: 40px;
+}
+
+input[type ="submit"]{
+    border-radius: var(--border-radius);
+    background-color: var(--btn-submit);
+    font-weight: bold;
+    padding : 8px 25px;
+}
+
+.img{
+    display : flex;
+    justify-content: center;
+}
+
+img {
+    width : 150px;
+    padding : 20px;
 }
 
 .main-btn {
