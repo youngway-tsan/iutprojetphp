@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login - F.C. WOIPPY</title>
         <link rel="stylesheet" href="css/style.css">
-         <link rel="stylesheet" href="css/index.css">
     </head>
 
     <body>
@@ -14,18 +13,9 @@
         $sql = new requeteSQL();
         $req = $sql->getJoueur();
         ?>
-        <header>
-       
-            <h1>Bienvenue sur l'application de gestion du F.C WOIPPY</h1>
-        </header>
 
-        <main class ="main-login">
+        <h1>Se Connecter</h1>
         <form action="" method="post">
-            <div class ="img">
-                <img src="img/FCWoippy-logo.png" alt="" class="header-logo-link">
-            </div>
-            <!-- <h1>Se connecter</h1> -->
-            <hr>
             <div class="container">
                 <div class ="username">
                 <svg width="40px" height="40px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
@@ -53,8 +43,7 @@
                 <div class ="valider">
                     <input type="submit" name ="valider" value="Se Connecter">
                 </div>
-                
-                
+
                 <?php
                     while ($donnees = $req -> fetch()){
                     echo $donnes[0];
@@ -62,6 +51,5 @@
                 ?>
             </div>
         </form>
-        </main>
     </body>
 </html>

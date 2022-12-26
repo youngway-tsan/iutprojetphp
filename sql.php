@@ -9,7 +9,7 @@ class requeteSQL {
         $server = 'localhost';
         $login  = 'root';
         $mdp    = '';
-        $db     = 'iutprojetphp';
+        $db     = 'id19876426_iutprojetphp';
 
         try {
             $this->linkpdo = new PDO("mysql:host=$server;dbname=$db", $login, $mdp);
