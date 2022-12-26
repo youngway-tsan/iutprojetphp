@@ -5,13 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login - F.C. WOIPPY</title>
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="icon" href="img/FCWoippy-logo.png">
     </head>
 
     <body>
         <?php
         require_once("sql.php");
         $sql = new requeteSQL();
-        $req = $sql->getJoueur();
+        $incorrect = false;
+
+        if (isset($_POST['valider'])){
+            $id = $_POST['username'];
+            $mdp = $_POST['mdp'];
+            if ($sql -> checkLogin($id,$mdp)){
+                header('Location: accueil.php');
+            } else {
+                $incorrect = true;
+            }
+        }
         ?>
 
         <h1>Se Connecter</h1>
@@ -37,7 +49,7 @@
                             C109.047,119.666,105.689,116.309,101.547,116.309z"/>
                     </svg>
 
-                    <input type="text" name="mdp" placeholder="Mot de passe" required>
+                    <input type="password" name="mdp" placeholder="Mot de passe" required>
                 </div>
                 
                 <div class ="valider">
@@ -45,10 +57,15 @@
                 </div>
 
                 <?php
-                    while ($donnees = $req -> fetch()){
-                    echo $donnes[0];
+                    if ($incorrect == true) {
+                        echo '
+                        <p class="erreur">
+                            Identifiant ou Mot de passe incorrect
+                        </p>
+                        ';
                     }
                 ?>
+
             </div>
         </form>
     </body>
