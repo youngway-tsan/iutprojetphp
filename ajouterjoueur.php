@@ -9,6 +9,9 @@
     </head>
 
     <body>
-        
+    <?php
+    require_once("header.php");
+    $header = new header();
+    ?>
     </body>
 </html>

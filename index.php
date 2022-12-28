@@ -25,11 +25,7 @@
             }
         }
         ?>
-
-        <header>
-            <h1>Bienvenue sur l'application de gestion du F.C WOIPPY</h1>
-        </header>
-        <main class ="main-login">
+        <main class ="main-login main">
             <form action="" method="post">
 
                 <div class ="img">
