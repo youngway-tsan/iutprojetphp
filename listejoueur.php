@@ -37,7 +37,7 @@
                             <option value="Milieu">Milieu</option>
                             <option value="Attaquant">Attaquant</option>
                         </select>
-                        <input type="submit" class="submit" name="Valider">
+                        <input type="submit" class="submit" name="Valider" value="Valider">
                     </div>
                 </form>
 
