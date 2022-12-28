@@ -43,8 +43,8 @@ class requeteSQL {
     FONCTIONS D'INTERROGATION DE LA BDDQ
     */
 
-    public function getJoueur(){
-        $req = $this->linkpdo->prepare("SELECT nom, prenom FROM joueur");
+    public function getJoueur($param){
+        $req = $this->linkpdo->prepare("SELECT nom, prenom, commentaire, statut, licence FROM joueur ORDER BY nom");
         $testreq = $req->execute();
         if ($testreq == false){
             die("Erreur getJoueur");
