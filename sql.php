@@ -44,8 +44,63 @@ class requeteSQL {
     */
 
     public function getJoueur($param){
-        $req = $this->linkpdo->prepare("SELECT nom, prenom, commentaire, statut, licence FROM joueur ORDER BY nom");
-        $testreq = $req->execute();
+        $nom = $param[0];
+        $prenom = $param[1];
+        $poste = $param[2];
+
+        if ($nom == null and $prenom == null and $poste == "default"){
+            $req = $this->linkpdo->prepare("SELECT nom, prenom, commentaire, statut, licence FROM joueur ORDER BY nom");
+            $testreq = $req->execute();
+        }else if ($nom != null and $prenom == null and $poste == "default" ){ // NOM
+            $req = $this->linkpdo->prepare("SELECT nom, prenom, commentaire, statut, licence FROM joueur where nom = :nom");
+            $testreq = $req -> execute(array(
+                "nom" => $nom
+            ));
+        } else if ($nom == null and $prenom != null  and $poste == "default"){ // PRENOM
+            $req = $this->linkpdo->prepare("SELECT nom, prenom, commentaire, statut, licence FROM joueur WHERE prenom = :prenom");
+            $testreq = $req -> execute(array(
+                "prenom" => $prenom
+            ));
+        } else if ($nom == null and $prenom == null and $poste != "default") { // POSTE
+            $req = $this->linkpdo->prepare("SELECT nom, prenom, commentaire, statut, licence FROM joueur WHERE poste = :poste");
+            $testreq = $req -> execute(array(
+                "poste" => $poste
+            ));
+        } else if ($nom != null and $prenom != null and $poste == "default"){ // NOM + PRENOM
+            $req = $this->linkpdo->prepare("SELECT nom,prenom, commentaire, statut, licence FROM joueur WHERE nom = :nom AND prenom = :prenom");
+            $testreq = $req->execute(
+                array(
+                    "nom" => $nom,
+                    "prenom" => $prenom
+                )
+            );
+        } else if ($nom != null and $prenom == null and $poste != "default") { // NOM + POSTE
+            $req = $this->linkpdo->prepare("SELECT nom,prenom, commentaire, statut, licence FROM joueur WHERE nom = :nom AND poste = :poste");
+            $testreq = $req->execute(
+                array(
+                    "nom" => $nom,
+                    "poste" => $poste
+                )
+            );
+        }else if ($nom == null and $prenom != null and $poste != "default"){ // PRENOM + POSTE
+            $req = $this->linkpdo->prepare("SELECT nom,prenom, commentaire, statut, licence FROM joueur WHERE prenom = :prenom AND poste =:poste");
+            $testreq = $req->execute(
+                array(
+                    "prenom" => $prenom,
+                    "poste" => $poste
+                )
+            );
+        } else if ($nom != null and $prenom != null and $poste != "default") { // NOM + PRENOM + POSTE
+            $req = $this->linkpdo->prepare("SELECT nom,prenom, commentaire, statut, licence FROM joueur WHERE nom = :nom AND prenom = :prenom AND poste = :poste");
+            $testreq = $req->execute(
+                array(
+                    "nom" => $nom,
+                    "prenom" => $prenom,
+                    "poste" => $poste
+                )
+            );
+        }
+        
         if ($testreq == false){
             die("Erreur getJoueur");
         }

@@ -328,6 +328,15 @@ input[type=button].add:hover {
   background-color: var(--btn-bouton-hover);
 }
 
+.submit-modifier{
+  display :none;
+}
+
+.svgmodifier{
+  cursor : pointer;
+  text-align : center;
+}
+
 /* HEADER */
 /* HEADER */
 /* HEADER */
@@ -449,8 +458,9 @@ table {
 }
 
 th, td {
-  padding: 8px;
-  text-align: left;
+  padding-top: 8px;
+  padding-bottom : 8px;
+  text-align: center;
   border-bottom: 1px solid #ddd;
 }
 
