@@ -42,8 +42,12 @@ p,span {
   color: var(--white-text);
 }
 
-main {
-  /**color: white;*/
+svg{
+  color : black;
+}
+
+.main {
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,6 +87,28 @@ main {
   background-color: var(--purple);
   color: var(--white-text);
   box-shadow: var(--background-shadow);
+}
+
+.main-listes {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 0 75px;
+  background-color: var(--black-grey);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+.main-listes-container {
+  background-color: var(--white-text);
+  max-width: 1200px;
+  padding: 200px 50px 50px 50px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .home-title {
@@ -172,12 +198,16 @@ input[type="submit"].submit {
   border: 0px;
   padding: 8px 25px;
   font-weight: 600;
-  font-size: 23px;
   width: auto;
   line-height: initial;
-  height: max-content;
+  height: 32px;
   transition: all .2s ease-in-out;
 }
+
+input[type="submit"].supprimer {
+  background-color : rgb(213, 123, 123);
+}
+
 
 /* bouton ajout joueur de théo ? */
 input[type="submit"].add,
@@ -234,6 +264,10 @@ input[type="button"].boutonAddJoueur {
   transition: all .2s ease-in-out;
 }
 
+input[type="button"].button-commentaire {
+  padding : 0px;
+}
+
 input[type="submit"].update {
   box-shadow: var(--background-shadow);
   border-radius: var(--border-radius);
@@ -245,7 +279,7 @@ input[type="submit"].update {
   background-color: var(--btn-update);
   width: auto;
   line-height: initial;
-  height: max-content;
+  height: "max-content";
   transition: all .2s ease-in-out;
 }
 
@@ -272,8 +306,13 @@ input[type="submit"].submit-gris:hover {
 }
 
 input[type="submit"].submit:hover,
+
 input[type="submit"].submit-active:hover {
   background-color: var(--btn-submit-hover);
+}
+
+input[type="submit"].supprimer:hover {
+  background-color: rgb(170, 67, 67);
 }
 
 input[type="submit"].update:hover {
@@ -289,12 +328,15 @@ input[type=button].add:hover {
   background-color: var(--btn-bouton-hover);
 }
 
-/* HEADER */
-/* HEADER */
-/* HEADER */
-/* HEADER */
-/* HEADER */
-/* HEADER */
+.submit-modifier{
+  display :none;
+}
+
+.svgmodifier{
+  cursor : pointer;
+  text-align : center;
+}
+
 /* HEADER */
 /* HEADER */
 /* HEADER */
@@ -472,3 +514,44 @@ header ul {
   flex-direction: column;
 }
 
+/*
+TABLEAU
+TABLEAU
+*/
+
+.tableau-style {
+  display: flex;
+  justify-content: center;
+  
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  /* margin-top : 20px; */
+}
+
+th, td {
+  padding-top: 8px;
+  padding-bottom : 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #333;
+  color: white;
+}
+
+/*
+FILTRE TABLEAU
+FILTRE TABLEAU
+FILTRE TABLEAU
+*/
+
+.filtre{
+  display : flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap : 10px;
+}

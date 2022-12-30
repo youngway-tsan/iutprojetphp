@@ -36,6 +36,8 @@
     </header>
 
     <?php
+        require_once("header.php");
+        $header = new header();
         // Initialisation des variables
         $info_execution = "";
     ?>
