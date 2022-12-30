@@ -153,7 +153,7 @@ class requeteSQL {
 
     //Fonction qui permet d'ajouter un match dans la BDD
     public function addMatch($date_rencontre,$nom_equipe_adverse,$lieu_rencontre){
-        $req = $this->linkpdo->prepare('INSERT INTO rencontre VALUES (NULL,:date_rencontre,:nom_equipe_adverse,:lieu_recontre)');
+        $req = $this->linkpdo->prepare('INSERT INTO rencontre VALUES (NULL,:date_rencontre,:nom_equipe_adverse,:lieu_rencontre,NULL)');
         $testreq = $req->execute(
             array(
                 'date_rencontre' => $date_rencontre,
