@@ -161,6 +161,12 @@ class requeteSQL {
     FONCTION DE MODIFICATION DE LA BDD
     */
 
+    /*
+    FONCTION SUPPRIMER DE LA BDD
+    */
+
+    
+
 
 
 

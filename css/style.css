@@ -328,10 +328,6 @@ input[type=button].add:hover {
   background-color: var(--btn-bouton-hover);
 }
 
-.submit-modifier{
-  display :none;
-}
-
 .svgmodifier{
   cursor : pointer;
   text-align : center;
