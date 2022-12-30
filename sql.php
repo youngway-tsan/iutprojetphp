@@ -51,6 +51,16 @@ class requeteSQL {
         return $req;
     }
 
+      //Fonction qui retourne toute les informations d'un joueur grâce à son numéro de licence
+      public function joueurId($licence)
+      {
+          $req = $this->linkpdo->prepare("SELECT * FROM joueur where Licence = :Licence");
+          $req->execute(array(
+              'Licence' => $licence
+          ));
+  
+          return $req;
+      }
 
     public function getJoueur($param){
         $nom = $param[0];
@@ -165,7 +175,7 @@ class requeteSQL {
     FONCTION SUPPRIMER DE LA BDD
     */
 
-    
+
 
 
 
