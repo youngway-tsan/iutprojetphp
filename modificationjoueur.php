@@ -32,27 +32,16 @@
         // Modifier un joueur
         if (isset($_POST['modifier'])) {
             // Vérification de si tout les champs sont remplis
-            if(!empty($_POST['nom-joueur']) && !empty($_POST['prenom-joueur']) && !empty($_POST['licence-joueur']) && !empty($_POST['combobox-poste-joueur']) && !empty($_POST['poids-joueur']) && !empty($_POST['taille-joueur']) && !empty($_POST['photo-joueur']) && !empty($_POST['dtn-joueur'])){
+            if(!empty($_POST['nom-joueur']) && !empty($_POST['prenom-joueur']) && !empty($_POST['combobox-poste-joueur']) && !empty($_POST['poids-joueur']) && !empty($_POST['taille-joueur']) && !empty($_POST['photo-joueur']) && !empty($_POST['dtn-joueur'])){
                 // Vérification de si le joueur à plus de 16ans
                 if (strtotime($_POST['dtn-joueur']) <= strtotime(date("Y-m-d") . ' - 16 years')) {   
-                    //Vérification de si un joueur n'a pas déjà le même numéro licence
-                    $joueurs = $sql->getJoueurs();
-                    $sameLicence = False;
-                    while($joueur = $joueurs->fetch()) {
-                        if (strtoupper($joueur['Licence']) == strtoupper($_POST['licence-joueur'])) {
-                            $sameLicence = True;
-                        }
-                    }
-                    if(!$sameLicence) {
-                        try{   
-                            // Ajout d'un joueur 
-                            $sql->addJoueur($_POST['licence-joueur'],$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$_POST['photo-joueur']);
-                            $info_execution = 'Joueur enregistré !';
-                        }catch(Exception $e){
-                            $info_execution = "Erreur : " . $e->getMessage();
-                        }
-                    }else{
-                        $info_execution = "Un joueur avec le même numéro de licence existe déjà !";
+                    try{   
+                        // Ajout d'un joueur 
+                        $sql->modifierJoueur($licence,$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$_POST['photo-joueur']);
+                        $info_execution = 'Modification enregistrée !';
+                        header("Refresh: 3;URL=listejoueur.php");
+                    }catch(Exception $e){
+                        $info_execution = "Erreur : " . $e->getMessage();
                     }
                 } else {
                     $info_execution = "Le Joueur doit avoir plus de 16 ans pour s'inscrire à une équipe de foot sénior";
@@ -66,7 +55,7 @@
     <body>
         <main class="main-creation-joueur">
             <section class="creation-tournoi-container">
-                <form action="<?php echo "modificationjoueur.php?id=" . $licence ?>" method="POST">
+                <form action="<?php echo "modificationjoueur.php?licence=" . $licence ?>" method="POST">
 
                     <h1 class="creation-tournoi-title">Modifier un joueur</h1>
                     <div class="creation-tournoi">
@@ -81,7 +70,7 @@
                             </div>
                             <div class="creation-tournoi-input">
                                 <label for="licence-joueur">Licence du joueur</label>
-                                <input type="text" name="licence-joueur" id="licence-joueur" value="<?php echo $licence ?>">
+                                <input type="text" name="licence-joueur" id="licence-joueur-modif" value="<?php echo $licence ?>" disabled="disabled">
                             </div>
                             <div class="creation-tournoi-input">
                                 <label for="dtn_joueur">Date de naissance</label>

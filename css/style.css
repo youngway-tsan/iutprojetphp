@@ -527,6 +527,10 @@ header ul {
   flex-direction: column;
 }
 
+#licence-joueur-modif {
+  background: rgba(111, 108, 108, 0.712);
+}
+
 /*
 TABLEAU
 TABLEAU

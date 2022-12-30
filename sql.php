@@ -171,6 +171,26 @@ class requeteSQL {
     FONCTION DE MODIFICATION DE LA BDD
     */
 
+    public function modifierJoueur($licence,$nom,$prenom,$date_naissance,$taille,$poids,$poste,$image){
+        $req = $this->linkpdo->prepare('UPDATE joueur SET Nom = :nom,Prenom = :prenom, Date_naissance = :date_naissance,Taille =:taille, Poids = :poids,Poste =:poste,Image =:image WHERE Licence = :licence');
+        $testreq = $req->execute(
+            array(
+                'licence' => $licence,
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'date_naissance' => $date_naissance,
+                'taille' => $taille,
+                'poids' => $poids,
+                'poste' => $poste,
+                'image' => $image
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur addJoueur");
+        }
+    }
+
+
     /*
     FONCTION SUPPRIMER DE LA BDD
     */
