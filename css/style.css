@@ -39,7 +39,7 @@ label {
 }
 
 p,span {
-  color: var(--white-text);
+  color: black;
 }
 
 svg{

@@ -11,8 +11,44 @@
     <?php
         require_once("header.php");
         $header = new header();
+
         // Initialisation des variables
         $info_execution = "";
+        require_once("sql.php");
+        $sql = new requeteSQL();
+
+        // Ajouter un joueur
+        if (isset($_POST['ajouter'])) {
+            // Vérification de si tout les champs sont remplis
+            if(!empty($_POST['nom-joueur']) && !empty($_POST['prenom-joueur']) && !empty($_POST['licence-joueur']) && !empty($_POST['combobox-poste-joueur']) && !empty($_POST['poids-joueur']) && !empty($_POST['taille-joueur']) && !empty($_POST['photo-joueur']) && !empty($_POST['dtn-joueur'])){
+                // Vérification de si le joueur à plus de 16ans
+                if (strtotime($_POST['dtn-joueur']) <= strtotime(date("Y-m-d") . ' - 16 years')) {   
+                    //Vérification de si un joueur n'a pas déjà le même numéro licence
+                    $joueurs = $sql->getJoueurs();
+                    $sameLicence = False;
+                    while($joueur = $joueurs->fetch()) {
+                        if (strtoupper($joueur['Licence']) == strtoupper($_POST['licence-joueur'])) {
+                            $sameLicence = True;
+                        }
+                    }
+                    if(!$sameLicence) {
+                        try{   
+                            // Ajout d'un joueur 
+                            $sql->addJoueur($_POST['licence-joueur'],$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$_POST['photo-joueur']);
+                            $info_execution = 'Joueur enregistré !';
+                        }catch(Exception $e){
+                            $info_execution = "Erreur : " . $e->getMessage();
+                        }
+                    }else{
+                        $info_execution = "Un joueur avec le même numéro de licence existe déjà !";
+                    }
+                } else {
+                    $info_execution = "Le Joueur doit avoir plus de 16 ans pour s'inscrire à une équipe de foot sénior";
+                }
+            } else {
+                $info_execution = "Veuillez remplir tous les champs";
+            }
+        } 
     ?>
 
     <body>
@@ -60,12 +96,12 @@
                                     <input type="number" id="poids-joueur" name="poids-joueur" min="1" max="150">
                                 </div>
                                 <div class="creation-tournoi-input">
-                                    <label for="date-fin">Photo du joueur</label>
-                                    <input type="date" name="date-fin" id="date-fin">
+                                    <label for="photo-joueur">Photo du joueur</label>
+                                    <input type="text" name="photo-joueur" id="photo-joueur">
                                 </div>
                             </div>
                     </div>
-                    <input class="submit" type="submit" name="ajouter" value="Ajouter">
+                    <input class="submit" type="submit" name="ajouter" value="AJOUTER">
                     <span><?php echo $info_execution?> </span>
                 </form>
             </section>

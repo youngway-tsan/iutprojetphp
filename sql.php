@@ -43,6 +43,15 @@ class requeteSQL {
     FONCTIONS D'INTERROGATION DE LA BDDQ
     */
 
+    // Fonction qui retourne les joueurs
+    public function getJoueurs()
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM joueur');
+        $req->execute();
+        return $req;
+    }
+
+
     public function getJoueur($param){
         $nom = $param[0];
         $prenom = $param[1];
@@ -112,8 +121,8 @@ class requeteSQL {
     */
 
     //Fonction qui permet d'ajouter un joueur dans la BDD
-    public function addJoueur($licence,$nom,$prenom,$date_naissance,$taille,$poids,$poste){
-        $req = $this->linkpdo->prepare('INSERT INTO joueur VALUES (:licence,:nom,:prenom,:date_naissance,:taille,:poids,:poste)');
+    public function addJoueur($licence,$nom,$prenom,$date_naissance,$taille,$poids,$poste,$image){
+        $req = $this->linkpdo->prepare('INSERT INTO joueur VALUES (:licence,:nom,:prenom,:date_naissance,:taille,:poids,:poste,:statut,NULL,:image)');
         $testreq = $req->execute(
             array(
                 'licence' => $licence,
@@ -122,7 +131,9 @@ class requeteSQL {
                 'date_naissance' => $date_naissance,
                 'taille' => $taille,
                 'poids' => $poids,
-                'poste' => $poste
+                'poste' => $poste,
+                'statut' => 'Actif',
+                'image' => $image
             )
         );
         if ($testreq == false) {
