@@ -398,3 +398,77 @@ header ul {
   line-height: initial;
 }
 
+
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+
+
+.creation-tournoi-container {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.creation-tournoi-container form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 30px 60px;
+  gap: 20px;
+}
+
+.main-creation-joueur {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 170px;
+  min-height: 100vh;
+  background-image: url(../img/foot.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.creation-tournoi-title {
+  gap: 15px;
+  font-size: 32px;
+  width: 115%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.creation-tournoi-title::after {
+  content: '';
+  width: 100%;
+  background-color: #000000;
+  opacity: .2;
+  height: 1px;
+  font-size: 32px;
+}
+
+.creation-tournoi {
+  gap: 110px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.creation-tournoi-input {
+  padding: 10px 0;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
