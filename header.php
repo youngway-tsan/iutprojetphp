@@ -5,12 +5,15 @@ class header{
         <header>
             <div class="topnavbar">
                 <div class ="navbar-haut">
-                    <a class="header-logo-link" href="accueil.php">
-                        <img src="img/FCWoippy-logo.png" alt="" class="navbar-logo">
-                    </a>
-                    <form action="" method="post">
-                        <input type="submit" name="Déconnexion" value="Déconnexion">
-                    </form>
+                    <div class="nav-container-haut">
+                        <div></div>
+                        <a class="header-logo-link" href="accueil.php">
+                            <img src="img/FCWoippy-logo.png" alt="" class="navbar-logo">
+                        </a>
+                        <form action="" method="post">
+                            <input type="submit" name="Déconnexion" value="Déconnexion">
+                        </form>
+                    </div>
                 </div>
                 <div class="navbar-menu-div">
                 <ul class="navbar-menu">
