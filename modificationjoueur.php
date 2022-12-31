@@ -36,7 +36,7 @@
                 // Vérification de si le joueur à plus de 16ans
                 if (strtotime($_POST['dtn-joueur']) <= strtotime(date("Y-m-d") . ' - 16 years')) {   
                     try{   
-                        // Ajout d'un joueur 
+                        // Modification d'un joueur 
                         $sql->modifierJoueur($licence,$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$_POST['photo-joueur']);
                         $info_execution = 'Modification enregistrée !';
                         header("Refresh: 3;URL=listejoueur.php");

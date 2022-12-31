@@ -126,6 +126,17 @@ class requeteSQL {
         return $req;
     }
 
+    //Fonction qui retourne toute les informations d'un match grâce à son id
+    public function matchId($id)
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM rencontre where Id_Rencontre = :id");
+        $req->execute(array(
+            'id' => $id
+        ));
+
+        return $req;
+    }
+
     public function getMatch($param){
         $datetime = $param[0];
         $nomAdversaire = $param[1];
@@ -242,7 +253,22 @@ class requeteSQL {
             )
         );
         if ($testreq == false) {
-            die("Erreur addJoueur");
+            die("Erreur modifierJoueur");
+        }
+    }
+
+    public function modifierMatch($id,$datetime,$nomAdversaire,$lieu){
+        $req = $this->linkpdo->prepare('UPDATE rencontre SET Date_Rencontre = :date_match,Nom_Equipe_Adverse = :nomAdversaire, Lieu_Rencontre = :lieu WHERE Id_Rencontre = :id');
+        $testreq = $req->execute(
+            array(
+                'date_match' => $datetime,
+                'id' => $id,
+                'nomAdversaire' => $nomAdversaire,
+                'lieu' => $lieu
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur modifierMatch");
         }
     }
 
