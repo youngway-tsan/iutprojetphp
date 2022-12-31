@@ -10,9 +10,9 @@ class header{
                         <a class="header-logo-link" href="accueil.php">
                             <img src="img/FCWoippy-logo.png" alt="" class="navbar-logo">
                         </a>
-                        <form action="" method="post">
-                            <input type="submit" name="Déconnexion" value="Déconnexion">
-                        </form>
+                        <ul class="navbar-menu">
+                            <li class="navbar-item"><a href="index.php" class="btn-connexion">Déconnexion</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="navbar-menu-div">

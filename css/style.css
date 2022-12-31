@@ -447,12 +447,13 @@ header ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding : 0 20px;
+  padding : 0 30px;
   height: 100%;
+  width : 110%;
 }
 
 .navbar-haut {
-  width : 100%;
+  width : 80%;
 }
 
 /* Creation/Modification d'un tournoi */
