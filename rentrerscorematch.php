@@ -3,7 +3,7 @@
     <head>
         <meta charset='UTF-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Modifier un match - F.C. WOIPPY</title>
+        <title>Rentrer score - F.C. WOIPPY</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="icon" href="img/FCWoippy-logo.png">
     </head>
@@ -26,25 +26,17 @@
         }
 
 
-        // Modification d'un match
-        if (isset($_POST['modifier'])) {
+        // Ajouter un match
+        if (isset($_POST['ajouter'])) {
             // Vérification de si tout les champs sont remplis
-            if(!empty($_POST['datetime-match']) && !empty($_POST['nom-team-adverse']) && !empty($_POST['combobox-lieu-match'])){
-                // Vérification de si la date du match est valide
-                if (strtotime($_POST['datetime-match']) > strtotime(date("Y-m-d"))) {   
-                    try{   
-                        // Modification d'un match
-                        $sql->modifierMatch($id,$_POST['datetime-match'],$_POST['nom-team-adverse'],$_POST['combobox-lieu-match']);
-                        $info_execution = 'Modification enregistrée !';
-                        header("Refresh: 3;URL=listematch.php");
-                    }catch(Exception $e){
-                        $info_execution = "Erreur : " . $e->getMessage();
-                    }
-                } else {
-                    $info_execution = "L'horaire du match est non valide";
-                }
-            } else {
-                $info_execution = "Veuillez remplir tous les champs";
+            try{   
+                // Ajout du score d'un match
+                $score = $_POST['score-match-domicile'].'-'.$_POST['score-match-visiteur'];
+                $sql->modifierScoreMatch($id,$score);
+                $info_execution = 'Le score a bien été enregistré !';
+                header("Refresh: 3;URL=listematch.php");
+            }catch(Exception $e){
+                $info_execution = "Erreur : " . $e->getMessage();
             }
         } 
     ?>
@@ -52,22 +44,22 @@
     <body>
         <main class="main-creation-joueur">
             <section class="creation-tournoi-container">
-                <form action="<?php echo "modificationmatch.php?id=" . $id ?>" method="POST">
+                <form action="<?php echo "rentrerscorematch.php?id=" . $id ?>" method="POST">
 
-                    <h1 class="creation-tournoi-title">Modifier un match</h1>
+                    <h1 class="creation-tournoi-title">Rentrer le score du match</h1>
                     <div class="creation-tournoi">
                         <div class="creation-tournoi-left">
                             <div class="creation-tournoi-input">
-                                <label for="datetime-match">Date et heure du match</label>
-                                <input type="datetime-local" name="datetime-match" id="datetime-match" value="<?php echo $datetime ?>">
+                                <label for="datetime-match-modif">Date et heure du match</label>
+                                <input type="datetime-local" name="datetime-match-modif" id="datetime-match-modif" value="<?php echo $datetime ?>" disabled="disabled">
                             </div>
                             <div class="creation-tournoi-input">
-                                <label for="nom-team-adverse">Nom de l'équipe adverse</label>
-                                <input type="text" name="nom-team-adverse" id="nom-team-adverse" value="<?php echo $nomAdversaire ?>">
+                                <label for="nom-team-adverse-modif">Nom de l'équipe adverse</label>
+                                <input type="text" name="nom-team-adverse-modif" id="nom-team-adverse-modif" value="<?php echo $nomAdversaire ?>" disabled="disabled">
                             </div>
                             <div class="creation-tournoi-input">
                                 <label for="combobox-lieu-match">Lieu de Rencontre</label>
-                                <select name="combobox-lieu-match" id="combobox-lieu-match">
+                                <select name="combobox-lieu-match-modif" id="combobox-lieu-match-modif" disabled="disabled">
                                     <?php
                                         if ($lieu == "Domicile") {
                                             echo '<option value="Domicile" selected>Domicile</option>';
@@ -82,9 +74,16 @@
                                     ?>
                                 </select>
                             </div>
+                            <div class="creation-tournoi-input">
+                                <label for="score-match">Score du match</label>
+                                <label for="score-match">(Domicile à gauche | Visiteur à droite)</label>
+                            </div>
+                                <input type="number" id="score-match-domicile" name="score-match-domicile" min="0" max="99" value=0>
+                                <label for="score-match">-</label>   
+                                <input type="number" id="score-match-visiteur" name="score-match-visiteur" min="0" max="99" value=0>
                         </div>
                     </div>
-                    <input class="submit" type="submit" name="modifier" value="MODIFIER">
+                    <input class="submit" type="submit" name="ajouter" value="AJOUTER">
                     <span><?php echo $info_execution?> </span>
                 </form>
             </section>

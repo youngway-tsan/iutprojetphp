@@ -150,7 +150,6 @@ input {
 
 input[type="text"],
 input[type="date"],
-input[type="number"],
 input[type="datetime-local"],
 input[type="password"],
 input[type="button"],
@@ -168,9 +167,19 @@ select {
   transition: all .15s ease-in-out;
 }
 
-input[type="submit"] {
-  cursor: pointer;
+
+input[type="number"] {
+  box-shadow: var(--little-shadow);
+  padding: 0 16px 0 12px;
+  width: 75px;
+  height: 32px;
+  border: 2px solid #dee1e2;
+  background: #dee1e2;
+  border-radius: 4px;
+  color: rgb(0, 0, 0);
+  transition: all .15s ease-in-out;
 }
+
 
 .submit-gris {
   box-shadow: var(--background-shadow);
@@ -306,6 +315,12 @@ input[type="password"]:focus {
   border: 2px solid #696666;
   background: #d2d7d8;
 }
+
+.score-match:focus{
+  border: 2px solid #696666;
+  background: #d2d7d8;
+}
+
 
 input[type="submit"].submit-gris:hover {
   background-color: var(--btn-submit-grey-hover);
@@ -529,9 +544,11 @@ header ul {
   flex-direction: column;
 }
 
-#licence-joueur-modif {
+#licence-joueur-modif, #nom-team-adverse-modif, #combobox-lieu-match-modif, #datetime-match-modif {
   background: rgba(111, 108, 108, 0.712);
 }
+
+
 
 /*
 TABLEAU

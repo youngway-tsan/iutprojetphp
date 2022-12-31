@@ -51,7 +51,7 @@
                         <th>Match</th> 
                         <th>Date</th>
                         <th>Feuille de Match</th>
-                        <th>Rentrer Score</th>
+                        <th>Score</th>
                         <th>Évaluer Performance</th>
                         <th>Modifier</th>
                         <th>Supprimer</th>
@@ -68,8 +68,28 @@
                             }
                             echo'
                                 <td>'.date('d/m/Y H:i:s', strtotime($donnees[1])).'</td>
-                                <td>'.'</td>
-                                <td>'.'</td>
+                                <td>'.'</td>';
+                                if ($donnees[4] != null) {
+                                    echo'<td>'.$donnees[4].'</td>';    
+                                } else {
+                                    echo '
+                                    <td>
+                                        <label>
+                                            <a href="rentrerscorematch.php?id='.$donnees[3].'">
+                                            <svg class="svgmodifier"fill="#000000" height="20px" width="20px" version="1.1" id="XMLID_278_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <g id="edit"> 
+                                                    <path d="M6.5,24H0v-6.5L17.5,0L24,6.5L6.5,24z M2,22h3.7L18,9.7L14.3,6L2,18.3V22z M15.7,4.6l3.7,3.7l1.8-1.8l-3.7-3.7L15.7,4.6z">
+                                                    </path> 
+                                                        </g> 
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            </a>
+                                        </label>
+                                    </td>';
+                                } echo '
                                 <td>'.'</td>
                                 <td>
                                     <label>
@@ -87,7 +107,6 @@
                                         </a>
                                     </label>
                                 </td>
-
                                 <td>
                                     <input type="submit" class ="submit supprimer" name="supprimer" value="Supprimer">
                                 </td>
