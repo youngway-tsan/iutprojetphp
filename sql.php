@@ -126,6 +126,62 @@ class requeteSQL {
         return $req;
     }
 
+    public function getMatch($param){
+        $datetime = $param[0];
+        $nomAdversaire = $param[1];
+        $lieu = $param[2];
+
+        if ($datetime == null and $nomAdversaire == null and $lieu == "default"){
+            $req = $this->linkpdo->prepare("SELECT Nom_Equipe_Adverse, Date_Rencontre, Lieu_Rencontre, Id_Rencontre FROM rencontre ORDER BY Date_Rencontre");
+            $testreq = $req->execute();
+        }else if ($datetime != null and $nomAdversaire == null and $lieu == "default"){ // DATE
+        $req = $this->linkpdo->prepare("SELECT Nom_Equipe_Adverse, Date_Rencontre, Lieu_Rencontre, Id_Rencontre FROM rencontre WHERE Date_Rencontre >= :date_match  ORDER BY Date_Rencontre");
+        $testreq = $req -> execute(array(
+            "date_match" => $datetime
+            ));
+        }else if ($datetime == null and $nomAdversaire != null and $lieu == "default"){ // NOM ADVERSAIRE
+            $req = $this->linkpdo->prepare("SELECT Nom_Equipe_Adverse, Date_Rencontre, Lieu_Rencontre, Id_Rencontre FROM rencontre where Nom_Equipe_Adverse = :nom");
+            $testreq = $req -> execute(array(
+                "nom" => $nomAdversaire
+            ));
+        } else if ($datetime == null and $nomAdversaire == null and $lieu != "default") { // LIEU
+            $req = $this->linkpdo->prepare("SELECT Nom_Equipe_Adverse, Date_Rencontre, Lieu_Rencontre, Id_Rencontre FROM rencontre where Lieu_Rencontre = :lieu");
+            $testreq = $req -> execute(array(
+                "lieu" => $lieu
+            ));
+        } else if ($datetime != null and $nomAdversaire != null and $lieu == "default") { // DATE + NOM ADVERSAIRE 
+        $req = $this->linkpdo->prepare("SELECT Nom_Equipe_Adverse, Date_Rencontre, Lieu_Rencontre, Id_Rencontre FROM rencontre where Date_Rencontre >= :date_match AND Nom_Equipe_Adverse = :nom ORDER BY Date_Rencontre ");
+        $testreq = $req -> execute(array(
+            "date_match" => $datetime,
+            "nom" => $nomAdversaire
+        ));
+        } else if ($datetime != null and $nomAdversaire == null and $lieu != "default") { // DATE + LIEU 
+        $req = $this->linkpdo->prepare("SELECT Nom_Equipe_Adverse, Date_Rencontre, Lieu_Rencontre, Id_Rencontre FROM rencontre where Date_Rencontre >= :date_match AND Lieu_Rencontre = :lieu ORDER BY Date_Rencontre ");
+        $testreq = $req -> execute(array(
+            "date_match" => $datetime,
+            "lieu" => $lieu
+        ));
+        } else if ($datetime == null and $nomAdversaire != null and $lieu != "default") { // NOM ADVERSAIRE + LIEU 
+        $req = $this->linkpdo->prepare("SELECT Nom_Equipe_Adverse, Date_Rencontre, Lieu_Rencontre, Id_Rencontre FROM rencontre where Nom_Equipe_Adverse = :nom AND Lieu_Rencontre = :lieu ");
+        $testreq = $req -> execute(array(
+            "nom" => $nomAdversaire,
+            "lieu" => $lieu
+        ));
+        } else if ($datetime != null and $nomAdversaire != null and $lieu != "default") { // DATE + NOM ADVERSAIRE + LIEU 
+        $req = $this->linkpdo->prepare("SELECT Nom_Equipe_Adverse, Date_Rencontre, Lieu_Rencontre, Id_Rencontre FROM rencontre where Date_Rencontre >= :date_match AND Nom_Equipe_Adverse = :nom AND Lieu_Rencontre = :lieu ORDER BY Date_Rencontre ");
+        $testreq = $req -> execute(array(
+            "date_match" => $datetime,
+            "nom" => $nomAdversaire,
+            "lieu" => $lieu
+        ));
+        }
+
+        if ($testreq == false){
+            echo die("Erreur getMatch");
+        }
+        return $req;
+    }
+
     /*
     FONCTIONS D'AJOUT DANS LA BDD
     */

@@ -65,7 +65,6 @@
                                 <td>'.$donnees[3].'</td>
 
                                 <td>
-                                    <input type="hidden" name="id" value='.$donnees[4].'>
                                     <label>
                                         <a href="modificationjoueur.php?licence='.$donnees[4].'">
                                         <svg class="svgmodifier"fill="#000000" height="20px" width="20px" version="1.1" id="XMLID_278_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">

@@ -89,11 +89,11 @@
                                 </div>
                                 <div class="creation-tournoi-input">
                                     <label for="taille-joueur">Taille du joueur (en cm)</label>
-                                    <input type="number" id="taille-joueur" name="taille-joueur" min="1" max="250">
+                                    <input type="number" id="taille-joueur" name="taille-joueur" min="140" max="250">
                                 </div>
                                 <div class="creation-tournoi-input">
                                     <label for="poids-joueur">Poids du joueur (en kg)</label>
-                                    <input type="number" id="poids-joueur" name="poids-joueur" min="1" max="150">
+                                    <input type="number" id="poids-joueur" name="poids-joueur" min="40" max="175">
                                 </div>
                                 <div class="creation-tournoi-input">
                                     <label for="photo-joueur">Photo du joueur</label>
