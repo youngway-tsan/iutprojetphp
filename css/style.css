@@ -437,21 +437,16 @@ header ul {
 }
 
 
-.navbar-haut {
-  border : 1px solid;
-  display : flex;
-  justify-content: center;
+.nav-container-haut {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  padding : 0 20px;
+  height: 100%;
 }
 
-.navbar-haut a{
-  border : solid green;
-}
-
-.navbar-haut form{
-  border: solid red;
-  margin-left: auto;
+.navbar-haut {
+  width : 100%;
 }
 
 /* Creation/Modification d'un tournoi */
