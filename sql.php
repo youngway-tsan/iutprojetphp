@@ -291,6 +291,15 @@ class requeteSQL {
     FONCTION SUPPRIMER DE LA BDD
     */
 
+    public function supprimerJoueur($licence){
+        $req = $this->linkpdo->prepare("DELETE FROM joueur WHERE joueur.licence = :licence ");
+        $testreq = $req -> execute(array(
+            'licence' => $licence
+        ));
+        if ($testreq == false){
+            die("Erreur supprimer joueur");
+        }    
+    }
 
 
 
