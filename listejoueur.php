@@ -27,6 +27,25 @@
         ?>
 
         <main class="main-listes">
+
+            <div class="popup">
+                <div class="popup-content">
+                    <div class="popup-header">
+                        <h2>Confirmation</h2>
+                    </div>
+                    <div class="popup-body">
+                        <span>
+                            Voulez-vous vraiment supprimer ce joueur ?
+                        </span>
+                        <hr>
+                        <div class="popup-button">
+                        <input type="button" class="button-non" name="popupoui" value="Non">
+                            <input type="button" class="button-oui" name="popupnon" value="Oui">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <section class="main-listes-container">
                 <h1>Liste des joueurs du F.C WOIPPY</h1>
                 <hr>
@@ -98,10 +117,7 @@
             function showConfirm(){
                 console.log("test")
                 if (window.confirm("Êtes-vous sûr de vouloir supprimer ce jour ?")){
-                    <?php
-                    // $req = $sql->supprimerJoueur($donnees[4]);
-                    echo 'TEEEEEEEEEEEST ECHo';
-                    ?>
+
                 } else {
 
                 }
