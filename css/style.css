@@ -136,6 +136,12 @@ svg{
   gap: 30px;
 }
 
+.testdiv{
+  height: 100%;
+  width:100%;
+  background-color: green;
+}
+
 /* Spécification style des balises formulaires */
 /* Spécification style des balises formulaires */
 /* Spécification style des balises formulaires */
@@ -364,7 +370,7 @@ input[type=button].add:hover {
   background-color: var(--btn-bouton-hover);
 }
 
-.svgmodifier{
+.svgLink{
   cursor : pointer;
   text-align : center;
 }
@@ -614,7 +620,7 @@ POPUP
 */
 
 .popup {
-  display : flex;
+  display : none;
   position : fixed;
   background-color: rgba(252, 252, 252, 0.6);
   justify-content : center;
@@ -651,7 +657,17 @@ POPUP
   margin : 10px;
 }
 
-input[type="button"].button {
+.popup-body form {
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-body input[type='text']{
+  margin: 10px;
+}
+
+input[type="button"].button , input[type="submit"] {
   box-shadow: var(--background-shadow);
   border-radius: var(--border-radius);
   color: var(--black);
@@ -664,11 +680,11 @@ input[type="button"].button {
   transition: all .2s ease-in-out;
 }
 
-input[type="button"].button-oui {
+input[type="button"].button-oui , input[type="submit"].button-oui{
   background-color : rgb(106, 241, 85);
   cursor: pointer;
 }
-input[type="button"].button-non {
+input[type="button"].button-non , input[type="submit"].button-non {
   background-color : rgb(213, 123, 123);
   cursor: pointer;
 }

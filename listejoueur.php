@@ -24,11 +24,26 @@
             $param[2] = $_POST['poste'];
         }
         $req = $sql -> getJoueur($param);
+
+        //Traitement popup supprimer joueur
+        if (isset($_GET['idJoueurSupprimer'])) {
+            $licence = $_GET['idJoueurSupprimer'];
+            $sql -> supprimerJoueur($licence);
+            header('Location: listejoueur.php');
+        }
+
+        //Traitement popup commentaire
+        if (isset($_POST['popupconfirmer'])) {
+            $licence = $_POST['idJoueurCommentaire'];
+            $commentaire = $_POST['commentaire'];
+            $sql -> addCommentaire($licence, $commentaire);
+            header('Location: listejoueur.php');
+        }
         ?>
 
         <main class="main-listes">
 
-            <div class="popup">
+            <div class="popup popup-supprimer">
                 <div class="popup-content">
                     <div class="popup-header">
                         <h2>Confirmation</h2>
@@ -39,9 +54,28 @@
                         </span>
                         <hr>
                         <div class="popup-button">
-                        <input type="button" class="button-non" name="popupoui" value="Non">
-                            <input type="button" class="button-oui" name="popupnon" value="Oui">
+                            <input type="button" class="button-non" name="popupnon" value="Non" onclick='popUpNon()'>
+                            <input type="button" class="button-oui" name="popupoui" value="Oui" onclick='popUpOui()'>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popup popup-commentaire">
+                <div class="popup-content">
+                    <div class="popup-header">
+                        <h2>Ajouter un commentaire</h2>
+                    </div>
+                    <div class="popup-body">
+                        <form action="" method="post">
+                            <input type="text" name="commentaire" maxlength="50"> 
+                            <hr>
+                            <div class="popup-button">
+                                <input type="hidden" name="idJoueurCommentaire" id="idJoueurCommentaire">
+                                <input type="submit" class="button-non" name="popupannuler" value="Annuler" onclick="popUpAnnuler()">
+                                <input type="submit" class="button-oui" name="popupconfirmer" value="Confirmer" onclick="popUpConfirmer()">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -69,24 +103,32 @@
                         <th>Nom</th> 
                         <th>Prenom</th>
                         <th>Commentaire</th>
+                        <th></th>
                         <th>Statut</th>
                         <th>Modifier</th>
                         <th>Supprimer</th>
                     </tr>
                     <?php
                         while ($donnees = $req -> fetch()){
+                        $id_joueur = $donnees[4];
                         echo '
                             <form action="" method="post">
                             <tr>
                                 <td>'.$donnees[0].'</td>
                                 <td>'.$donnees[1].'</td>
                                 <td>'.$donnees[2].'</td>
+                                <td>
+                                    <label>
+                                        <a data-idjoueur = '.$id_joueur.' onclick="setIdJoueur(this.dataset.idjoueur) ; showPopUpCommentaire() ">
+                                        <svg class="svgLink" fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M 3 5 L 3 23 L 8 23 L 8 28.078125 L 14.351563 23 L 29 23 L 29 5 Z M 5 7 L 27 7 L 27 21 L 13.648438 21 L 10 23.917969 L 10 21 L 5 21 Z M 10 12 C 8.894531 12 8 12.894531 8 14 C 8 15.105469 8.894531 16 10 16 C 11.105469 16 12 15.105469 12 14 C 12 12.894531 11.105469 12 10 12 Z M 16 12 C 14.894531 12 14 12.894531 14 14 C 14 15.105469 14.894531 16 16 16 C 17.105469 16 18 15.105469 18 14 C 18 12.894531 17.105469 12 16 12 Z M 22 12 C 20.894531 12 20 12.894531 20 14 C 20 15.105469 20.894531 16 22 16 C 23.105469 16 24 15.105469 24 14 C 24 12.894531 23.105469 12 22 12 Z"/></svg>
+                                        </a>
+                                    </label>
+                                </td>
                                 <td>'.$donnees[3].'</td>
-
                                 <td>
                                     <label>
                                         <a href="modificationjoueur.php?licence='.$donnees[4].'">
-                                        <svg class="svgmodifier"fill="#000000" height="20px" width="20px" version="1.1" id="XMLID_278_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">
+                                        <svg class="svgLink"fill="#000000" height="20px" width="20px" version="1.1" id="XMLID_278_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_iconCarrier">
                                                     <g id="edit"> 
@@ -102,7 +144,7 @@
 
                                 <td>
                                     <input type="hidden" name="id" value ='.$donnees[4].'>
-                                    <input type="button" class ="submit supprimer" name="supprimer" value="Supprimer" onclick="showConfirm()">
+                                    <input type="button" class ="submit supprimer" name="supprimer" value="Supprimer" data-idjoueur ='.$id_joueur.'  onclick="setIdJoueur(this.dataset.idjoueur) ; showPopupSupprimer()">
                                 </td>
                             </tr>
                             </form>
@@ -114,14 +156,38 @@
         </main>
 
         <script>
-            function showConfirm(){
-                console.log("test")
-                if (window.confirm("Êtes-vous sûr de vouloir supprimer ce jour ?")){
+            let idJoueur;
 
-                } else {
-
-                }
+            function setIdJoueur(id){
+                idJoueur = id;
             }
+
+            function showPopupSupprimer(){
+                document.querySelector('.popup-supprimer').style.display = 'flex';
+            }
+
+            function popUpNon(){
+                document.querySelector('.popup-supprimer').style.display = 'none';
+            }
+
+            function popUpOui(){
+                document.querySelector('.popup-supprimer').style.display = 'none';
+                window.location.href="listejoueur.php?idJoueurSupprimer=" + idJoueur;
+            }
+
+            function showPopUpCommentaire(){
+                document.getElementById("idJoueurCommentaire").value = idJoueur;
+                document.querySelector('.popup-commentaire').style.display = 'flex';
+            }
+
+            function popUpAnnuler(){
+                document.querySelector('.popup-commentaire').style.display = 'none';
+            }
+            
+            function popUpConfirmer(){
+                document.querySelector('.popup-commentaire').style.display = 'none';
+            }
+
         </script>
 
     </body>

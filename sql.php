@@ -234,7 +234,18 @@ class requeteSQL {
         }
     }
 
-
+    public function addCommentaire($licence,$commentaire){
+        $req = $this->linkpdo->prepare('UPDATE joueur SET commentaire = :commentaire WHERE licence = :licence');
+        $testreq = $req->execute(
+            array(
+                "commentaire" => $commentaire,
+                "licence" => $licence
+            )
+        );
+        if ($testreq == false){
+            die("Erreur addCommentaire");
+        }
+    }
     /*
     FONCTION DE MODIFICATION DE LA BDD
     */
@@ -292,7 +303,7 @@ class requeteSQL {
     */
 
     public function supprimerJoueur($licence){
-        $req = $this->linkpdo->prepare("DELETE FROM joueur WHERE joueur.licence = :licence ");
+        $req = $this -> linkpdo -> prepare("DELETE FROM joueur WHERE joueur.licence = :licence ");
         $testreq = $req -> execute(array(
             'licence' => $licence
         ));
@@ -301,7 +312,7 @@ class requeteSQL {
         }    
     }
 
-
+    
 
 
 
