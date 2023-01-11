@@ -11,7 +11,7 @@
         <?php
         require_once('sql.php');
         require_once('header.php');
-        // $header = new header();
+        $header = new header();
         $sql = new requeteSQL();
 
         $param = array();
