@@ -11,7 +11,7 @@
         <?php
         require_once('sql.php');
         require_once('header.php');
-        $header = new header();
+        // $header = new header();
         $sql = new requeteSQL();
 
         $param = array();
@@ -83,7 +83,7 @@
 
                                 <td>
                                     <input type="hidden" name="id" value ='.$donnees[4].'>
-                                    <input type="submit" class ="submit supprimer" name="supprimer" value="Supprimer">
+                                    <input type="button" class ="submit supprimer" name="supprimer" value="Supprimer" onclick="showConfirm()">
                                 </td>
                             </tr>
                             </form>
@@ -93,5 +93,20 @@
                 </table>
             </section>
         </main>
+
+        <script>
+            function showConfirm(){
+                console.log("test")
+                if (window.confirm("Êtes-vous sûr de vouloir supprimer ce jour ?")){
+                    <?php
+                    // $req = $sql->supprimerJoueur($donnees[4]);
+                    echo 'TEEEEEEEEEEEST ECHo';
+                    ?>
+                } else {
+
+                }
+            }
+        </script>
+
     </body>
 </html>

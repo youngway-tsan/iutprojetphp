@@ -219,7 +219,6 @@ input[type="submit"].supprimer {
   background-color : rgb(213, 123, 123);
 }
 
-
 /* bouton ajout joueur de théo ? */
 input[type="submit"].add,
 input[type="button"].add {
@@ -241,6 +240,22 @@ input[type="button"].bouton {
   line-height: initial;
   height: max-content;
   transition: all .2s ease-in-out;
+}
+
+input[type="button"].supprimer {
+  box-shadow: var(--background-shadow);
+  border-radius: var(--border-radius);
+  color: var(--black);
+  background-color: var(--btn-submit);
+  border: 0px;
+  padding: 8px 25px;
+  font-weight: 600;
+  width: auto;
+  line-height: initial;
+  height: 32px;
+  transition: all .2s ease-in-out;
+  background-color : rgb(213, 123, 123);
+  cursor: pointer;
 }
 
 .return {
