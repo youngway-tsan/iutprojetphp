@@ -42,6 +42,9 @@ p,span {
   color: black;
 }
 
+hr{
+  margin : 10px;
+}
 svg{
   color : black;
 }
@@ -688,3 +691,4 @@ input[type="button"].button-non , input[type="submit"].button-non {
   background-color : rgb(213, 123, 123);
   cursor: pointer;
 }
+
