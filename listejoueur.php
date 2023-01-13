@@ -81,77 +81,84 @@
             </div>
 
             <section class="main-listes-container">
-                <h1>Liste des joueurs du F.C WOIPPY</h1>
-                <hr>
-                <form action="" method="post">
-                    <div class="filtre">
-                        <input type="text" name="nom" placeholder="Nom">
-                        <input type="text" name="prenom" placeholder="Prénom">
-                        <select name="poste">
-                            <option value="default">Poste</option>
-                            <option value="Gardien">Gardien</option>
-                            <option value="Defenseur">Défenseur</option>
-                            <option value="Milieu">Milieu</option>
-                            <option value="Attaquant">Attaquant</option>
-                        </select>
-                        <input type="submit" class="submit" name="valider" value="Valider">
-                    </div>
-                </form>
+                    <h1>Liste des joueurs du F.C WOIPPY</h1>
+                    <hr>
+                    <form action="" method="post">
+                        <div class="filtre">
+                            <input type="text" name="nom" placeholder="Nom">
+                            <input type="text" name="prenom" placeholder="Prénom">
+                            <select name="poste">
+                                <option value="default">Poste</option>
+                                <option value="Gardien">Gardien</option>
+                                <option value="Defenseur">Défenseur</option>
+                                <option value="Milieu">Milieu</option>
+                                <option value="Attaquant">Attaquant</option>
+                            </select>
+                            <input type="submit" class="submit" name="valider" value="Valider">
+                        </div>
+                    </form>
 
-                <table>
-                    <tr>
-                        <th>Nom</th> 
-                        <th>Prenom</th>
-                        <th>Commentaire</th>
-                        <th></th>
-                        <th>Statut</th>
-                        <th>Modifier</th>
-                        <th>Supprimer</th>
-                    </tr>
-                    <?php
-                        while ($donnees = $req -> fetch()){
-                        $id_joueur = $donnees[4];
-                        echo '
-                            <form action="" method="post">
-                            <tr>
-                                <td>'.$donnees[0].'</td>
-                                <td>'.$donnees[1].'</td>
-                                <td>'.$donnees[2].'</td>
-                                <td>
-                                    <label>
-                                        <a data-idjoueur = '.$id_joueur.' onclick="setIdJoueur(this.dataset.idjoueur) ; showPopUpCommentaire() ">
-                                        <svg class="svgLink" fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M 3 5 L 3 23 L 8 23 L 8 28.078125 L 14.351563 23 L 29 23 L 29 5 Z M 5 7 L 27 7 L 27 21 L 13.648438 21 L 10 23.917969 L 10 21 L 5 21 Z M 10 12 C 8.894531 12 8 12.894531 8 14 C 8 15.105469 8.894531 16 10 16 C 11.105469 16 12 15.105469 12 14 C 12 12.894531 11.105469 12 10 12 Z M 16 12 C 14.894531 12 14 12.894531 14 14 C 14 15.105469 14.894531 16 16 16 C 17.105469 16 18 15.105469 18 14 C 18 12.894531 17.105469 12 16 12 Z M 22 12 C 20.894531 12 20 12.894531 20 14 C 20 15.105469 20.894531 16 22 16 C 23.105469 16 24 15.105469 24 14 C 24 12.894531 23.105469 12 22 12 Z"/></svg>
-                                        </a>
-                                    </label>
-                                </td>
-                                <td>'.$donnees[3].'</td>
-                                <td>
-                                    <label>
-                                        <a href="modificationjoueur.php?licence='.$donnees[4].'">
-                                        <svg class="svgLink"fill="#000000" height="20px" width="20px" version="1.1" id="XMLID_278_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_iconCarrier">
-                                                    <g id="edit"> 
-                                                <path d="M6.5,24H0v-6.5L17.5,0L24,6.5L6.5,24z M2,22h3.7L18,9.7L14.3,6L2,18.3V22z M15.7,4.6l3.7,3.7l1.8-1.8l-3.7-3.7L15.7,4.6z">
-                                                </path> 
-                                                    </g> 
+                    <table>
+                        <tr>
+                            <th>Nom</th> 
+                            <th>Prenom</th>
+                            <th>Commentaire</th>
+                            <th></th>
+                            <th>Statut</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                        <?php
+                            while ($donnees = $req -> fetch()){
+                            $id_joueur = $donnees[4];
+                            echo '
+                                <form action="" method="post">
+                                <tr>
+                                    <td>'.$donnees[0].'</td> 
+                                    <td>'.$donnees[1].'</td>
+                                    <td>'.$donnees[2].'</td>
+                                    <td>
+                                        <label>
+                                            <a data-idjoueur = '.$id_joueur.' onclick="setIdJoueur(this.dataset.idjoueur) ; showPopUpCommentaire() ">
+                                            <svg class="svgLink" fill="#000000" width="20px" height="20px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M 3 5 L 3 23 L 8 23 L 8 28.078125 L 14.351563 23 L 29 23 L 29 5 Z M 5 7 L 27 7 L 27 21 L 13.648438 21 L 10 23.917969 L 10 21 L 5 21 Z M 10 12 C 8.894531 12 8 12.894531 8 14 C 8 15.105469 8.894531 16 10 16 C 11.105469 16 12 15.105469 12 14 C 12 12.894531 11.105469 12 10 12 Z M 16 12 C 14.894531 12 14 12.894531 14 14 C 14 15.105469 14.894531 16 16 16 C 17.105469 16 18 15.105469 18 14 C 18 12.894531 17.105469 12 16 12 Z M 22 12 C 20.894531 12 20 12.894531 20 14 C 20 15.105469 20.894531 16 22 16 C 23.105469 16 24 15.105469 24 14 C 24 12.894531 23.105469 12 22 12 Z"/></svg>
+                                            </a>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <select class="statut">
+                                            <option selected>'.$donnees[3].'</option>
+                                            <option></option>
+                                            <option></option>
+                                            <input type="submit" class="submit-ok submit" name="submit-ok"value="Ok">
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <a href="modificationjoueur.php?licence='.$donnees[4].'">
+                                            <svg class="svgLink"fill="#000000" height="20px" width="20px" version="1.1" id="XMLID_278_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" xml:space="preserve">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <g id="edit"> 
+                                                    <path d="M6.5,24H0v-6.5L17.5,0L24,6.5L6.5,24z M2,22h3.7L18,9.7L14.3,6L2,18.3V22z M15.7,4.6l3.7,3.7l1.8-1.8l-3.7-3.7L15.7,4.6z">
+                                                    </path> 
+                                                        </g> 
+                                                    </g>
                                                 </g>
-                                            </g>
-                                        </svg>
-                                        </a>
-                                    </label>
-                                </td>
+                                            </svg>
+                                            </a>
+                                        </label>
+                                    </td>
 
-                                <td>
-                                    <input type="hidden" name="id" value ='.$donnees[4].'>
-                                    <input type="button" class ="submit supprimer" name="supprimer" value="Supprimer" data-idjoueur ='.$id_joueur.'  onclick="setIdJoueur(this.dataset.idjoueur) ; showPopupSupprimer()">
-                                </td>
-                            </tr>
-                            </form>
-                            ';
-                        }
-                    ?>
-                </table>
+                                    <td>
+                                        <input type="hidden" name="id" value ='.$donnees[4].'>
+                                        <input type="button" class ="submit supprimer" name="supprimer" value="Supprimer" data-idjoueur ='.$id_joueur.'  onclick="setIdJoueur(this.dataset.idjoueur) ; showPopupSupprimer()">
+                                    </td>
+                                </tr>
+                                </form>
+                                ';
+                            }
+                        ?>
+                    </table>
             </section>
         </main>
 

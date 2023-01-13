@@ -688,3 +688,13 @@ input[type="button"].button-non , input[type="submit"].button-non {
   background-color : rgb(213, 123, 123);
   cursor: pointer;
 }
+
+.statut{
+  width: 35%;
+  margin-right: 15px;
+}
+
+input[type="submit"].submit-ok{
+  padding : 5px;
+  width: 15%;
+}
