@@ -53,6 +53,12 @@
             $dd = $_POST['dd'];
         }
 
+        if (empty($_POST['mdcd'])) {
+            $mdcd = "Joueur 2";
+        } else {
+            $mdcd = $_POST['mdcd'];
+        }
+
         $mdcg = "Joueur 8";
         $mdcd = "Joueur 6";
         $moc= "Joueur 10";
@@ -204,8 +210,8 @@
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqGardien->fetch()) {
-                                            if ($data['Poste'] == 'Gardien') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            if ($data['Poste'] == 'Gardien' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -215,8 +221,8 @@
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDD->fetch()) {
-                                            if ($data['Poste'] == 'Défenseur') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -226,8 +232,8 @@
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDG->fetch()) {
-                                            if ($data['Poste'] == 'Défenseur') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -237,8 +243,8 @@
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDCD->fetch()) {
-                                            if ($data['Poste'] == 'Défenseur') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -248,8 +254,8 @@
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDCG->fetch()) {
-                                            if ($data['Poste'] == 'Défenseur') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -260,7 +266,7 @@
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqMDCD->fetch()) {
                                             if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -270,8 +276,8 @@
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqAD->fetch()) {
-                                            if ($data['Poste'] == 'Attaquant') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
