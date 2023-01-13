@@ -692,3 +692,25 @@ input[type="button"].button-non , input[type="submit"].button-non {
   cursor: pointer;
 }
 
+.container-feuille{
+  display :flex; 
+}
+
+.container-gauche{
+  width: 100%;
+  padding : 10px 10px 10px 10px;
+}
+
+.container-droite{
+  width: 30%;
+  padding : 10px 10px 10px 10px;
+}
+
+.select-joueur{
+  margin:10px;
+}
+
+input[type="submit"].submit-feuille {
+  margin : 10px;
+  cursor: pointer;
+}
