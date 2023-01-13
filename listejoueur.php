@@ -138,7 +138,7 @@
                                                     ';
                                                 } else {
                                     echo '
-                                                        <option>' . $statu_actuel . '</option>
+                                                        <option>' . $statut_actuel . '</option>
                                                     ';
                                                 }
                                             }
