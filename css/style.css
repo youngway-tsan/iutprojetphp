@@ -714,6 +714,7 @@ input[type="submit"].submit-feuille {
   margin : 10px;
   cursor: pointer;
 }
+
 .statut{
   width: 35%;
   margin-right: 10px;
@@ -722,4 +723,5 @@ input[type="submit"].submit-feuille {
 input[type="submit"].submit-ok{
   padding : 5px;
   width: 15%;
+  cursor: pointer;
 }

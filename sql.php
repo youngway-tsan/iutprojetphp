@@ -305,6 +305,7 @@ class requeteSQL {
                 "statut" => $statut
             )
         );
+        echo 'TEST MODIFIERSTATU';
         if ($testreq == false){
             die ("Erreur modifierStatut");
         }

@@ -26,7 +26,10 @@
         $req = $sql -> getJoueur($param);
 
         //Traitement statut 
-        if (isset($_POST['']))
+        if (isset($_POST['submit-ok'])){
+            $sql->modifierStatut($_POST['hidden-licence'],$_POST['select-statut']);
+            header('Location: listejoueur.php');
+        }
 
         //Traitement popup supprimer joueur
         if (isset($_GET['idJoueurSupprimer'])) {
@@ -129,7 +132,7 @@
                                         </label>
                                     </td>
                                     <td>
-                                        <select class="statut">
+                                        <select class="statut" name="select-statut" id="select-statut">
                                             ';
                                             foreach ($option_statut as $statut_actuel) {
                                                 if ($statut_actuel == $donnees[3]){
@@ -144,6 +147,7 @@
                                             }
                                     echo '
                                         </select>
+                                        <input type="hidden" name="hidden-licence" value="'.$id_joueur.'">
                                         <input type="submit" class="submit-ok submit" name="submit-ok" value="Ok">
                                     </td>
                                     <td>
