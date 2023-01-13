@@ -16,6 +16,11 @@
         $sql = new requeteSQL();
         $reqGardien = $sql->getJoueurs();
         $reqDD = $sql->getJoueurs();
+        $reqDG = $sql->getJoueurs();
+        $reqDCD = $sql->getJoueurs();
+        $reqDCG = $sql->getJoueurs();
+        $reqMDCD = $sql->getJoueurs();
+        $reqAD = $sql->getJoueurs();
 
         //Initialisation de variables
         if (empty($_POST['gardien'])) {
@@ -24,9 +29,23 @@
             $gardien = $_POST['gardien'];
         }
 
-        $dg = "Joueur 3";
-        $dcg = "Joueur 5";
-        $dcd = "Joueur 4";
+        if (empty($_POST['dg'])) {
+            $dg = "Joueur 3";
+        } else {
+            $dg = $_POST['dg'];
+        }
+
+        if (empty($_POST['dcg'])) {
+            $dcg = "Joueur 5";;
+        } else {
+            $dcg = $_POST['dcg'];
+        }
+
+        if (empty($_POST['dcd'])) {
+            $dcd = "Joueur 4";
+        } else {
+            $dcd = $_POST['dcd'];
+        }
 
         if (empty($_POST['dd'])) {
             $dd = "Joueur 2";
@@ -197,6 +216,61 @@
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDD->fetch()) {
                                             if ($data['Poste'] == 'Défenseur') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="dg" id="dg">
+                                    <option value="Joueur 3" selected>Joueur 3</option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqDG->fetch()) {
+                                            if ($data['Poste'] == 'Défenseur') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="dcd" id="dcd">
+                                    <option value="Joueur 4" selected>Joueur 4</option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqDCD->fetch()) {
+                                            if ($data['Poste'] == 'Défenseur') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="dcg" id="dcg">
+                                    <option value="Joueur 5" selected>Joueur 5</option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqDCG->fetch()) {
+                                            if ($data['Poste'] == 'Défenseur') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="mdcd" id="mdcd">
+                                    <option value="Joueur 6" selected>Joueur 6</option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqMDCD->fetch()) {
+                                            if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="ad" id="ad">
+                                    <option value="Joueur 7" selected>Joueur 7</option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqAD->fetch()) {
+                                            if ($data['Poste'] == 'Attaquant') {
                                                 echo '<option value="' . $data['Nom'] . '">' . $data['Nom'] . '</option>';
                                             }
                                         }
