@@ -723,4 +723,5 @@ input[type="submit"].submit-feuille {
 input[type="submit"].submit-ok{
   padding : 5px;
   width: 15%;
+  cursor: pointer;
 }
