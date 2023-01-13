@@ -297,6 +297,19 @@ class requeteSQL {
         }
     }
 
+    public function modifierStatut($licence,$statut){
+        $req = $this -> linkpdo -> prepare('UPDATE joueur SET statut = :statut WHERE licence = :licence');
+        $testreq = $req->execute(
+            array(
+                "licence" => $licence,
+                "statut" => $statut
+            )
+        );
+        if ($testreq == false){
+            die ("Erreur modifierStatut");
+        }
+    }
+
 
     /*
     FONCTION SUPPRIMER DE LA BDD

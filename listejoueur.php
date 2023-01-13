@@ -25,6 +25,9 @@
         }
         $req = $sql -> getJoueur($param);
 
+        //Traitement statut 
+        if (isset($_POST['']))
+
         //Traitement popup supprimer joueur
         if (isset($_GET['idJoueurSupprimer'])) {
             $licence = $_GET['idJoueurSupprimer'];
@@ -109,6 +112,7 @@
                             <th>Supprimer</th>
                         </tr>
                         <?php
+                            $option_statut = ["Actif", "Blessé", "Suspendu", "Absent"];
                             while ($donnees = $req -> fetch()){
                             $id_joueur = $donnees[4];
                             echo '
@@ -126,11 +130,21 @@
                                     </td>
                                     <td>
                                         <select class="statut">
-                                            <option selected>'.$donnees[3].'</option>
-                                            <option></option>
-                                            <option></option>
-                                            <input type="submit" class="submit-ok submit" name="submit-ok"value="Ok">
+                                            ';
+                                            foreach ($option_statut as $statut_actuel) {
+                                                if ($statut_actuel == $donnees[3]){
+                                                    echo '
+                                                        <option selected>'.$statut_actuel.'</option>
+                                                    ';
+                                                } else {
+                                    echo '
+                                                        <option>' . $statu_actuel . '</option>
+                                                    ';
+                                                }
+                                            }
+                                    echo '
                                         </select>
+                                        <input type="submit" class="submit-ok submit" name="submit-ok" value="Ok">
                                     </td>
                                     <td>
                                         <label>

@@ -713,9 +713,10 @@ input[type="button"].button-non , input[type="submit"].button-non {
 input[type="submit"].submit-feuille {
   margin : 10px;
   cursor: pointer;
+}
 .statut{
   width: 35%;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 input[type="submit"].submit-ok{
