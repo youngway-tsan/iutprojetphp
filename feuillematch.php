@@ -16,11 +16,16 @@
         $sql = new requeteSQL();
         $reqGardien = $sql->getJoueurs();
         $reqDD = $sql->getJoueurs();
+        $reqDDBIS = $sql->getJoueurs();
         $reqDG = $sql->getJoueurs();
         $reqDCD = $sql->getJoueurs();
         $reqDCG = $sql->getJoueurs();
         $reqMDCD = $sql->getJoueurs();
         $reqAD = $sql->getJoueurs();
+        $reqMDCG = $sql->getJoueurs();
+        $reqBU = $sql->getJoueurs();
+        $reqMOC = $sql->getJoueurs();
+        $reqAG = $sql->getJoueurs();
 
         //Initialisation de variables
         if (empty($_POST['gardien'])) {
@@ -54,18 +59,40 @@
         }
 
         if (empty($_POST['mdcd'])) {
-            $mdcd = "Joueur 2";
+            $mdcd = "Joueur 6";
         } else {
             $mdcd = $_POST['mdcd'];
         }
 
-        $mdcg = "Joueur 8";
-        $mdcd = "Joueur 6";
-        $moc= "Joueur 10";
-        $ag= "Joueur 11";
-        $ad= "Joueur 7";
-        $bu= "Joueur 9";
+        if (empty($_POST['mdcg'])) {
+            $mdcg = "Joueur 8";
+        } else {
+            $mdcg = $_POST['mdcg'];
+        }
 
+        if (empty($_POST['moc'])) {
+            $moc= "Joueur 10";
+        } else {
+            $moc = $_POST['moc'];
+        }
+
+        if (empty($_POST['ag'])) {
+            $ag= "Joueur 11";
+        } else {
+            $ag = $_POST['ag'];
+        }
+
+        if (empty($_POST['ad'])) {
+            $ad= "Joueur 7";
+        } else {
+            $ad = $_POST['ad'];
+        }
+
+        if (empty($_POST['bu'])) {
+            $bu= "Joueur 9";
+        } else {
+            $bu = $_POST['bu'];
+        }
 
         $id = $_GET['id'];
         $reqMatchId = $sql->matchId($id);
@@ -99,7 +126,7 @@
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg"  xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $gardien ?></text>
+                                                <text  fill="#ffffff" id="j1" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $gardien ?></text>
                                             </g>
                                         </g>
 
@@ -108,88 +135,88 @@
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dg ?></text>
+                                                <text  fill="#ffffff" id="j3" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dg ?></text>
                                             </g>
                                         </g>
 
                                         <!-- Défenseur Centrale Gauche -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,300,260)" class="dcg">
+                                        <g transform="matrix(1,0,0,1,300,260)" class="dcg">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dcg ?></text>
+                                                <text  fill="#ffffff" id="j5" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dcg ?></text>
                                             </g>
                                         </g>
 
                                         <!-- Défenseur Centrale Droit -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,300,420)" class="dcd">
+                                        <g transform="matrix(1,0,0,1,300,420)" class="dcd">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dcd ?></text>
+                                                <text  fill="#ffffff" id="j4" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dcd ?></text>
                                             </g>
                                         </g>
 
                                         <!-- Défenseur Droit -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,300,580)" class="dd">
+                                        <g transform="matrix(1,0,0,1,300,580)" class="dd">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dd ?></text>
+                                                <text  fill="#ffffff" id="j2" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dd ?></text>
                                             </g>
                                         </g>
 
                                         <!-- Milieu Défensif Gauche -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,540,175)" class="mdcg">
+                                        <g transform="matrix(1,0,0,1,540,175)" class="mdcg">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $mdcg ?></text>
+                                                <text  fill="#ffffff" id="j8" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $mdcg ?></text>
                                             </g>
                                         </g>
 
                                         <!-- Milieu Défensif Droit -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,540,500)" class="mdcd">
+                                        <g transform="matrix(1,0,0,1,540,500)" class="mdcd">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $mdcd ?></text>
+                                                <text  fill="#ffffff" id="j6" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $mdcd ?></text>
                                             </g>
                                         </g>
 
                                         <!-- Attaquant Gauche -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,800,100)" class="moc">
+                                        <g transform="matrix(1,0,0,1,800,100)" class="moc">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $ag ?></text>
+                                                <text  fill="#ffffff" id="j11" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $ag ?></text>
                                             </g>
                                         </g>
 
                                         <!-- Attaquant Droit -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,800,580)" class="ag">
+                                        <g transform="matrix(1,0,0,1,800,580)" class="ag">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $ad ?></text>
+                                                <text  fill="#ffffff" id="j7" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $ad ?></text>
                                             </g>
                                         </g>
 
                                         <!-- Milieu Offensif -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,700,340)" class="ad">
+                                        <g transform="matrix(1,0,0,1,700,340)" class="ad">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $moc ?></text>
+                                                <text  fill="#ffffff" id="j10" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $moc ?></text>
                                             </g>   
                                         </g>
 
                                         <!-- Buteur -->
-                                        <g id="g_j0" transform="matrix(1,0,0,1,900,340)" class="bu">
+                                        <g transform="matrix(1,0,0,1,900,340)" class="bu">
                                             <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
-                                                <text  fill="#ffffff" id="j0" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $bu ?></text>
+                                                <text  fill="#ffffff" id="j9" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $bu ?></text>
                                             </g>
                                         </g>
 
@@ -206,7 +233,7 @@
                                 <h1>Joueurs titulaires</h1>
                                 <hr>
                                 <select class="select-joueur"name="gardien" id="gardien">
-                                    <option value="Joueur 1" selected>Joueur 1</option>
+                                    <option value="Joueur 1" selected><?php echo $gardien ?></option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqGardien->fetch()) {
@@ -217,18 +244,21 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="dd" id="dd">
-                                    <option value="Joueur 2" selected>Joueur 2</option>
+                                    <option value="Joueur 2" selected><?php echo $dd ?></option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDD->fetch()) {
                                             if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                //Elimine du select les joueurs déjà choisit à un autre poste
+                                                if ($dg != $data['Nom'] and $dcd !=$data['Nom'] and $dcg !=$data['Nom'])  {
+                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                }
                                             }
                                         }
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="dg" id="dg">
-                                    <option value="Joueur 3" selected>Joueur 3</option>
+                                    <option value="Joueur 3" selected><?php echo $dg ?></option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDG->fetch()) {
@@ -239,7 +269,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="dcd" id="dcd">
-                                    <option value="Joueur 4" selected>Joueur 4</option>
+                                    <option value="Joueur 4" selected><?php echo $dcd ?></option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDCD->fetch()) {
@@ -250,7 +280,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="dcg" id="dcg">
-                                    <option value="Joueur 5" selected>Joueur 5</option>
+                                    <option value="Joueur 5" selected><?php echo $dcg ?></option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDCG->fetch()) {
@@ -261,7 +291,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="mdcd" id="mdcd">
-                                    <option value="Joueur 6" selected>Joueur 6</option>
+                                    <option value="Joueur 6" selected><?php echo $mdcd ?></option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqMDCD->fetch()) {
@@ -272,10 +302,54 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="ad" id="ad">
-                                    <option value="Joueur 7" selected>Joueur 7</option>
+                                    <option value="Joueur 7" selected><?php echo $ad ?></option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqAD->fetch()) {
+                                            if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="mdcg" id="mdcg">
+                                    <option value="Joueur 8" selected><?php echo $mdcg ?></option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqMDCG->fetch()) {
+                                            if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="bu" id="bu">
+                                    <option value="Joueur 9" selected><?php echo $bu ?></option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqBU->fetch()) {
+                                            if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="moc" id="moc">
+                                    <option value="Joueur 10" selected><?php echo $moc ?></option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqMOC->fetch()) {
+                                            if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
+                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <select class="select-joueur" name="ag" id="ag">
+                                    <option value="Joueur 11" selected><?php echo $ag ?></option>
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqAG->fetch()) {
                                             if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif') {
                                                 echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
@@ -289,5 +363,98 @@
                 </div>
             </section>
         </main>
+        <!-- Script pour insérer les joueurs dans les balises text depuis les select dynamiquement -->
+        <script>
+            var select = document.getElementById("gardien");
+            var text = document.getElementById("j1");
+
+            var select2 = document.getElementById("dd");
+            var text2 = document.getElementById("j2");
+
+            var select3 = document.getElementById("dg");
+            var text3 = document.getElementById("j3");
+
+            var select4 = document.getElementById("dcd");
+            var text4 = document.getElementById("j4");
+
+            var select5 = document.getElementById("dcg");
+            var text5 = document.getElementById("j5");
+
+            var select6 = document.getElementById("mdcd");
+            var text6 = document.getElementById("j6");
+
+            var select7 = document.getElementById("ad");
+            var text7 = document.getElementById("j7");
+
+            var select8 = document.getElementById("mdcg");
+            var text8 = document.getElementById("j8");
+
+            var select9 = document.getElementById("bu");
+            var text9 = document.getElementById("j9");
+
+            var select10 = document.getElementById("moc");
+            var text10 = document.getElementById("j10");
+
+            var select11 = document.getElementById("ag");
+            var text11 = document.getElementById("j11");
+    
+            select.addEventListener("change", function() {
+                text.innerHTML = select.value;
+            });
+
+            select2.addEventListener("change", function() {
+                text2.innerHTML = select2.value;
+            });
+
+            select3.addEventListener("change", function() {
+                text3.innerHTML = select3.value;
+            });
+
+            select4.addEventListener("change", function() {
+                text4.innerHTML = select4.value;
+            });
+
+            select5.addEventListener("change", function() {
+                text5.innerHTML = select5.value;
+            });
+
+            select6.addEventListener("change", function() {
+                text6.innerHTML = select6.value;
+            });
+
+            select7.addEventListener("change", function() {
+                text7.innerHTML = select7.value;
+            });
+
+            select8.addEventListener("change", function() {
+                text8.innerHTML = select8.value;
+            });
+
+            select9.addEventListener("change", function() {
+                text9.innerHTML = select9.value;
+            });
+
+            select10.addEventListener("change", function() {
+                text10.innerHTML = select10.value;
+            });
+
+            select11.addEventListener("change", function() {
+                text11.innerHTML = select11.value;
+            });
+        </script>
+
+        <script>
+            var select12 = document.getElementById("dg");
+            select12.addEventListener("change", function() {
+                <?php
+                    //Elimine du select du joueur 2 les joueurs déjà choisit à un autre poste
+                    while ($data = $reqDDBIS->fetch()) {
+                        if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif' and $dg != $data['Nom']) {
+                             echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                        }
+                    }
+                ?>
+            });
+        </script>
     </body>
 </html>
