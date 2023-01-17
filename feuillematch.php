@@ -444,17 +444,22 @@
         </script>
 
         <script>
-            var select12 = document.getElementById("dg");
-            select12.addEventListener("change", function() {
-                <?php
-                    //Elimine du select du joueur 2 les joueurs déjà choisit à un autre poste
-                    while ($data = $reqDDBIS->fetch()) {
-                        if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif' and $dg != $data['Nom']) {
-                             echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
-                        }
+
+            var selectdg = document.getElementById("dg");
+            var selectdd = document.getElementById("dd");
+
+            select1.addEventListener("change", function() {
+                var selectedOption = selectdg.options[selectdg.selectedIndex].value;
+                var options = selectdg.querySelectorAll("option");
+
+                selectdd.innerHTML = "";
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOption) {
+                        select2.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
                     }
-                ?>
+                }
             });
+
         </script>
     </body>
 </html>
