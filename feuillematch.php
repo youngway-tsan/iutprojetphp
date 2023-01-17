@@ -15,11 +15,12 @@
         require_once("sql.php");
         $sql = new requeteSQL();
         $reqGardien = $sql->getJoueurs();
+        $reqDefenseurs = $sql->getJoueurs();
         $reqDD = $sql->getJoueurs();
-        $reqDDBIS = $sql->getJoueurs();
         $reqDG = $sql->getJoueurs();
         $reqDCD = $sql->getJoueurs();
         $reqDCG = $sql->getJoueurs();
+        $reqMilieux = $sql->getJoueurs();
         $reqMDCD = $sql->getJoueurs();
         $reqAD = $sql->getJoueurs();
         $reqMDCG = $sql->getJoueurs();
@@ -28,6 +29,22 @@
         $reqAG = $sql->getJoueurs();
 
         //Initialisation de variables
+
+        /** AIDE POUR CETTE PAGE :
+         * DG -> DEFENSEUR GAUCHE
+         * DD -> DEFENSEUR DROIT
+         * DCD DEFENSEUR CENTRAL DROIT
+         * DCG -> DEFENSEUR CENTRAL GAUCHE
+         * MDCD -> MILIEU DEFENSIF CENTRAL DROIT
+         * MDCG -> MILIEU DEFENSIF CENTRAL DROIT
+         * MOC -> MILIEU OFFENSIF CENTRAL
+         * AG -> ATTAQUANT GAUCHE
+         * AD -> ATTAQUANT DROIT
+         * BU -> BUTEUR
+         * REMP -> REMPLACANT
+         */
+
+
         if (empty($_POST['gardien'])) {
             $gardien = "Joueur 1";
         } else {
@@ -243,16 +260,24 @@
                                         }
                                     ?>
                                 </select>
+                                <!-- Select caché pour récuperer la liste de tous les défenseurs -->
+                                <select class="select-joueur" name="defenseurs" id="defenseurs">
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqDefenseurs->fetch()) {
+                                            if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
+                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
                                 <select class="select-joueur" name="dd" id="dd">
                                     <option value="Joueur 2" selected><?php echo $dd ?></option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDD->fetch()) {
                                             if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
-                                                //Elimine du select les joueurs déjà choisit à un autre poste
-                                                if ($dg != $data['Nom'] and $dcd !=$data['Nom'] and $dcg !=$data['Nom'])  {
                                                     echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
-                                                }
                                             }
                                         }
                                     ?>
@@ -297,6 +322,17 @@
                                         while ($data = $reqMDCD->fetch()) {
                                             if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
                                                 echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <!-- Select caché pour récuperer la liste de tous les milieux -->
+                                <select class="select-joueur" name="milieu" id="milieu">
+                                    <?php
+                                        //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                        while ($data = $reqMilieux->fetch()) {
+                                            if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
+                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -363,103 +399,366 @@
                 </div>
             </section>
         </main>
-        <!-- Script pour insérer les joueurs dans les balises text depuis les select dynamiquement -->
-        <script>
-            var select = document.getElementById("gardien");
-            var text = document.getElementById("j1");
-
-            var select2 = document.getElementById("dd");
-            var text2 = document.getElementById("j2");
-
-            var select3 = document.getElementById("dg");
-            var text3 = document.getElementById("j3");
-
-            var select4 = document.getElementById("dcd");
-            var text4 = document.getElementById("j4");
-
-            var select5 = document.getElementById("dcg");
-            var text5 = document.getElementById("j5");
-
-            var select6 = document.getElementById("mdcd");
-            var text6 = document.getElementById("j6");
-
-            var select7 = document.getElementById("ad");
-            var text7 = document.getElementById("j7");
-
-            var select8 = document.getElementById("mdcg");
-            var text8 = document.getElementById("j8");
-
-            var select9 = document.getElementById("bu");
-            var text9 = document.getElementById("j9");
-
-            var select10 = document.getElementById("moc");
-            var text10 = document.getElementById("j10");
-
-            var select11 = document.getElementById("ag");
-            var text11 = document.getElementById("j11");
-    
-            select.addEventListener("change", function() {
-                text.innerHTML = select.value;
-            });
-
-            select2.addEventListener("change", function() {
-                text2.innerHTML = select2.value;
-            });
-
-            select3.addEventListener("change", function() {
-                text3.innerHTML = select3.value;
-            });
-
-            select4.addEventListener("change", function() {
-                text4.innerHTML = select4.value;
-            });
-
-            select5.addEventListener("change", function() {
-                text5.innerHTML = select5.value;
-            });
-
-            select6.addEventListener("change", function() {
-                text6.innerHTML = select6.value;
-            });
-
-            select7.addEventListener("change", function() {
-                text7.innerHTML = select7.value;
-            });
-
-            select8.addEventListener("change", function() {
-                text8.innerHTML = select8.value;
-            });
-
-            select9.addEventListener("change", function() {
-                text9.innerHTML = select9.value;
-            });
-
-            select10.addEventListener("change", function() {
-                text10.innerHTML = select10.value;
-            });
-
-            select11.addEventListener("change", function() {
-                text11.innerHTML = select11.value;
-            });
-        </script>
-
+        <!-- PARTIE JAVA SCRIPT -->
+        <!-- Script pour insérer les joueurs dans les balises text depuis les select dynamiquement  et pour empêcher de pouvoir choisir deux fois le même choisir dans deux select différent-->
         <script>
 
-            var selectdg = document.getElementById("dg");
-            var selectdd = document.getElementById("dd");
+            var gardien = document.getElementById("gardien");
+            var textj1 = document.getElementById("j1");
 
-            select1.addEventListener("change", function() {
-                var selectedOption = selectdg.options[selectdg.selectedIndex].value;
-                var options = selectdg.querySelectorAll("option");
+            //Récupération du select avec la liste des défenseurs (qu'on cache avec display none)
+            var defenseurs = document.getElementById("defenseurs");
+            defenseurs.style.display = "none";
+            var options = defenseurs.querySelectorAll("option");
 
-                selectdd.innerHTML = "";
+            var dd = document.getElementById("dd");
+            var textj2 = document.getElementById("j2");
+            let selectedOptionDD;
+
+            var dg = document.getElementById("dg");
+            var textj3 = document.getElementById("j3");
+            let selectedOptionDG;
+
+            var dcd = document.getElementById("dcd");
+            var textj4 = document.getElementById("j4");
+            let selectedOptionDCD;
+
+            var dcg = document.getElementById("dcg");
+            var textj5 = document.getElementById("j5");
+            let selectedOptionDCG;
+
+            //Récupération du select avec la liste des milieux (qu'on cache avec display none)
+            var milieux = document.getElementById("milieu");
+            milieux.style.display = "none";
+            var optionsMilieux = milieux.querySelectorAll("option");
+
+            var mdcd = document.getElementById("mdcd");
+            var textj6 = document.getElementById("j6");
+            let selectedOptionMDCD;
+
+            var ad = document.getElementById("ad");
+            var textj7 = document.getElementById("j7");
+
+            var mdcg = document.getElementById("mdcg");
+            var textj8 = document.getElementById("j8");
+            let selectedOptionMDCG;
+
+            var bu = document.getElementById("bu");
+            var textj9 = document.getElementById("j9");
+
+            var moc = document.getElementById("moc");
+            var textj10 = document.getElementById("j10");
+            let selectedOptionMOC;
+
+            var ag = document.getElementById("ag");
+            var textj11 = document.getElementById("j11");
+                                        
+            //Changement dynamique quand on clique sur le select du joueur1
+            gardien.addEventListener("change", function() {
+                textj1.innerHTML = gardien.value;
+            });
+
+            //Changement dynamique quand on clique sur le select du joueur2
+            dd.addEventListener("change", function() {
+                textj2.innerHTML = dd.value;
+                selectedOptionDD = dd.options[dd.selectedIndex].value;
+             
+                //DG
+                for (let i = dg.options.length - 1; i > 0; i--) {
+                    dg.remove(i);
+                }
+
                 for (var i = 0; i < options.length; i++) {
-                    if (options[i].value !== selectedOption) {
-                        select2.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
-                    }
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDCG)  
+                        if (options[i].value === selectedOptionDG) {
+                            dg.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dg.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                }
+                
+                //DCD 
+                for (let i = dcd.options.length - 1; i > 0; i--) {
+                    dcd.remove(i);
+                }
+                
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDG && options[i].value !== selectedOptionDCG)  
+                        if (options[i].value === selectedOptionDCD) {
+                            dcd.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dcd.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                } 
+
+                //DCG 
+                for (let i = dcg.options.length - 1; i > 0; i--) {
+                    dcg.remove(i);
+                }
+                
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDG)  
+                        if (options[i].value === selectedOptionDCG) {
+                            dcg.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dcg.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                } 
+            });
+
+            dg.addEventListener("change", function() {
+                textj3.innerHTML = dg.value;
+                selectedOptionDG = dg.options[dg.selectedIndex].value;
+             
+                //DD
+                for (let i = dd.options.length - 1; i > 0; i--) {
+                    dd.remove(i);
+                }
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDG && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDCG)
+                        if (options[i].value === selectedOptionDD) {
+                            dd.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dd.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                }
+                
+                //DCD 
+                for (let i = dcd.options.length - 1; i > 0; i--) {
+                    dcd.remove(i);
+                }
+                
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDG && options[i].value !== selectedOptionDCG)  
+                        if (options[i].value === selectedOptionDCD) {
+                            dcd.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dcd.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                } 
+
+                //DCG 
+                for (let i = dcg.options.length - 1; i > 0; i--) {
+                    dcg.remove(i);
+                }
+                
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDG)  
+                        if (options[i].value === selectedOptionDCG) {
+                            dcg.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dcg.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                } 
+
+            });
+
+            dcd.addEventListener("change", function() {
+                textj4.innerHTML = dcd.value;
+                selectedOptionDCD = dcd.options[dcd.selectedIndex].value;
+
+                //DD
+                for (let i = dd.options.length - 1; i > 0; i--) {
+                    dd.remove(i);
+                }
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDG && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDCG)
+                        if (options[i].value === selectedOptionDD) {
+                            dd.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dd.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                }
+                
+                //DG
+                for (let i = dg.options.length - 1; i > 0; i--) {
+                    dg.remove(i);
+                }
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDCG)  
+                        if (options[i].value === selectedOptionDG) {
+                            dg.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dg.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                }
+
+                //DCG 
+                for (let i = dcg.options.length - 1; i > 0; i--) {
+                    dcg.remove(i);
+                }
+                
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDG)  
+                        if (options[i].value === selectedOptionDCG) {
+                            dcg.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dcg.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                } 
+
+            });
+
+            dcg.addEventListener("change", function() {
+                textj5.innerHTML = dcg.value;
+                selectedOptionDCG = dcg.options[dcg.selectedIndex].value;
+
+                ///DD
+                for (let i = dd.options.length - 1; i > 0; i--) {
+                    dd.remove(i);
+                }
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDG && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDCG)
+                        if (options[i].value === selectedOptionDD) {
+                            dd.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dd.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                }
+                
+                //DG
+                for (let i = dg.options.length - 1; i > 0; i--) {
+                    dg.remove(i);
+                }
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDCD && options[i].value !== selectedOptionDCG)  
+                        if (options[i].value === selectedOptionDG) {
+                            dg.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dg.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                }
+
+                //DCD 
+                for (let i = dcd.options.length - 1; i > 0; i--) {
+                    dcd.remove(i);
+                }
+                
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value !== selectedOptionDD && options[i].value !== selectedOptionDCG && options[i].value !== selectedOptionDG)  
+                        if (options[i].value === selectedOptionDCD) {
+                            dcd.innerHTML += "<option value='" + options[i].value + "' selected>" + options[i].text + "</option>";
+                        } else {
+                            dcd.innerHTML += "<option value='" + options[i].value + "'>" + options[i].text + "</option>";
+                        }
+                } 
+            });
+
+            mdcd.addEventListener("change", function() {
+                textj6.innerHTML = mdcd.value;
+                selectedOptionMDCD = mdcd.options[mdcd.selectedIndex].value;
+             
+                //MDCG
+                for (let i = mdcg.options.length - 1; i > 0; i--) {
+                mdcg.remove(i);
+                }
+
+                for (var i = 0; i < optionsMilieux.length; i++) {
+                    if (optionsMilieux[i].value !== selectedOptionMDCD && optionsMilieux[i].value !== selectedOptionMOC)  
+                        if (optionsMilieux[i].value === selectedOptionMDCG) {
+                            mdcg.innerHTML += "<option value='" + optionsMilieux[i].value + "' selected>" + optionsMilieux[i].text + "</option>";
+                        } else {
+                            mdcg.innerHTML += "<option value='" + optionsMilieux[i].value + "'>" + optionsMilieux[i].text + "</option>";
+                        }
+                }
+                
+                //MOC
+                for (let i = moc.options.length - 1; i > 0; i--) {
+                    moc.remove(i);
+                }
+                
+                for (var i = 0; i < optionsMilieux.length; i++) {
+                    if (optionsMilieux[i].value !== selectedOptionMDCD && optionsMilieux[i].value !== selectedOptionMDCG)  
+                        if (optionsMilieux[i].value === selectedOptionMOC) {
+                            moc.innerHTML += "<option value='" + optionsMilieux[i].value + "' selected>" + optionsMilieux[i].text + "</option>";
+                        } else {
+                            moc.innerHTML += "<option value='" + optionsMilieux[i].value + "'>" + optionsMilieux[i].text + "</option>";
+                        }
                 }
             });
 
+            ad.addEventListener("change", function() {
+                textj7.innerHTML = ad.value;
+            });
+
+            mdcg.addEventListener("change", function() {
+                textj8.innerHTML = mdcg.value;
+                selectedOptionMDCG = mdcg.options[mdcg.selectedIndex].value;
+             
+                //MDCD
+                for (let i = mdcd.options.length - 1; i > 0; i--) {
+                mdcd.remove(i);
+                }
+
+                for (var i = 0; i < optionsMilieux.length; i++) {
+                    if (optionsMilieux[i].value !== selectedOptionMDCG && optionsMilieux[i].value !== selectedOptionMOC)  
+                        if (optionsMilieux[i].value === selectedOptionMDCD) {
+                            mdcd.innerHTML += "<option value='" + optionsMilieux[i].value + "' selected>" + optionsMilieux[i].text + "</option>";
+                        } else {
+                            mdcd.innerHTML += "<option value='" + optionsMilieux[i].value + "'>" + optionsMilieux[i].text + "</option>";
+                        }
+                }
+                
+                //MOC
+                for (let i = moc.options.length - 1; i > 0; i--) {
+                    moc.remove(i);
+                }
+                
+                for (var i = 0; i < optionsMilieux.length; i++) {
+                    if (optionsMilieux[i].value !== selectedOptionMDCD && optionsMilieux[i].value !== selectedOptionMDCG)  
+                        if (optionsMilieux[i].value === selectedOptionMOC) {
+                            moc.innerHTML += "<option value='" + optionsMilieux[i].value + "' selected>" + optionsMilieux[i].text + "</option>";
+                        } else {
+                            moc.innerHTML += "<option value='" + optionsMilieux[i].value + "'>" + optionsMilieux[i].text + "</option>";
+                        }
+                }
+            });
+
+           bu.addEventListener("change", function() {
+                textj9.innerHTML = bu.value;
+            });
+
+            moc.addEventListener("change", function() {
+                textj10.innerHTML = moc.value;
+                selectedOptionMOC = moc.options[moc.selectedIndex].value;
+             
+                //MDCD
+                for (let i = mdcd.options.length - 1; i > 0; i--) {
+                mdcd.remove(i);
+                }
+
+                for (var i = 0; i < optionsMilieux.length; i++) {
+                    if (optionsMilieux[i].value !== selectedOptionMDCG && optionsMilieux[i].value !== selectedOptionMOC)  
+                        if (optionsMilieux[i].value === selectedOptionMDCD) {
+                            mdcd.innerHTML += "<option value='" + optionsMilieux[i].value + "' selected>" + optionsMilieux[i].text + "</option>";
+                        } else {
+                            mdcd.innerHTML += "<option value='" + optionsMilieux[i].value + "'>" + optionsMilieux[i].text + "</option>";
+                        }
+                }
+
+                //MDCG
+                for (let i = mdcg.options.length - 1; i > 0; i--) {
+                mdcg.remove(i);
+                }
+
+                for (var i = 0; i < optionsMilieux.length; i++) {
+                    if (optionsMilieux[i].value !== selectedOptionMDCD && optionsMilieux[i].value !== selectedOptionMOC)  
+                        if (optionsMilieux[i].value === selectedOptionMDCG) {
+                            mdcg.innerHTML += "<option value='" + optionsMilieux[i].value + "' selected>" + optionsMilieux[i].text + "</option>";
+                        } else {
+                            mdcg.innerHTML += "<option value='" + optionsMilieux[i].value + "'>" + optionsMilieux[i].text + "</option>";
+                        }
+                }
+            });
+
+            ag.addEventListener("change", function() {
+                textj11.innerHTML = ag.value;
+            });
         </script>
     </body>
 </html>
