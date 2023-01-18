@@ -9,6 +9,12 @@
     </head>
 
     <?php
+
+        session_start();
+        if ($_SESSION["connected"] != True){
+            header('Location: index.php');
+        }
+        
         require_once("header.php");
         $header = new header();
 
@@ -25,11 +31,37 @@
             $param[2] = $_POST['lieu'];
         }
 
+        //Traitement popup supprimer match
+        if (isset($_GET['idRencontreSupprimer'])) {
+            $id_rencontre = $_GET['idRencontreSupprimer'];
+            $sql -> supprimerRencontre($id_rencontre);
+            header('Location: listematch.php');
+        }
+
         $req = $sql -> getMatch($param);
     ?>
 
     <body>
         <main class="main-listes">
+
+        <div class="popup popup-supprimer">
+                <div class="popup-content">
+                    <div class="popup-header">
+                        <h2>Confirmation</h2>
+                    </div>
+                    <div class="popup-body">
+                        <span>
+                            Voulez-vous vraiment supprimer ce match ?
+                        </span>
+                        <hr>
+                        <div class="popup-button">
+                            <input type="button" class="button-non" name="popupnon" value="Non" onclick='popUpNon()'>
+                            <input type="button" class="button-oui" name="popupoui" value="Oui" onclick='popUpOui()'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <section class="main-listes-container">
                 <h1>Liste des matchs du F.C WOIPPY</h1>
                 <hr>
@@ -130,7 +162,7 @@
                                     </label>
                                 </td>
                                 <td>
-                                    <input type="submit" class ="submit supprimer" name="supprimer" value="Supprimer">
+                                    <input type="button" class ="submit supprimer" name="supprimer" value="Supprimer" data-id_rencontre ='.$donnees[5].'" onclick="setIdMatch(this.dataset.id_rencontre) ; showPopUpSupprimer()">
                                 </td>
                             </tr>
                             </form>
@@ -140,5 +172,26 @@
                 </table>
             </section>
         </main>
+
+        <script>
+            function setIdMatch(id){
+                idMatch = id;
+            }
+
+            function showPopUpSupprimer(){
+                document.querySelector('.popup-supprimer').style.display = 'flex';
+                console.log("Test showPopUpSupprimer");
+            }
+            
+            function popUpOui(){
+                document.querySelector('.popup-supprimer').style.display = 'none';
+                window.location.href="listematch.php?idRencontreSupprimer=" + idMatch;
+            }
+
+            function popUpNon(){
+                document.querySelector('.popup-supprimer').style.display = 'none';
+            }
+        </script>
+
     </body>
 </html>

@@ -9,6 +9,12 @@
     </head>
     <body>
         <?php
+
+        session_start();
+        if ($_SESSION["connected"] != True){
+            header('Location: index.php');
+        }
+        
         require_once('sql.php');
         require_once('header.php');
         $header = new header();

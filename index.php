@@ -15,10 +15,11 @@
         $sql = new requeteSQL();
         $incorrect = false;
 
+        session_start();
+        $_SESSION["connected"] = False;
         if (isset($_POST['valider'])){
-            $id = $_POST['username'];
-            $mdp = $_POST['mdp'];
-            if ($sql -> checkLogin($id,$mdp)){
+            if ($sql -> checkLogin($_POST['username'],$_POST['mdp'])){
+                $_SESSION["connected"] = True;
                 header('Location: accueil.php');
             } else {
                 $incorrect = true;

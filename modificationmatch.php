@@ -12,6 +12,11 @@
         require_once("header.php");
         $header = new header();
 
+        session_start();
+        if ($_SESSION["connected"] != True){
+            header('Location: index.php');
+        }
+        
         // Initialisation des variables
         $info_execution = "";
         require_once("sql.php");
