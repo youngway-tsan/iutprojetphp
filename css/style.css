@@ -178,23 +178,6 @@ input[type="submit"].supprimer {
   background-color : rgb(213, 123, 123);
 }
 
-
-input[type="button"].bouton {
-  cursor: pointer;
-  box-shadow: var(--background-shadow);
-  border-radius: var(--border-radius);
-  color: var(--black);
-  border: 0px;
-  padding: 8px 25px;
-  font-weight: 600;
-  font-size: 1.4rem;
-  background-color: var(--btn-bouton);
-  width: auto;
-  line-height: initial;
-  height: max-content;
-  transition: all .2s ease-in-out;
-}
-
 input[type="button"].supprimer {
   box-shadow: var(--background-shadow);
   border-radius: var(--border-radius);
@@ -210,59 +193,6 @@ input[type="button"].supprimer {
   background-color : rgb(213, 123, 123);
   cursor: pointer;
 }
-
-.return {
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: var(--background-shadow);
-  border-radius: var(--border-radius);
-  color: var(--black);
-  border: 0px;
-  font-weight: 600;
-  font-size: 1.4rem;
-  background-color: var(--btn-bouton);
-  width: auto;
-  line-height: initial;
-  height: max-content;
-  transition: all .2s ease-in-out;
-  padding: 5px 12px;
-}
-
-input[type="button"].boutonAddJoueur {
-  box-shadow: var(--background-shadow);
-  border-radius: var(--border-radius);
-  color: var(--black);
-  border: 0px;
-  padding: 8px 25px;
-  font-weight: 600;
-  font-size: 1.4rem;
-  background-color: var(--btn-boutonAddJoueur);
-  width: auto;
-  line-height: initial;
-  height: max-content;
-  transition: all .2s ease-in-out;
-}
-
-input[type="button"].button-commentaire {
-  padding : 0px;
-}
-
-input[type="submit"].update {
-  box-shadow: var(--background-shadow);
-  border-radius: var(--border-radius);
-  color: var(--black);
-  border: 0px;
-  padding: 8px 25px;
-  font-weight: 600;
-  font-size: 1.4rem;
-  background-color: var(--btn-update);
-  width: auto;
-  line-height: initial;
-  height: "max-content";
-  transition: all .2s ease-in-out;
-}
-
-
 
 input[type="text"]:hover,
 input[type="date"]:hover,
@@ -284,37 +214,23 @@ input[type="password"]:focus {
   background: #d2d7d8;
 }
 
-.score-match:focus{
-  border: 2px solid #696666;
-  background: #d2d7d8;
+
+input[type="submit"]:hover{
+  transform: scale(1.05);
+  cursor: pointer;
 }
-
-
-input[type="submit"].submit-gris:hover {
-  background-color: var(--btn-submit-grey-hover);
-}
-
-input[type="submit"].submit:hover,
 
 input[type="submit"].submit-active:hover {
   background-color: var(--btn-submit-hover);
 }
 
+input[type="button"]:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
 input[type="button"].supprimer:hover {
   background-color: rgb(170, 67, 67);
-}
-
-input[type="submit"].update:hover {
-  background-color: var(--btn-update-hover);
-}
-
-input[type="submit"].add:hover,
-input[type=button].add:hover {
-  background-color: var(--btn-update-hover);
-}
-
-.return:hover {
-  background-color: var(--btn-bouton-hover);
 }
 
 .svgLink{
@@ -325,16 +241,12 @@ input[type=button].add:hover {
 /* HEADER */
 /* HEADER */
 /* HEADER */
-/* HEADER */
-/* HEADER */
-/* HEADER */
 
 .btn-connexion {
   color: var(--white-text);
   font-weight: 600;
   font-size: 18px;
   background-color: var(--pink);
-  transition: all .2s ease-in-out;
   padding: 8px 25px;
   margin-left: 25px;
   border-radius: var(--border-radius);
@@ -343,7 +255,6 @@ input[type=button].add:hover {
 .btn-connexion:hover {
   background-color: #983a93;
   box-shadow: var(--background-shadow);
-  transform: scale(1.025);
 }
 
 header {
@@ -425,29 +336,9 @@ header ul {
   line-height: initial;
 }
 
-
-.nav-container-haut {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding : 0 30px;
-  height: 100%;
-  width : 110%;
-}
-
-.navbar-haut {
-  width : 80%;
-}
-
 /* Creation/Modification d'un tournoi */
 /* Creation/Modification d'un tournoi */
 /* Creation/Modification d'un tournoi */
-/* Creation/Modification d'un tournoi */
-/* Creation/Modification d'un tournoi */
-/* Creation/Modification d'un tournoi */
-/* Creation/Modification d'un tournoi */
-/* Creation/Modification d'un tournoi */
-
 
 .creation-tournoi-container {
   width: auto;
@@ -523,16 +414,9 @@ TABLEAU
 TABLEAU
 */
 
-.tableau-style {
-  display: flex;
-  justify-content: center;
-  
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
-  /* margin-top : 20px; */
 }
 
 th, td {
@@ -612,19 +496,6 @@ POPUP
 
 .popup-body input[type='text']{
   margin: 10px;
-}
-
-input[type="button"].button , input[type="submit"] {
-  box-shadow: var(--background-shadow);
-  border-radius: var(--border-radius);
-  color: var(--black);
-  border: 0px;
-  padding: 8px 25px;
-  font-weight: 600;
-  width: auto;
-  line-height: initial;
-  height: 32px;
-  transition: all .2s ease-in-out;
 }
 
 input[type="button"].button-oui , input[type="submit"].button-oui{
