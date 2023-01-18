@@ -30,6 +30,10 @@
         $reqBU = $sql->getJoueurs();
         $reqMOC = $sql->getJoueurs();
         $reqAG = $sql->getJoueurs();
+        $reqRemp1 = $sql->getJoueurs();
+        $reqRemp2 = $sql->getJoueurs();
+        $reqRemp3 = $sql->getJoueurs();
+        $reqRemp4 = $sql->getJoueurs();
         $reqPhotosJoueurs = $sql->getJoueurs();
 
         //Vérifie si tous les selects ont étaient choisis
@@ -125,6 +129,30 @@
             $bu = $_POST['bu'];
         }
 
+        if (empty($_POST['remp1'])) {
+            $remp1= "Remplaçant 1";
+        } else {
+            $remp1 = $_POST['remp1'];
+        }
+
+        if (empty($_POST['remp2'])) {
+            $remp2= "Remplaçant 2";
+        } else {
+            $remp2 = $_POST['remp2'];
+        }
+
+        if (empty($_POST['remp3'])) {
+            $remp3= "Remplaçant 3";
+        } else {
+            $remp3 = $_POST['remp3'];
+        }
+
+        if (empty($_POST['remp4'])) {
+            $remp4= "Remplaçant 4";
+        } else {
+            $remp4 = $_POST['remp4'];
+        }
+
         $id = $_GET['id'];
         $reqMatchId = $sql->matchId($id);
         while ($row = $reqMatchId->fetch()) {
@@ -150,7 +178,7 @@
         if (isset($_POST['Valider'])) {
             if(($_POST['gardien'] != 'Joueur 1') && ($_POST['dd'] != 'Joueur 2') && ($_POST['dg'] != 'Joueur 3') && ($_POST['dcd'] != 'Joueur 4') && ($_POST['dcg'] != 'Joueur 5') && ($_POST['mdcd'] != 'Joueur 6') && ($_POST['ad'] != 'Joueur 7') && ($_POST['mdcg'] != 'Joueur 8') && ($_POST['bu'] != 'Joueur 9') && ($_POST['moc'] != 'Joueur 10') && ($_POST['ag'] != 'Joueur 11')) {
                 $selectsFull = true;
-                $info_execution = "Joueurs titulaires validés !";
+                $info_execution = "Joueurs titulaires validés ! Veuillez choisir les remplaçants";
             } else {
                 $info_execution = "Veuillez sélectionner tous les joueurs titulaires du match !";
                 $gardien = "Joueur 1";
@@ -174,7 +202,7 @@
     <body>
         <main class="main-listes">
             <section class="main-listes-container">
-                <div class="container-feuille">
+                <div class="container-feuille-titulaire">
                     <div class="container-gauche">
                         <h1>Feuille de match : <?php echo $nomAdversaire ?> [<?php echo $lieu ?>]</h1>
                         <hr>
@@ -190,7 +218,7 @@
                                     
                                         <!-- Gardien -->
                                         <g transform="matrix(1,0,0,1,120,340)" class="gardien">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg"  xlink:href="/imgplayers/63c81eac05e1e9.90572581.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j1" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $gardien ?></text>
@@ -285,6 +313,28 @@
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j9" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $bu ?></text>
                                             </g>
+                                        </g>
+
+                                        <!-- Remplaçant 1 -->
+                                        <g style="opacity: 0.6;">
+                                            <rect x="25" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
+                                            <text x="30" y="785" fill="#fff" id="substitute_3_text" style="font-size: 24px; font-family: Arial; fill: white;"><?php echo $remp1 ?></text>
+                                        </g>
+
+                                        <!-- Remplaçant 2 -->
+                                        <g style="opacity: 0.6;">
+                                            <rect x="200" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
+                                            <text x="205" y="785" fill="#fff" id="substitute_3_text" style="font-size: 24px; font-family: Arial; fill: white;"><?php echo $remp2 ?></text>
+                                        </g>
+
+                                        <g style="opacity: 0.6;">
+                                            <rect x="375" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
+                                            <text x="380" y="785" fill="#fff" id="substitute_3_text" style="font-size: 24px; font-family: Arial; fill: white;"><?php echo $remp3 ?></text>
+                                        </g>
+
+                                        <g style="opacity: 0.6;">
+                                            <rect x="550" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
+                                            <text x="555" y="785" fill="#fff" id="substitute_3_text" style="font-size: 24px; font-family: Arial; fill: white;"><?php echo $remp4 ?></text>
                                         </g>
 
                                     </g>
@@ -504,6 +554,76 @@
                         </form>
                     </div>
                 </div>
+
+
+                <div class="container-feuille-remplacant">
+                    <div class="selection-joueur">
+                        <h1>Joueurs remplaçants</h1>
+                        <hr>
+                        <select class="select-joueur"name="remp1" id="remp1" <?php if(!$selectsFull) {echo 'disabled';} ?>>
+                            <option value="Joueur 1" selected>Remplaçant 1 (Gardien)</option>
+                            <?php
+                                //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                while ($data = $reqRemp1->fetch()) {
+                                    if ($data['Poste'] == 'Gardien' and $data['Statut'] == 'Actif' and  $data['Nom'] !=$gardien) {
+                                        if ($remp1 == $data['Nom']) {
+                                            echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                        }
+                                    }
+                                }
+                            ?>
+                        </select>
+                        <select class="select-joueur" name="remp2" id="remp2" <?php if(!$selectsFull) {echo 'disabled';} ?>>
+                            <option value="Joueur 2" selected>Remplaçant 2 (Défenseur)</option>
+                            <?php
+                                //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                while ($data = $reqRemp2->fetch()) {
+                                    if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif' and  $data['Nom'] !=$dg and $data['Nom'] !=$dd and  $data['Nom'] !=$dcd and  $data['Nom'] !=$dcg) {
+                                        if ($remp2 == $data['Nom']) {
+                                            echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                        }
+                                    }
+                                }
+                            ?>
+                        </select>
+                        <select class="select-joueur"name="remp3" id="remp3" <?php if(!$selectsFull) {echo 'disabled';} ?>>
+                            <option value="Joueur 1" selected>Remplaçant 3 (Milieu)</option>
+                            <?php
+                                //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                while ($data = $reqRemp3->fetch()) {
+                                    if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif' and  $data['Nom'] != $mdcd and  $data['Nom'] !=$mdcg and  $data['Nom'] !=$moc) {
+                                        if ($remp3 == $data['Nom']) {
+                                            echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                        }
+                                    }
+                                }
+                            ?>
+                        </select>
+                        <select class="select-joueur" name="remp4" id="remp4" <?php if(!$selectsFull) {echo 'disabled';} ?>>
+                            <option value="Joueur 3" selected>Remplaçant 4 (Attaquant)</option>
+                            <?php
+                                //Affichage de la liste de tout les joueurs enregistrés dans la base de données
+                                while ($data = $reqRemp4->fetch()) {
+                                    if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif' and  $data['Nom'] !=$bu and  $data['Nom'] !=$ag and  $data['Nom'] !=$ad) {
+                                        if ($remp4 == $data['Nom']) {
+                                            echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                        }
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </div>
+
+                </div>
+
             </section>
         </main>
         <!-- PARTIE JAVA SCRIPT -->
