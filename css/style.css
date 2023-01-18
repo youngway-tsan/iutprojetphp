@@ -42,6 +42,12 @@ p,span {
   color: black;
 }
 
+#span-feuille {
+  color: red;
+  text-align: center;
+  font-size: 25px;
+}
+
 hr{
   margin : 10px;
 }
@@ -167,6 +173,11 @@ input[type="submit"].submit {
   height: 32px;
   transition: all .2s ease-in-out;
 }
+
+input[type="submit"].supprimer {
+  background-color : rgb(213, 123, 123);
+}
+
 
 input[type="button"].bouton {
   cursor: pointer;
@@ -626,7 +637,7 @@ input[type="button"].button-non , input[type="submit"].button-non {
   cursor: pointer;
 }
 
-.container-feuille{
+.container-feuille-titulaire{
   display :flex; 
 }
 
@@ -658,4 +669,9 @@ input[type="submit"].submit-ok{
   padding : 5px;
   width: 15%;
   cursor: pointer;
+}
+
+.container-feuille-remplacant{
+  display :flex; 
+  padding : 10px 10px 10px 10px;
 }
