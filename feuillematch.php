@@ -9,6 +9,8 @@
     </head>
 
     <?php
+        error_reporting(E_ALL ^ E_NOTICE);
+
         require_once("header.php");
         $header = new header();
 
@@ -65,67 +67,111 @@
         if (empty($_POST['gardien'])) {
             $gardien = "Joueur 1";
         } else {
-            $gardien = $_POST['gardien'];
+            $gardien0 = $_POST['gardien'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $gardien0);
+            $gardien = $values[0];
+            $gardienLicence = $values[1];
         }
 
         if (empty($_POST['dg'])) {
             $dg = "Joueur 3";
         } else {
-            $dg = $_POST['dg'];
+            $dg0 = $_POST['dg'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $dg0);
+            $dg = $values[0];
+            $dgLicence = $values[1];
         }
 
         if (empty($_POST['dcg'])) {
             $dcg = "Joueur 5";
         } else {
-            $dcg = $_POST['dcg'];
+            $dcg0 = $_POST['dcg'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $dcg0);
+            $dcg = $values[0];
+            $dcgLicence = $values[1];
         }
 
         if (empty($_POST['dcd'])) {
             $dcd = "Joueur 4";
         } else {
-            $dcd = $_POST['dcd'];
+            $dcd0 = $_POST['dcd'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $dcd0);
+            $dcd = $values[0];
+            $dcdLicence = $values[1];
         }
 
         if (empty($_POST['dd'])) {
             $dd = "Joueur 2";
         } else {
-            $dd = $_POST['dd'];
+            $dd0 = $_POST['dd'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $dd0);
+            $dd = $values[0];
+            $ddLicence = $values[1];
         }
 
         if (empty($_POST['mdcd'])) {
             $mdcd = "Joueur 6";
         } else {
-            $mdcd = $_POST['mdcd'];
+            $mdcd0 = $_POST['mdcd'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $dd0);
+            $mdcd = $values[0];
+            $mdcdLicence = $values[1];
         }
 
         if (empty($_POST['mdcg'])) {
             $mdcg = "Joueur 8";
         } else {
-            $mdcg = $_POST['mdcg'];
+            $mdcg0 = $_POST['mdcg'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $mdcg0);
+            $mdcg = $values[0];
+            $mdcgLicence = $values[1];
         }
 
         if (empty($_POST['moc'])) {
             $moc= "Joueur 10";
         } else {
-            $moc = $_POST['moc'];
+            $moc0 = $_POST['moc'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $moc0);
+            $moc = $values[0];
+            $mocLicence = $values[1];
         }
 
         if (empty($_POST['ag'])) {
             $ag= "Joueur 11";
         } else {
-            $ag = $_POST['ag'];
+            $ag0 = $_POST['ag'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $ag0);
+            $ag = $values[0];
+            $agLicence = $values[1];
         }
 
         if (empty($_POST['ad'])) {
             $ad= "Joueur 7";
         } else {
-            $ad = $_POST['ad'];
+            $ad0 = $_POST['ad'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-",  $ad0);
+            $ad = $values[0];
+            $adLicence = $values[1];
         }
 
         if (empty($_POST['bu'])) {
             $bu= "Joueur 9";
         } else {
-            $bu = $_POST['bu'];
+            $bu0 = $_POST['bu'];
+            //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+            $values = explode("-", $bu0);
+            $bu = $values[0];
+            $buLicence = $values[1];
         }
 
        
@@ -157,7 +203,23 @@
         if (isset($_POST['Valider'])) {
             if(($_POST['gardien'] != 'Joueur 1') && ($_POST['dd'] != 'Joueur 2') && ($_POST['dg'] != 'Joueur 3') && ($_POST['dcd'] != 'Joueur 4') && ($_POST['dcg'] != 'Joueur 5') && ($_POST['mdcd'] != 'Joueur 6') && ($_POST['ad'] != 'Joueur 7') && ($_POST['mdcg'] != 'Joueur 8') && ($_POST['bu'] != 'Joueur 9') && ($_POST['moc'] != 'Joueur 10') && ($_POST['ag'] != 'Joueur 11')) {
                 $selectsFull = true;
-                $info_execution = "Joueurs titulaires enregistrées ! Veuillez choisir les remplaçants";
+                try{    
+                    // Ajout des joueurs titulaires dans la bdd (ici 1 veut dire que le joueur est titulaire pour ce match)
+                    $sql->addParticiper(1,$gardienLicence,$id);
+                    $sql->addParticiper(1,$ddLicence,$id);
+                    $sql->addParticiper(1,$dgLicence,$id);
+                    $sql->addParticiper(1,$dcdLicence,$id);
+                    $sql->addParticiper(1,$dcgLicence,$id);
+                    $sql->addParticiper(1,$mdcdLicence,$id);
+                    $sql->addParticiper(1,$adLicence,$id);
+                    $sql->addParticiper(1,$mdcgLicence,$id);
+                    $sql->addParticiper(1,$buLicence,$id);
+                    $sql->addParticiper(1,$mocLicence,$id);
+                    $sql->addParticiper(1,$agLicence,$id);
+                    $info_execution = "Joueurs titulaires enregistrées ! Veuillez choisir les remplaçants";
+                }catch(Exception $e){
+                    $info_execution = "Erreur : " . $e->getMessage();
+                }
             } else {
                 $info_execution = "Veuillez sélectionner tous les joueurs titulaires du match !";
                 $gardien = "Joueur 1";
@@ -298,29 +360,29 @@
                                                 <text  fill="#ffffff" id="j9" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $bu ?></text>
                                             </g>
                                         </g>
+                                        <?php if($selectsFull) { ?>
+                                            <!-- Remplaçant 1 -->
+                                            <g style="opacity: 0.6;">
+                                                <rect x="25" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
+                                                <text x="30" y="785" fill="#fff" id="r1" style="font-size: 24px; font-family: Arial; fill: white;"></text>
+                                            </g>
 
-                                        <!-- Remplaçant 1 -->
-                                        <g style="opacity: 0.6;">
-                                            <rect x="25" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
-                                            <text x="30" y="785" fill="#fff" id="r1" style="font-size: 24px; font-family: Arial; fill: white;"></text>
-                                        </g>
+                                            <!-- Remplaçant 2 -->
+                                            <g style="opacity: 0.6;">
+                                                <rect x="200" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
+                                                <text x="205" y="785" fill="#fff" id="r2" style="font-size: 24px; font-family: Arial; fill: white;"></text>
+                                            </g>
 
-                                        <!-- Remplaçant 2 -->
-                                        <g style="opacity: 0.6;">
-                                            <rect x="200" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
-                                            <text x="205" y="785" fill="#fff" id="r2" style="font-size: 24px; font-family: Arial; fill: white;"></text>
-                                        </g>
+                                            <g style="opacity: 0.6;">
+                                                <rect x="375" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
+                                                <text x="380" y="785" fill="#fff" id="r3" style="font-size: 24px; font-family: Arial; fill: white;"></text>
+                                            </g>
 
-                                        <g style="opacity: 0.6;">
-                                            <rect x="375" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
-                                            <text x="380" y="785" fill="#fff" id="r3" style="font-size: 24px; font-family: Arial; fill: white;"></text>
-                                        </g>
-
-                                        <g style="opacity: 0.6;">
-                                            <rect x="550" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
-                                            <text x="555" y="785" fill="#fff" id="r4" style="font-size: 24px; font-family: Arial; fill: white;"></text>
-                                        </g>
-
+                                            <g style="opacity: 0.6;">
+                                                <rect x="550" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
+                                                <text x="555" y="785" fill="#fff" id="r4" style="font-size: 24px; font-family: Arial; fill: white;"></text>
+                                            </g>
+                                        <?php } ?>
                                     </g>
                                 </svg>
                             </div>
@@ -341,9 +403,9 @@
                                         while ($data = $reqGardien->fetch()) {
                                             if ($data['Poste'] == 'Gardien' and $data['Statut'] == 'Actif') {
                                                 if ($gardien == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -355,7 +417,7 @@
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDefenseurs->fetch()) {
                                             if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') { 
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';     
+                                                echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';    
                                             }               
                                         }
                                     ?>
@@ -367,9 +429,9 @@
                                         while ($data = $reqDD->fetch()) {
                                             if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
                                                 if ($dd == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -382,9 +444,9 @@
                                         while ($data = $reqDG->fetch()) {
                                             if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
                                                 if ($dg == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -397,9 +459,9 @@
                                         while ($data = $reqDCD->fetch()) {
                                             if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
                                                 if ($dcd == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -412,9 +474,9 @@
                                         while ($data = $reqDCG->fetch()) {
                                             if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif') {
                                                 if ($dcg == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -539,8 +601,8 @@
                     </div>
                 </div>
 
-
-                <div class="container-feuille-remplacant">
+                <?php if($selectsFull) {?>
+                    <div class="container-feuille-remplacant">
                     <form action="<?php echo "feuillematch.php?id=" . $id ?>" method="post">
                         <div class="selection-joueur">
                             <h1>Joueurs remplaçants</h1>
@@ -566,7 +628,6 @@
                                 ?>
                             </select>
                             <select class="select-joueur" name="remp3" id="remp3" <?php if(!$selectsFull) {echo 'disabled';} ?>>
-                                <option value="Remplaçant 3" selected>Remplaçant 3 (Milieu)</option>
                                 <?php
                                     //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                     while ($data = $reqRemp3->fetch()) {
@@ -577,7 +638,6 @@
                                 ?>
                             </select>
                             <select class="select-joueur" name="remp4" id="remp4" <?php if(!$selectsFull) {echo 'disabled';} ?>>
-                                <option value="Remplaçant 4" selected>Remplaçant 4 (Attaquant)</option>
                                 <?php
                                     //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                     while ($data = $reqRemp4->fetch()) {
@@ -590,6 +650,7 @@
                             <input type="submit" class="submit submit-feuille-remplaçant" name="ValiderRemp" value="Valider" id = "submit-button">
                         </div>
                     </form>
+                <?php }?>
                 </div>
             </section>
         </main>
@@ -673,12 +734,14 @@
                                         
             //Changement dynamique quand on clique sur le select du joueur1
             gardien.addEventListener("change", function() {
-                textj1.innerHTML = gardien.value;
+                var array = gardien.value.split("-");
+                textj1.innerHTML = array[0];
             });
 
             //Changement dynamique quand on clique sur le select du joueur2
             dd.addEventListener("change", function() {
-                textj2.innerHTML = dd.value;
+                var array = dd.value.split("-");
+                textj2.innerHTML =  array[0];
                 selectedOptionDD = dd.options[dd.selectedIndex].value;
              
                 //DG
@@ -725,7 +788,8 @@
             });
 
             dg.addEventListener("change", function() {
-                textj3.innerHTML = dg.value;
+                var array = dg.value.split("-");
+                textj3.innerHTML =  array[0];
                 selectedOptionDG = dg.options[dg.selectedIndex].value;
              
                 //DD
@@ -773,7 +837,8 @@
             });
 
             dcd.addEventListener("change", function() {
-                textj4.innerHTML = dcd.value;
+                var array = dcd.value.split("-");
+                textj4.innerHTML =  array[0];
                 selectedOptionDCD = dcd.options[dcd.selectedIndex].value;
 
                 //DD
@@ -821,7 +886,8 @@
             });
 
             dcg.addEventListener("change", function() {
-                textj5.innerHTML = dcg.value;
+                var array = dcg.value.split("-");
+                textj5.innerHTML =  array[0];
                 selectedOptionDCG = dcg.options[dcg.selectedIndex].value;
 
                 ///DD
@@ -868,7 +934,8 @@
             });
 
             mdcd.addEventListener("change", function() {
-                textj6.innerHTML = mdcd.value;
+                var array = mdcd.value.split("-");
+                textj6.innerHTML =  array[0];
                 selectedOptionMDCD = mdcd.options[mdcd.selectedIndex].value;
              
                 //MDCG
@@ -901,7 +968,8 @@
             });
 
             ad.addEventListener("change", function() {
-                textj7.innerHTML = ad.value;
+                var array = ad.value.split("-");
+                textj7.innerHTML =  array[0];
                 selectedOptionAD = ad.options[ad.selectedIndex].value;
              
                 //AG
@@ -934,7 +1002,8 @@
             });
 
             mdcg.addEventListener("change", function() {
-                textj8.innerHTML = mdcg.value;
+                var array = mdcg.value.split("-");
+                textj8.innerHTML =  array[0];
                 selectedOptionMDCG = mdcg.options[mdcg.selectedIndex].value;
              
                 //MDCD
@@ -967,7 +1036,8 @@
             });
 
            bu.addEventListener("change", function() {
-                textj9.innerHTML = bu.value;
+                var array = bu.value.split("-");
+                textj9.innerHTML =  array[0];
                 selectedOptionBU = bu.options[bu.selectedIndex].value;
              
                 //AG
@@ -1000,7 +1070,8 @@
             });
 
             moc.addEventListener("change", function() {
-                textj10.innerHTML = moc.value;
+                var array = moc.value.split("-");
+                textj10.innerHTML =  array[0];
                 selectedOptionMOC = moc.options[moc.selectedIndex].value;
              
                 //MDCD
@@ -1033,7 +1104,8 @@
             });
 
             ag.addEventListener("change", function() {
-                textj11.innerHTML = ag.value;
+                var array = ag.value.split("-");
+                textj11.innerHTML =  array[0];
                 selectedOptionAG = ag.options[ag.selectedIndex].value;
                 
                 //AD

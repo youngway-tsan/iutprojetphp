@@ -234,6 +234,24 @@ class requeteSQL {
         }
     }
 
+    //Fonction qui permet d'ajouter un joueur a un match dans la BDD
+    //titularisation est un boolean pour savoir si un joueur est titulaire ou remplaçant
+    //le null est pour la notation qui sera remplis plus tard
+    public function addParticiper($titularisation,$licence,$id_rencontre){
+        $req = $this->linkpdo->prepare('INSERT INTO participer VALUES (:titularisation,NULL,:licence,:id_rencontre)');
+        $testreq = $req->execute(
+            array(
+                'titularisation' => $titularisation,
+                'licence' => $licence,
+                'id_rencontre' => $id_rencontre
+            )
+        );
+
+        if ($testreq == false){
+            die('Erreur addParticiper');
+        }
+    }
+
     public function addCommentaire($licence,$commentaire){
         $req = $this->linkpdo->prepare('UPDATE joueur SET commentaire = :commentaire WHERE licence = :licence');
         $testreq = $req->execute(
