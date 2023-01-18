@@ -30,6 +30,11 @@ form h1{
 svg{
     margin-right: 10px;
 }
+
+svg:hover{
+    transform: scale(1);
+}
+
 .username {
     display : flex;
     justify-content : center;
@@ -55,11 +60,17 @@ svg{
     padding-bottom: 40px;
 }
 
-input[type ="submit"]{
+input[type="submit"]{
     border-radius: var(--border-radius);
     background-color: var(--btn-submit);
     font-weight: bold;
     padding : 8px 25px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+input[type="submit"]:hover{
+    transform: scale(1.1);
 }
 
 .img{

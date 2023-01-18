@@ -12,6 +12,11 @@
         require_once("header.php");
         $header = new header();
 
+        session_start();
+        if ($_SESSION["connected"] != True){
+            header('Location: index.php');
+        }
+        
         require_once("sql.php");
         $sql = new requeteSQL();
 
