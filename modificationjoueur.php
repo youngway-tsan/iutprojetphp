@@ -32,16 +32,55 @@
         // Modifier un joueur
         if (isset($_POST['modifier'])) {
             // Vérification de si tout les champs sont remplis
-            if(!empty($_POST['nom-joueur']) && !empty($_POST['prenom-joueur']) && !empty($_POST['combobox-poste-joueur']) && !empty($_POST['poids-joueur']) && !empty($_POST['taille-joueur']) && !empty($_POST['photo-joueur']) && !empty($_POST['dtn-joueur'])){
+            if(!empty($_POST['nom-joueur']) && !empty($_POST['prenom-joueur']) && !empty($_POST['combobox-poste-joueur']) && !empty($_POST['poids-joueur']) && !empty($_POST['taille-joueur'])  && !empty($_POST['dtn-joueur'])){
                 // Vérification de si le joueur à plus de 16ans
-                if (strtotime($_POST['dtn-joueur']) <= strtotime(date("Y-m-d") . ' - 16 years')) {   
-                    try{   
-                        // Modification d'un joueur 
-                        $sql->modifierJoueur($licence,$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$_POST['photo-joueur']);
-                        $info_execution = 'Modification enregistrée !';
-                        header("Refresh: 3;URL=listejoueur.php");
-                    }catch(Exception $e){
-                        $info_execution = "Erreur : " . $e->getMessage();
+                if (strtotime($_POST['dtn-joueur']) <= strtotime(date("Y-m-d") . ' - 16 years')) { 
+                    // On récupère les informations du fichier upload par l'utilisateur
+                    $file = $_FILES['photo-joueur'];
+                    // On récupère le nom du fichier
+                    $fileName = $_FILES['photo-joueur']['name'];
+                    // On récupère le chemin temporaire du fichier
+                    $fileTmpName = $_FILES['photo-joueur']['tmp_name'];
+                    // On récupère la taille du fichier
+                    $fileSize = $_FILES['photo-joueur']['size'];
+                    // On récupère le code d'erreur du fichier
+                    $fileError = $_FILES['photo-joueur']['error'];
+                    // On récupère le type du fichier
+                    $fileType = $_FILES['photo-joueur']['type'];
+
+                    // On récupère l'extension du fichier
+                    $fileExt = explode('.', $fileName);
+                    // On récupère l'extension du fichier en minuscule
+                    $fileActualExt = strtolower(end($fileExt));
+
+                    // On définit les extensions autorisées
+                    $allowed = array('jpg', 'jpeg', 'png');
+
+                    if (in_array($fileActualExt, $allowed)) {
+                        if ($fileError === 0) {
+                            if ($fileSize < 2000000) {
+                                // On créé un nom unique pour le fichier
+                                $fileNameNew = uniqid('', true).".".$fileActualExt;
+                                // On déplace le fichier dans le dossier imgplayers
+                                $fileDestination = 'imgplayers/'.$fileNameNew;
+                                move_uploaded_file($fileTmpName, $fileDestination);
+                                // succès  
+                                try{   
+                                    // Modification d'un joueur 
+                                    $sql->modifierJoueur($licence,$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$fileNameNew);
+                                    $info_execution = 'Modification enregistrée !';
+                                    header("Refresh: 3;URL=listejoueur.php");
+                                }catch(Exception $e){
+                                    $info_execution = "Erreur : " . $e->getMessage();
+                                }
+                            } else {
+                                $info_execution = "Votre fichier est trop volumineux! taille max : 2Mo";
+                            }
+                        } else {
+                            $info_execution = "Erreur de téléchargement, veuillez réessayer.";
+                        }
+                    } else {
+                        $info_execution = "Vous ne pouvez pas télécharger ce type de fichier! Formats acceptés : jpg, jpeg, png. Taille max : 2M";
                     }
                 } else {
                     $info_execution = "Le Joueur doit avoir plus de 16 ans pour s'inscrire à une équipe de foot sénior";
@@ -55,7 +94,7 @@
     <body>
         <main class="main-creation-joueur">
             <section class="creation-tournoi-container">
-                <form action="<?php echo "modificationjoueur.php?licence=" . $licence ?>" method="POST">
+                <form action="<?php echo "modificationjoueur.php?licence=" . $licence ?>" method="POST" enctype="multipart/form-data">
 
                     <h1 class="creation-tournoi-title">Modifier un joueur</h1>
                     <div class="creation-tournoi">
@@ -116,7 +155,7 @@
                                 </div>
                                 <div class="creation-tournoi-input">
                                     <label for="photo-joueur">Photo du joueur</label>
-                                    <input type="text" name="photo-joueur" id="photo-joueur" value="<?php echo $photo ?>">
+                                    <input type="file" name="photo-joueur" id="photo-joueur" value="<?php echo $_FILES['photo-joueur'][$photo] ?>">
                                 </div>
                             </div>
                     </div>

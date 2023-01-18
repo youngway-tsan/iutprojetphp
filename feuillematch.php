@@ -30,6 +30,7 @@
         $reqBU = $sql->getJoueurs();
         $reqMOC = $sql->getJoueurs();
         $reqAG = $sql->getJoueurs();
+        $reqPhotosJoueurs = $sql->getJoueurs();
 
         //Vérifie si tous les selects ont étaient choisis
         $selectsFull = false;
@@ -54,8 +55,14 @@
 
         if (empty($_POST['gardien'])) {
             $gardien = "Joueur 1";
+            $gardienPhoto = "https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png";
         } else {
             $gardien = $_POST['gardien'];
+            while ($data = $reqPhotosJoueurs->fetch()) {
+                if ($data['Nom'] == $gardien) { 
+                    $gardienPhoto = $data['Image'];
+                }               
+            }
         }
 
         if (empty($_POST['dg'])) {
@@ -183,7 +190,7 @@
                                     
                                         <!-- Gardien -->
                                         <g transform="matrix(1,0,0,1,120,340)" class="gardien">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg"  xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg"  xlink:href="/imgplayers/63c81eac05e1e9.90572581.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j1" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $gardien ?></text>
@@ -294,7 +301,7 @@
                                 <h1>Joueurs titulaires</h1>
                                 <hr>
                                 <select class="select-joueur"name="gardien" id="gardien" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 1" selected>Joueur 1</option>
+                                    <option value="Joueur 1" selected>Joueur 1 (Gardien)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqGardien->fetch()) {
@@ -320,7 +327,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="dd" id="dd" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 2" selected>Joueur 2</option>
+                                    <option value="Joueur 2" selected>Joueur 2 (Défenseur)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDD->fetch()) {
@@ -335,7 +342,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="dg" id="dg" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 3" selected>Joueur 3</option>
+                                    <option value="Joueur 3" selected>Joueur 3 (Défenseur)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDG->fetch()) {
@@ -350,7 +357,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="dcd" id="dcd" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 4" selected>Joueur 4</option>
+                                    <option value="Joueur 4" selected>Joueur 4 (Défenseur)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDCD->fetch()) {
@@ -365,7 +372,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="dcg" id="dcg" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 5" selected>Joueur 5</option>
+                                    <option value="Joueur 5" selected>Joueur 5 (Défenseur)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqDCG->fetch()) {
@@ -380,7 +387,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="mdcd" id="mdcd" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 6" selected>Joueur 6</option>
+                                    <option value="Joueur 6" selected>Joueur 6 (Milieu)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqMDCD->fetch()) {
@@ -406,7 +413,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="ad" id="ad" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 7" selected>Joueur 7</option>
+                                    <option value="Joueur 7" selected>Joueur 7 (Attaquant)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqAD->fetch()) {
@@ -421,7 +428,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="mdcg" id="mdcg" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 8" selected>Joueur 8</option>
+                                    <option value="Joueur 8" selected>Joueur 8 (Milieu)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqMDCG->fetch()) {
@@ -436,7 +443,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="bu" id="bu" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 9" selected>Joueur 9</option>
+                                    <option value="Joueur 9" selected>Joueur 9 (Attaquant)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqBU->fetch()) {
@@ -451,7 +458,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="moc" id="moc" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 10" selected>Joueur 10</option>
+                                    <option value="Joueur 10" selected>Joueur 10 (Milieu)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqMOC->fetch()) {
@@ -477,7 +484,7 @@
                                     ?>
                                 </select>
                                 <select class="select-joueur" name="ag" id="ag" <?php if($selectsFull) {echo 'disabled';} ?>>
-                                    <option value="Joueur 11" selected>Joueur 11</option>
+                                    <option value="Joueur 11" selected>Joueur 11 (Attaquant)</option>
                                     <?php
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqAG->fetch()) {
