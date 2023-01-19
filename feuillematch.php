@@ -9,8 +9,6 @@
     </head>
 
     <?php
-        error_reporting(E_ALL ^ E_NOTICE);
-
         require_once("header.php");
         $header = new header();
 
@@ -43,7 +41,6 @@
         $reqRemp4 = $sql->getJoueurs();
         $reqPhotosJoueurs = $sql->getJoueurs();
 
-
         //Initialisation de variables
         $info_execution = "";
         //Vérifie si tous les selects des titulaires ont étaient choisis
@@ -62,7 +59,6 @@
          * BU -> BUTEUR
          * REMP -> REMPLACANT
          */
-
 
         if (empty($_POST['gardien'])) {
             $gardien = "Joueur 1";
@@ -119,7 +115,7 @@
         } else {
             $mdcd0 = $_POST['mdcd'];
             //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
-            $values = explode("-", $dd0);
+            $values = explode("-", $mdcd0);
             $mdcd = $values[0];
             $mdcdLicence = $values[1];
         }
@@ -174,8 +170,7 @@
             $buLicence = $values[1];
         }
 
-       
-        //Pour afficher les détails du match
+        //Pour afficher les détails du match et récuperer l'id du match
         $id = $_GET['id'];
         $reqMatchId = $sql->matchId($id);
         while ($row = $reqMatchId->fetch()) {
@@ -201,25 +196,19 @@
 
         //valider le choix des titulaires + rentre les joueurs titulaires dans la bdd
         if (isset($_POST['Valider'])) {
-            if(($_POST['gardien'] != 'Joueur 1') && ($_POST['dd'] != 'Joueur 2') && ($_POST['dg'] != 'Joueur 3') && ($_POST['dcd'] != 'Joueur 4') && ($_POST['dcg'] != 'Joueur 5') && ($_POST['mdcd'] != 'Joueur 6') && ($_POST['ad'] != 'Joueur 7') && ($_POST['mdcg'] != 'Joueur 8') && ($_POST['bu'] != 'Joueur 9') && ($_POST['moc'] != 'Joueur 10') && ($_POST['ag'] != 'Joueur 11')) {
+            if(($_POST['gardien'] != 'Joueur 1' && $_POST['gardien'] != null ) && ($_POST['dd'] != 'Joueur 2') && ($_POST['dg'] != 'Joueur 3') && ($_POST['dcd'] != 'Joueur 4') && ($_POST['dcg'] != 'Joueur 5') && ($_POST['mdcd'] != 'Joueur 6') && ($_POST['ad'] != 'Joueur 7') && ($_POST['mdcg'] != 'Joueur 8') && ($_POST['bu'] != 'Joueur 9') && ($_POST['moc'] != 'Joueur 10') && ($_POST['ag'] != 'Joueur 11')) {
                 $selectsFull = true;
-                try{    
-                    // Ajout des joueurs titulaires dans la bdd (ici 1 veut dire que le joueur est titulaire pour ce match)
-                    $sql->addParticiper(1,$gardienLicence,$id);
-                    $sql->addParticiper(1,$ddLicence,$id);
-                    $sql->addParticiper(1,$dgLicence,$id);
-                    $sql->addParticiper(1,$dcdLicence,$id);
-                    $sql->addParticiper(1,$dcgLicence,$id);
-                    $sql->addParticiper(1,$mdcdLicence,$id);
-                    $sql->addParticiper(1,$adLicence,$id);
-                    $sql->addParticiper(1,$mdcgLicence,$id);
-                    $sql->addParticiper(1,$buLicence,$id);
-                    $sql->addParticiper(1,$mocLicence,$id);
-                    $sql->addParticiper(1,$agLicence,$id);
-                    $info_execution = "Joueurs titulaires enregistrées ! Veuillez choisir les remplaçants";
-                }catch(Exception $e){
-                    $info_execution = "Erreur : " . $e->getMessage();
-                }
+                // Ajout des joueurs titulaires dans un tableau pour les inserer par la suite avec les remplaçants
+                //pour s'assurer que tous les joueurs sont saisis dans la bdd
+                //ici on passe par un data.txt qu'on crée puis qu'on retire immédiatement apres avoir inséré tous les joueurs
+                //obligé de passer par un data.txt car sinon apres le deuxième submit les $_POST des selects redeviennent null
+                $titulaires = array($gardienLicence, $ddLicence, $dgLicence, $dcdLicence, $dcgLicence, $mdcdLicence, $adLicence, $mdcgLicence, $buLicence, $mocLicence, $agLicence ); 
+                $handle = fopen("data.txt", "w");
+                for ($i = 0; $i < count($titulaires); $i++) {
+                    fwrite($handle, $titulaires[$i] . "-");
+                }   
+                fclose($handle);
+                $info_execution = "Joueurs titulaires validés ! Veuillez choisir les remplaçants";
             } else {
                 $info_execution = "Veuillez sélectionner tous les joueurs titulaires du match !";
                 $gardien = "Joueur 1";
@@ -237,12 +226,59 @@
         }
         
         //valider le choix des remplaçants + fini la feuille de match et rentre les joueurs remplaçants dans la bdd
-        //si aucun choix est fait par l'utilisateur, cela rentre les joueurs qui sont présentés visuellement sur les select
+        //si aucun choix est fait par l'utilisateur, cela rentre automatiquement les joueurs qui sont présentés visuellement sur les select
         if (isset($_POST['ValiderRemp'])) {
-            $info_execution = "Joueurs remplaçants enregistrées ! Feuille de match terminée ...";
             $selectsFull = true;
-        } 
+            try{    
+                //récupération des valeurs du data.txt puis on le supprimme
+                $handle = fopen("data.txt", "r");
+                $data = fread($handle, filesize("data.txt"));
+                $values = explode("-", $data);
+                fclose($handle);
+                file_put_contents("data.txt", "");
+                unlink("data.txt");
 
+                // Ajout des joueurs titulaires dans la bdd (ici 1 veut dire que le joueur est titulaire pour ce match)
+                $sql->addParticiper(1,$values[0],$id);//gardien
+                $sql->addParticiper(1,$values[1],$id);//dg
+                $sql->addParticiper(1,$values[2],$id);//dcg
+                $sql->addParticiper(1,$values[3],$id);//dcd
+                $sql->addParticiper(1,$values[4],$id);//dd
+                $sql->addParticiper(1,$values[5],$id);//mdcd
+                $sql->addParticiper(1,$values[6],$id);//mdcg
+                $sql->addParticiper(1,$values[7],$id);//moc
+                $sql->addParticiper(1,$values[8],$id);//ag
+                $sql->addParticiper(1,$values[9],$id);//ad
+                $sql->addParticiper(1,$values[10],$id);//bu
+
+                //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+                $values = explode("-", $_POST['remp1']);
+                $remp1Licence = $values[1];
+
+                //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+                $values = explode("-", $_POST['remp2']);
+                $remp2Licence = $values[1];
+
+                //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+                $values = explode("-", $_POST['remp3']);
+                $remp3Licence = $values[1];
+
+                //on découpe pour pouvoir afficher le nom et recuperer la licence pour la requete d'insertion
+                $values = explode("-", $_POST['remp4']);
+                $remp4Licence = $values[1];
+                
+                // Ajout des joueurs remplaçants dans la bdd (ici 0 veut dire que le joueur est remplacant pour ce match)
+                $sql->addParticiper(0,$remp1Licence,$id);
+                $sql->addParticiper(0,$remp2Licence,$id);
+                $sql->addParticiper(0,$remp3Licence,$id);
+                $sql->addParticiper(0,$remp4Licence,$id);
+
+                $info_execution = "Feuille de match enregistrée ! Retour au menu ...";
+                header("Refresh: 3;URL=listematch.php");
+            }catch(Exception $e){
+                $info_execution = "Erreur : " . $e->getMessage();
+            }
+        } 
     ?>
 
     <body>
@@ -256,6 +292,8 @@
                             <div class="terrain_foot">
                                 <!-- Composition -->
                                 <svg  width="100%" height="100%" id="svg" viewBox="0 0 1150 820" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Les images ont été récupérées sur le site : "https://www.demivolee.com" avec leur accord-->
+                                    <!-- Principe : terrain de foot ou on peut choisir dynamiquement les joueurs pour faire la feuille de match-->
                                     <image  height="1220" id="field" width="1150" x="0" y="0" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/field/field_big.png"></image>
                                     <image  height="790" id="lines" width="1150" x="0" y="20" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/field/lines.png"></image>
                                     
@@ -373,11 +411,13 @@
                                                 <text x="205" y="785" fill="#fff" id="r2" style="font-size: 24px; font-family: Arial; fill: white;"></text>
                                             </g>
 
+                                            <!-- Remplaçant 3 -->
                                             <g style="opacity: 0.6;">
                                                 <rect x="375" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
                                                 <text x="380" y="785" fill="#fff" id="r3" style="font-size: 24px; font-family: Arial; fill: white;"></text>
                                             </g>
-
+                                            
+                                            <!-- Remplaçant 4 -->
                                             <g style="opacity: 0.6;">
                                                 <rect x="550" y="757" width="152" height="39" fill="#21316a" rx="10" ry="10" id="substitute_3_rect"></rect>
                                                 <text x="555" y="785" fill="#fff" id="r4" style="font-size: 24px; font-family: Arial; fill: white;"></text>
@@ -489,9 +529,9 @@
                                         while ($data = $reqMDCD->fetch()) {
                                             if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
                                                 if ($mdcd == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -503,7 +543,7 @@
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqMilieux->fetch()) {
                                             if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
-                                                echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -515,9 +555,9 @@
                                         while ($data = $reqAD->fetch()) {
                                             if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif') {
                                                 if ($ad == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -530,9 +570,9 @@
                                         while ($data = $reqMDCG->fetch()) {
                                             if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
                                                 if ($mdcg == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -545,9 +585,9 @@
                                         while ($data = $reqBU->fetch()) {
                                             if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif') {
                                                 if ($bu == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -560,9 +600,9 @@
                                         while ($data = $reqMOC->fetch()) {
                                             if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif') {
                                                 if ($moc == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -574,7 +614,7 @@
                                         //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                         while ($data = $reqAttaquants->fetch()) {
                                             if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif') {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                             }
                                         }
                                     ?>
@@ -586,9 +626,9 @@
                                         while ($data = $reqAG->fetch()) {
                                             if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif') {
                                                 if ($ag == $data['Nom']) {
-                                                    echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] .'" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 } else {
-                                                    echo '<option value="' . $data['Nom'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                                    echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                                 }
                                             }
                                         }
@@ -612,7 +652,7 @@
                                     //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                     while ($data = $reqRemp1->fetch()) {
                                         if ($data['Poste'] == 'Gardien' and $data['Statut'] == 'Actif' and  $data['Nom'] !=$gardien) {
-                                            echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                         }
                                     }
                                 ?>
@@ -622,7 +662,7 @@
                                     //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                     while ($data = $reqRemp2->fetch()) {
                                         if ($data['Poste'] == 'Défenseur' and $data['Statut'] == 'Actif' and  $data['Nom'] !=$dg and $data['Nom'] !=$dd and  $data['Nom'] !=$dcd and  $data['Nom'] !=$dcg) {
-                                            echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                         }
                                     }
                                 ?>
@@ -632,7 +672,7 @@
                                     //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                     while ($data = $reqRemp3->fetch()) {
                                         if ($data['Poste'] == 'Milieu' and $data['Statut'] == 'Actif' and  $data['Nom'] != $mdcd and  $data['Nom'] !=$mdcg and  $data['Nom'] !=$moc) {
-                                            echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                         }
                                     }
                                 ?>
@@ -642,7 +682,7 @@
                                     //Affichage de la liste de tout les joueurs enregistrés dans la base de données
                                     while ($data = $reqRemp4->fetch()) {
                                         if ($data['Poste'] == 'Attaquant' and $data['Statut'] == 'Actif' and  $data['Nom'] !=$bu and  $data['Nom'] !=$ag and  $data['Nom'] !=$ad) {
-                                            echo '<option value="' . $data['Nom'] . '" selected>' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
+                                            echo '<option value="' . $data['Nom'] . "-" . $data['Licence'] . '">' . $data['Prenom'] . ' ' . $data['Nom'] . '</option>';
                                         }
                                     }
                                 ?>
@@ -1138,23 +1178,23 @@
             });
 
             remp1.addEventListener("change", function() {
-                selectedOptionREMP1 = remp1.options[remp1.selectedIndex].value;
-                textr1.innerHTML = selectedOptionREMP1;
+                var array = remp1.value.split("-");
+                textr1.innerHTML =  array[0];
             });
 
             remp2.addEventListener("change", function() {
-                textr2.innerHTML = remp2.value;
-                selectedOptionREMP2 = remp2.options[remp2.selectedIndex].value;
+                var array = remp2.value.split("-");
+                textr2.innerHTML =  array[0];
             });
 
             remp3.addEventListener("change", function() {
-                textr3.innerHTML = remp3.value;
-                selectedOptionREMP3 = remp3.options[remp3.selectedIndex].value;
+                var array = remp3.value.split("-");
+                textr3.innerHTML =  array[0];
             });
 
             remp4.addEventListener("change", function() {
-                textr4.innerHTML = remp4.value;
-                selectedOptionREMP4 = remp4.options[remp4.selectedIndex].value;
+                var array = remp4.value.split("-");
+                textr4.innerHTML =  array[0];
 
             });
         </script>
