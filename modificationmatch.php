@@ -36,7 +36,7 @@
             // Vérification de si tout les champs sont remplis
             if(!empty($_POST['datetime-match']) && !empty($_POST['nom-team-adverse']) && !empty($_POST['combobox-lieu-match'])){
                 // Vérification de si la date du match est valide
-                if (strtotime($_POST['datetime-match']) > strtotime(date("Y-m-d"))) {   
+                if (strtotime($_POST['datetime-match']) > strtotime(date("Y-m-d H:i:s") . ' + 1 week')) {   
                     try{   
                         // Modification d'un match
                         $sql->modifierMatch($id,$_POST['datetime-match'],$_POST['nom-team-adverse'],$_POST['combobox-lieu-match']);

@@ -193,6 +193,26 @@ class requeteSQL {
         return $req;
     }
 
+    //Fonction qui retourne toute les informations d'un match grâce à son id
+    public function feuilleMatchRempli($id)
+    {
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM participer where Id_Rencontre = :id");
+        $testreq = $req->execute(array(
+            'id' => $id));
+        if ($testreq == false){
+            die("Erreur feuilleMatchRempli");
+        }
+
+        $result = $req->fetch();
+        if ($result[0] != 0){
+            return true;
+        } else {
+            return false;
+        }
+       
+    }
+
+
     /*
     FONCTIONS D'AJOUT DANS LA BDD
     */

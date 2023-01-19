@@ -27,7 +27,7 @@
             // Vérification de si tout les champs sont remplis
             if(!empty($_POST['datetime-match']) && !empty($_POST['nom-team-adverse']) && !empty($_POST['combobox-lieu-match'])){
                 // Vérification de si la date du match est valide
-                if (strtotime($_POST['datetime-match']) > strtotime(date("Y-m-d"))) {   
+                if (strtotime($_POST['datetime-match']) > strtotime(date("Y-m-d H:i:s") . ' + 1 week')) {      
                     try{   
                         // Ajout d'un match
                         $sql->addMatch($_POST['datetime-match'],$_POST['nom-team-adverse'],$_POST['combobox-lieu-match']);
@@ -36,7 +36,7 @@
                         $info_execution = "Erreur : " . $e->getMessage();
                     }
                 } else {
-                    $info_execution = "L'horaire du match est non valide";
+                    $info_execution = "L'horaire du match est non valide (1 semaines de délais minimum)";
                 }
             } else {
                 $info_execution = "Veuillez remplir tous les champs";
