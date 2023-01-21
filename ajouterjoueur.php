@@ -69,7 +69,7 @@
                                     // succès
                                     try{    
                                         // Ajout d'un joueur 
-                                        $sql->addJoueur($_POST['licence-joueur'],$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$fileNameNew);
+                                        $sql->addJoueur($_POST['licence-joueur'],$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$fileDestination);
                                         $info_execution = 'Joueur enregistré !';
                                     }catch(Exception $e){
                                         $info_execution = "Erreur : " . $e->getMessage();
@@ -121,7 +121,7 @@
                             </div>
                         </div>
 
-                            <div class="creation-tournoi-right">
+                            <div class="creation-tournoi-middle">
                                 <div class="creation-tournoi-input">
                                     <label for="combobox-poste-joueur">Poste</label>
                                     <select name="combobox-poste-joueur" id="combobox-poste-joueur">
@@ -141,7 +141,13 @@
                                 </div>
                                 <div class="creation-tournoi-input">
                                     <label for="photo-joueur">Photo du joueur</label>
-                                    <input type="file" name="photo-joueur" id="photo-joueur">
+                                    <input type="file" name="photo-joueur" id="photo-joueur" onchange="previewImage()">
+                                </div>
+                            </div>
+
+                            <div class="creation-tournoi-photo">
+                                <div class="creation-tournoi-input">
+                                    <img id="preview" src="" alt="Veuillez choisir une image" width="300" height="300">
                                 </div>
                             </div>
                     </div>
@@ -150,6 +156,25 @@
                 </form>
             </section>
         </main>
+        <script>
+            function previewImage() {
+                var fileInput = document.getElementById('photo-joueur');
+                var preview = document.getElementById('preview');
+
+                var file = fileInput.files[0];
+                var reader = new FileReader();
+
+                reader.onloadend = function() {
+                preview.src = reader.result;
+                }
+
+                if (file) {
+                reader.readAsDataURL(file);
+                } else {
+                preview.src = "";
+                }
+            }
+        </script>
     </body>
 
 

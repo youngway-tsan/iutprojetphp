@@ -39,52 +39,66 @@
             if(!empty($_POST['nom-joueur']) && !empty($_POST['prenom-joueur']) && !empty($_POST['combobox-poste-joueur']) && !empty($_POST['poids-joueur']) && !empty($_POST['taille-joueur'])  && !empty($_POST['dtn-joueur'])){
                 // Vérification de si le joueur à plus de 16ans
                 if (strtotime($_POST['dtn-joueur']) <= strtotime(date("Y-m-d") . ' - 16 years')) { 
-                    // On récupère les informations du fichier upload par l'utilisateur
-                    $file = $_FILES['photo-joueur'];
-                    // On récupère le nom du fichier
-                    $fileName = $_FILES['photo-joueur']['name'];
-                    // On récupère le chemin temporaire du fichier
-                    $fileTmpName = $_FILES['photo-joueur']['tmp_name'];
-                    // On récupère la taille du fichier
-                    $fileSize = $_FILES['photo-joueur']['size'];
-                    // On récupère le code d'erreur du fichier
-                    $fileError = $_FILES['photo-joueur']['error'];
-                    // On récupère le type du fichier
-                    $fileType = $_FILES['photo-joueur']['type'];
-
-                    // On récupère l'extension du fichier
-                    $fileExt = explode('.', $fileName);
-                    // On récupère l'extension du fichier en minuscule
-                    $fileActualExt = strtolower(end($fileExt));
-
-                    // On définit les extensions autorisées
-                    $allowed = array('jpg', 'jpeg', 'png');
-
-                    if (in_array($fileActualExt, $allowed)) {
-                        if ($fileError === 0) {
-                            if ($fileSize < 2000000) {
-                                // On créé un nom unique pour le fichier
-                                $fileNameNew = uniqid('', true).".".$fileActualExt;
-                                // On déplace le fichier dans le dossier imgplayers
-                                $fileDestination = 'imgplayers/'.$fileNameNew;
-                                move_uploaded_file($fileTmpName, $fileDestination);
-                                // succès  
-                                try{   
-                                    // Modification d'un joueur 
-                                    $sql->modifierJoueur($licence,$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$fileNameNew);
-                                    $info_execution = 'Modification enregistrée !';
-                                    header("Refresh: 3;URL=listejoueur.php");
-                                }catch(Exception $e){
-                                    $info_execution = "Erreur : " . $e->getMessage();
-                                }
-                            } else {
-                                $info_execution = "Votre fichier est trop volumineux! taille max : 2Mo";
-                            }
-                        } else {
-                            $info_execution = "Erreur de téléchargement, veuillez réessayer.";
+                    //Si l'entraineur ne modifie pas l'image
+                    if ($_FILES['photo-joueur']['name'] == null) {
+                        try{   
+                            // Modification d'un joueur 
+                            $sql->modifierJoueur($licence,$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$photo);
+                            $info_execution = 'Modification enregistrée !';
+                            header("Refresh: 3;URL=listejoueur.php");
+                        }catch(Exception $e){
+                            $info_execution = "Erreur : " . $e->getMessage();
                         }
                     } else {
-                        $info_execution = "Vous ne pouvez pas télécharger ce type de fichier! Formats acceptés : jpg, jpeg, png. Taille max : 2M";
+                        // On récupère les informations du fichier upload par l'utilisateur
+                        $file = $_FILES['photo-joueur'];
+                        // On récupère le nom du fichier
+                        $fileName = $_FILES['photo-joueur']['name'];
+                        // On récupère le chemin temporaire du fichier
+                        $fileTmpName = $_FILES['photo-joueur']['tmp_name'];
+                        // On récupère la taille du fichier
+                        $fileSize = $_FILES['photo-joueur']['size'];
+                        // On récupère le code d'erreur du fichier
+                        $fileError = $_FILES['photo-joueur']['error'];
+                        // On récupère le type du fichier
+                        $fileType = $_FILES['photo-joueur']['type'];
+
+                        // On récupère l'extension du fichier
+                        $fileExt = explode('.', $fileName);
+                        // On récupère l'extension du fichier en minuscule
+                        $fileActualExt = strtolower(end($fileExt));
+
+                        // On définit les extensions autorisées
+                        $allowed = array('jpg', 'jpeg', 'png');
+
+                        if (in_array($fileActualExt, $allowed)) {
+                            if ($fileError === 0) {
+                                if ($fileSize < 2000000) {
+                                    // On créé un nom unique pour le fichier
+                                    $fileNameNew = uniqid('', true).".".$fileActualExt;
+                                    // On déplace le fichier dans le dossier imgplayers
+                                    $fileDestination = 'imgplayers/'.$fileNameNew;
+                                    move_uploaded_file($fileTmpName, $fileDestination);
+                                    // succès  
+                                    try{   
+                                        // Modification d'un joueur 
+                                        $sql->modifierJoueur($licence,$_POST['nom-joueur'],$_POST['prenom-joueur'],$_POST['dtn-joueur'],$_POST['taille-joueur'],$_POST['poids-joueur'],$_POST['combobox-poste-joueur'],$fileDestination);
+                                        //On supprime l'ancienne photo
+                                        unlink($photo);
+                                        $info_execution = 'Modification enregistrée !';
+                                        header("Refresh: 3;URL=listejoueur.php");
+                                    }catch(Exception $e){
+                                        $info_execution = "Erreur : " . $e->getMessage();
+                                    }
+                                } else {
+                                    $info_execution = "Votre fichier est trop volumineux! taille max : 2Mo";
+                                }
+                            } else {
+                                $info_execution = "Erreur de téléchargement, veuillez réessayer.";
+                            }
+                        } else {
+                            $info_execution = "Vous ne pouvez pas télécharger ce type de fichier! Formats acceptés : jpg, jpeg, png. Taille max : 2M";
+                        }
                     }
                 } else {
                     $info_execution = "Le Joueur doit avoir plus de 16 ans pour s'inscrire à une équipe de foot sénior";
@@ -121,53 +135,80 @@
                             </div>
                         </div>
 
-                            <div class="creation-tournoi-right">
-                                <div class="creation-tournoi-input">
-                                    <label for="combobox-poste-joueur">Poste</label>
-                                    <select name="combobox-poste-joueur" id="combobox-poste-joueur">
-                                    <?php
-                                        if ($poste == "Gardien") {
-                                            echo '<option value="Gardien" selected>Gardien</option>';
-                                        }else{
-                                            echo '<option value="Gardien">Gardien</option>';
-                                        }
-                                        if ($poste == "Défenseur") {
-                                            echo '<option value="Défenseur" selected>Défenseur</option>';
-                                        }else{
-                                            echo '<option value="Défenseur">Défenseur</option>';
-                                        }
-                                        if ($poste == "Milieu") {
-                                            echo ' <option value="Milieu" selected>Milieu</option>';
-                                        }else{
-                                            echo ' <option value="Milieu">Milieu</option>';
-                                        }
-                                        if ($poste == "Attaquant") {
-                                            echo '<option value="Attaquant" selected>Attaquant</option>';
-                                        }else{
-                                            echo '<option value="Attaquant">Attaquant</option>';
-                                        }
-                                    ?>
-                                    </select>
-                                </div>
-                                <div class="creation-tournoi-input">
-                                    <label for="taille-joueur">Taille du joueur (en cm)</label>
-                                    <input type="number" id="taille-joueur" name="taille-joueur" min="1" max="250" value="<?php echo $taille ?>">
-                                </div>
-                                <div class="creation-tournoi-input">
-                                    <label for="poids-joueur">Poids du joueur (en kg)</label>
-                                    <input type="number" id="poids-joueur" name="poids-joueur" min="1" max="150" value="<?php echo $poids ?>">
-                                </div>
-                                <div class="creation-tournoi-input">
-                                    <label for="photo-joueur">Photo du joueur</label>
-                                    <input type="file" name="photo-joueur" id="photo-joueur" value="<?php echo $_FILES['photo-joueur'][$photo] ?>">
-                                </div>
+                        <div class="creation-tournoi-middle">
+                            <div class="creation-tournoi-input">
+                                <label for="combobox-poste-joueur">Poste</label>
+                                <select name="combobox-poste-joueur" id="combobox-poste-joueur">
+                                <?php
+                                    if ($poste == "Gardien") {
+                                        echo '<option value="Gardien" selected>Gardien</option>';
+                                    }else{
+                                        echo '<option value="Gardien">Gardien</option>';
+                                    }
+                                    if ($poste == "Défenseur") {
+                                        echo '<option value="Défenseur" selected>Défenseur</option>';
+                                    }else{
+                                        echo '<option value="Défenseur">Défenseur</option>';
+                                    }
+                                    if ($poste == "Milieu") {
+                                        echo ' <option value="Milieu" selected>Milieu</option>';
+                                    }else{
+                                        echo ' <option value="Milieu">Milieu</option>';
+                                    }
+                                    if ($poste == "Attaquant") {
+                                        echo '<option value="Attaquant" selected>Attaquant</option>';
+                                    }else{
+                                        echo '<option value="Attaquant">Attaquant</option>';
+                                    }
+                                ?>
+                                </select>
                             </div>
+                            <div class="creation-tournoi-input">
+                                <label for="taille-joueur">Taille du joueur (en cm)</label>
+                                <input type="number" id="taille-joueur" name="taille-joueur" min="1" max="250" value="<?php echo $taille ?>">
+                            </div>
+                            <div class="creation-tournoi-input">
+                                <label for="poids-joueur">Poids du joueur (en kg)</label>
+                                <input type="number" id="poids-joueur" name="poids-joueur" min="1" max="150" value="<?php echo $poids ?>">
+                            </div>
+                            <div class="creation-tournoi-input">
+                                <label for="photo-joueur">Photo du joueur</label>
+                                <input type="file" name="photo-joueur" id="photo-joueur"  onchange="previewImage()">
+                            </div>
+                        </div>
+
+                        <div class="creation-tournoi-photo">
+                            <div class="creation-tournoi-input">
+                                <label for="preview">Photo actuelle :</label>
+                                <img id="preview" src=<?php echo $photo ?> alt="Photo " width="300" height="300" >
+                            </div>
+                        </div>
+
                     </div>
                     <input class="submit" type="submit" name="modifier" value="MODIFIER">
                     <span><?php echo $info_execution?> </span>
                 </form>
             </section>
         </main>
+        <script>
+            function previewImage() {
+                var fileInput = document.getElementById('photo-joueur');
+                var preview = document.getElementById('preview');
+
+                var file = fileInput.files[0];
+                var reader = new FileReader();
+
+                reader.onloadend = function() {
+                preview.src = reader.result;
+                }
+
+                if (file) {
+                reader.readAsDataURL(file);
+                } else {
+                preview.src = "";
+                }
+            }
+        </script>
     </body>
 
 

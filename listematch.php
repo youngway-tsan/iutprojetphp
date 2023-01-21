@@ -211,9 +211,16 @@
 
                                         //Evaluer Performance
                                         $timeDiff = strtotime($donnees[1]) - strtotime(date("Y-m-d H:i:s"));
-                                        echo $timeDiff . ' seconds';
-                                        echo '<td> Encore : '. floor($timeDiff / 86400) . ' jours</td>';
-
+                                        //Si moins d'un jour afficher les heures
+                                        if ((floor($timeDiff / 3600)) > 24) {
+                                            echo '<td> Encore : '. floor($timeDiff / 86400) . ' jours</td>';
+                                        //Si moins d'une heure afficher les minutes
+                                        } elseif((floor($timeDiff / 60)) > 60) {
+                                            echo '<td> Encore : '. floor($timeDiff / 3600) . ' heures</td>';
+                                        } else {
+                                            echo '<td> Encore : '. floor($timeDiff / 60) . ' minutes</td>';
+                                        }
+                                        
                                     }
 
                                 } else {

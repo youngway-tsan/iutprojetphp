@@ -336,9 +336,9 @@ header ul {
   line-height: initial;
 }
 
-/* Creation/Modification d'un tournoi */
-/* Creation/Modification d'un tournoi */
-/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi (match/joueur) */
+/* Creation/Modification d'un tournoi (match/joueur)*/
+/* Creation/Modification d'un tournoi (match/joueur)*/
 
 .creation-tournoi-container {
   width: auto;
@@ -395,6 +395,13 @@ header ul {
   display: flex;
   justify-content: space-between;
 }
+
+.creation-tournoi-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .creation-tournoi-input {
   padding: 10px 0;

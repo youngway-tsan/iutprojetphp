@@ -204,6 +204,8 @@
             function popUpOui(){
                 document.querySelector('.popup-supprimer').style.display = 'none';
                 window.location.href="listejoueur.php?idJoueurSupprimer=" + idJoueur;
+                //Supprimer la photo du joueur
+                unlink($donnees[5]);
             }
 
             function showPopUpCommentaire(){
