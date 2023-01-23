@@ -20,7 +20,7 @@
         if (isset($_POST['valider'])){
             if ($sql -> checkLogin($_POST['username'],$_POST['mdp'])){
                 $_SESSION["connected"] = True;
-                header('Location: accueil.php');
+                header('location: accueil.php');
             } else {
                 $incorrect = true;
             }
