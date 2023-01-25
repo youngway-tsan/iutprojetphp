@@ -321,7 +321,7 @@ class requeteSQL {
     }
 
     public function getNbRencontre(){
-        $req = $this->linkpdo->prepare("SELECT count(*) FROM rencontre");
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM rencontre WHERE resultat IS NOT NULL ");
         $testreq = $req->execute();
         if ($testreq == false) {
             die("Erreur getNbRencontre");
@@ -330,12 +330,13 @@ class requeteSQL {
     }
 
     public function getNbRencontreGagne(){
-        $req = $this->linkpdo->prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE SUBSTRING_INDEX(resultat, '-', 1) > SUBSTRING_INDEX(resultat, '-', -1)");
-        $testreq = $req->execute();
-        if ($testreq == false) {
-            die("Erreur getNbRencontreGagne");
-        }
-        return $req;
+        $reqDomicile = $this->linkpdo->prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE rencontre.lieu_rencontre = :lieu_rencontre AND SUBSTRING_INDEX(resultat, '-', 1) > SUBSTRING_INDEX(resultat, '-', -1)");
+        $reqDomicile ->execute(array("lieu_rencontre" => "Domicile"));
+        $reqExterieur = $this->linkpdo->prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE rencontre.lieu_rencontre = :lieu_rencontre AND SUBSTRING_INDEX(resultat, '-', 1) < SUBSTRING_INDEX(resultat, '-', -1)");
+        $reqExterieur->execute(array("lieu_rencontre" => "Exterieur"));
+
+        $result = $reqDomicile->fetch()[0] + $reqExterieur->fetch()[0];
+        return $result;
     }
 
     public function getNbRencontreEgalite(){
@@ -344,16 +345,17 @@ class requeteSQL {
         if ($testreq == false) {
             die("Erreur getNbRencontreEgalite");
         }
-        return $req;
+        $result = $req->fetch()[0];
+        return $result;
     }
 
     public function getNbRencontrePerdu(){
-        $req = $this->linkpdo->prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE SUBSTRING_INDEX(resultat, '-', 1) < SUBSTRING_INDEX(resultat, '-', -1)");
-        $testreq = $req->execute();
-        if ($testreq == false) {
-            die("Erreur getNbRencontrePerdu");
-        }
-        return $req;
+        $reqDomicile = $this -> linkpdo -> prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE rencontre.lieu_rencontre = :lieu_rencontre AND SUBSTRING_INDEX(resultat, '-', 1) < SUBSTRING_INDEX(resultat, '-', -1)");
+        $reqDomicile -> execute(array("lieu_rencontre" => "Domicile"));
+        $reqExterieur = $this -> linkpdo -> prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE rencontre.lieu_rencontre = :lieu_rencontre AND SUBSTRING_INDEX(resultat, '-', 1) > SUBSTRING_INDEX(resultat, '-', -1)");
+        $reqExterieur -> execute(array("lieu_rencontre" => "Extérieur"));
+        $result = $reqDomicile->fetch()[0] + $reqExterieur->fetch()[0];
+        return $result;
     }
 
 
@@ -371,17 +373,25 @@ class requeteSQL {
     }
 
     public function getNbRencontreGagnéesJoueur($licence){
-        $req = $this -> linkpdo -> prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre, participer WHERE rencontre.id_rencontre = participer.id_rencontre AND participer.licence = :licence AND SUBSTRING_INDEX(resultat, '-', 1) > SUBSTRING_INDEX(resultat, '-', -1)");
-        $testreq = $req->execute(
+        $reqDomicile = $this -> linkpdo -> prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre, participer WHERE rencontre.id_rencontre = participer.id_rencontre AND rencontre.lieu_rencontre = :lieu_rencontre AND participer.licence = :licence AND SUBSTRING_INDEX(resultat, '-', 1) > SUBSTRING_INDEX(resultat, '-', -1)");
+        $reqDomicile->execute(
             array(
+                "lieu_rencontre" => "Domicile",
                 "licence" => $licence
             )
         );
-        if ($testreq == false) {
-            die("Erreur getNbRencontreGagnéesJoueur");
-        }
-        return $req;
+        $reqExterieur = $this -> linkpdo -> prepare ("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre, participer WHERE rencontre.id_rencontre = participer.id_rencontre AND rencontre.lieu_rencontre = :lieu_rencontre AND participer.licence = :licence AND SUBSTRING_INDEX(resultat, '-', 1) < SUBSTRING_INDEX(resultat, '-', -1)");
+        $reqExterieur->execute(
+            array(
+                "lieu_rencontre" => "Extérieur",
+                "licence" => $licence
+            )
+        );
+        $result = $reqDomicile -> fetch()[0] + $reqExterieur -> fetch()[0];
+        return $result;
     }
+
+    //additionner les 2 count, 1 count > lorsque que domicile, l'autre <
 
     /*
     FONCTIONS D'AJOUT DANS LA BDD

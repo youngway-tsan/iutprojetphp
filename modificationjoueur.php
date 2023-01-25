@@ -86,7 +86,7 @@
                                         //On supprime l'ancienne photo
                                         unlink($photo);
                                         $info_execution = 'Modification enregistrée !';
-                                        header("Refresh: 3;URL=listejoueur.php");
+                                        header("Refresh: 2;URL=listejoueur.php");
                                     }catch(Exception $e){
                                         $info_execution = "Erreur : " . $e->getMessage();
                                     }
@@ -187,6 +187,7 @@
                     </div>
                     <input class="submit" type="submit" name="modifier" value="Modifier">
                     <span><?php echo $info_execution?> </span>
+                    <span><?php if (isset($_POST['modifier'])) { echo '(redirection automatique vers la liste des joueurs)';}?><span>
                 </form>
             </section>
         </main>

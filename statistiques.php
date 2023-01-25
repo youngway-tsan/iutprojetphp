@@ -119,9 +119,9 @@
                                 
                                 //Requête Equipe
                                 $nbRencontre = $sql->getNbRencontre() -> fetch()[0];
-                                $nbRencontreGagne = $sql->getNbRencontreGagne()->fetch()[0];
-                                $nbRencontreEgalite = $sql->getNbRencontreGagne()->fetch()[0];
-                                $nbRencontrePerdu = $sql->getNbRencontreGagne()->fetch()[0];
+                                $nbRencontreGagne = $sql->getNbRencontreGagne();
+                                $nbRencontreEgalite = $sql->getNbRencontreGagne();
+                                $nbRencontrePerdu = $sql->getNbRencontreGagne();
 
                                 //Requête Joueur
                                 $nbSelectionTitulaire = $sql->getNbselectionTitulaire($licenceJoueur) -> fetch()[0];
@@ -133,7 +133,7 @@
                                     $noteMoyenne = $reqNoteMoyenne;
                                 }
                                 $nbRencontreParticiper = $sql -> getNbRencontreParticiper($licenceJoueur) -> fetch()[0];
-                                $nbRencontreGagneJoueur = $sql->getNbRencontreGagnéesJoueur($licenceJoueur) -> fetch()[0];
+                                $nbRencontreGagneJoueur = $sql->getNbRencontreGagnéesJoueur($licenceJoueur);
                                 if ($nbRencontreParticiper == 0) {
                                     $pourcentage = "-";
                                 } else {
@@ -169,12 +169,12 @@
                               
 
                                 if ($nbRencontre != 0){
-                                    $nbRencontreGagne = $sql->getNbRencontreGagne()->fetch()[0];
-                                    $nbRencontreEgalite = $sql->getNbRencontreGagne()->fetch()[0];
-                                    $nbRencontrePerdu = $sql->getNbRencontreGagne()->fetch()[0];
-                                    $pourcentageMatchGagne = ($nbRencontreGagne / $nbRencontre) * 100;
-                                    $pourcentageMatchPerdu = ($nbRencontrePerdu / $nbRencontre) * 100;
-                                    $poucentageMatchNul = ($nbRencontreEgalite / $nbRencontre) * 100;
+                                    $nbRencontreGagne = $sql->getNbRencontreGagne();
+                                    $nbRencontreEgalite = $sql->getNbRencontreEgalite();
+                                    $nbRencontrePerdu = $sql->getNbRencontrePerdu();
+                                    $pourcentageMatchGagne = round((($nbRencontreGagne / $nbRencontre) * 100),2);
+                                    $pourcentageMatchPerdu = round((($nbRencontrePerdu / $nbRencontre) * 100),2);
+                                    $poucentageMatchNul = round((($nbRencontreEgalite / $nbRencontre) * 100),2);
                                     echo '
                                     <div class="containerDroite">
                                         <div class="container-info-joueur">
