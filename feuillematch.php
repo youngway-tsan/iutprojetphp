@@ -292,17 +292,16 @@
                             <div class="terrain_foot">
                                 <!-- Composition -->
                                 <svg  width="100%" height="100%" id="svg" viewBox="0 0 1150 820" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- Les images ont été récupérées sur le site : "https://www.demivolee.com" avec leur accord-->
                                     <!-- Principe : terrain de foot ou on peut choisir dynamiquement les joueurs pour faire la feuille de match-->
-                                    <image  height="1220" id="field" width="1150" x="0" y="0" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/field/field_big.png"></image>
-                                    <image  height="790" id="lines" width="1150" x="0" y="20" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/field/lines.png"></image>
+                                    <image  height="1220" id="field" width="1150" x="0" y="0" xlink:href="https://iutprojetphp.000webhostapp.com/img/terrain.png"></image>
+                                    <image  height="790" id="lines" width="1150" x="0" y="20" xlink:href="https://iutprojetphp.000webhostapp.com/img/ligne.png"></image>
                                     
                                     <!-- Poste -->
                                     <g left="0" top="0" transform="matrix(1,0,0,1,0,20)" class="contents">
                                     
                                         <!-- Gardien -->
                                         <g transform="matrix(1,0,0,1,120,340)" class="gardien">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j1" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $gardien ?></text>
@@ -311,7 +310,7 @@
 
                                         <!-- Défenseur Gauche -->
                                         <g transform="matrix(1,0,0,1,300,100)" class="dg">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j3" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dg ?></text>
@@ -320,7 +319,7 @@
 
                                         <!-- Défenseur Centrale Gauche -->
                                         <g transform="matrix(1,0,0,1,300,260)" class="dcg">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j5" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dcg ?></text>
@@ -329,7 +328,7 @@
 
                                         <!-- Défenseur Centrale Droit -->
                                         <g transform="matrix(1,0,0,1,300,420)" class="dcd">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j4" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dcd ?></text>
@@ -338,7 +337,7 @@
 
                                         <!-- Défenseur Droit -->
                                         <g transform="matrix(1,0,0,1,300,580)" class="dd">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j2" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $dd ?></text>
@@ -347,7 +346,7 @@
 
                                         <!-- Milieu Défensif Gauche -->
                                         <g transform="matrix(1,0,0,1,540,175)" class="mdcg">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j8" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $mdcg ?></text>
@@ -356,7 +355,7 @@
 
                                         <!-- Milieu Défensif Droit -->
                                         <g transform="matrix(1,0,0,1,540,500)" class="mdcd">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j6" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $mdcd ?></text>
@@ -365,7 +364,7 @@
 
                                         <!-- Attaquant Gauche -->
                                         <g transform="matrix(1,0,0,1,800,100)" class="moc">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j11" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $ag ?></text>
@@ -374,7 +373,7 @@
 
                                         <!-- Attaquant Droit -->
                                         <g transform="matrix(1,0,0,1,800,580)" class="ag">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j7" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $ad ?></text>
@@ -383,7 +382,7 @@
 
                                         <!-- Milieu Offensif -->
                                         <g transform="matrix(1,0,0,1,700,340)" class="ad">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j10" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $moc ?></text>
@@ -392,7 +391,7 @@
 
                                         <!-- Buteur -->
                                         <g transform="matrix(1,0,0,1,900,340)" class="bu">
-                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://www.demivolee.com/wp-content/plugins/OutilCompoWordpress-2.7.0/assets/maillot/neutre.png"></image>
+                                            <image height="70" left="0" preserveAspectRatio="none" top="0" width="70" x="0" y="0" xmlns:svg="http://www.w3.org/2000/svg" xlink:href="https://iutprojetphp.000webhostapp.com/img/maillot.png"></image>
                                             <g  xmlns:svg="http://www.w3.org/2000/svg" class="dropzone draggable">
                                                 <rect fill="#21316a" height="39" rx="10" ry="10" width="140" x="-35" y="69"></rect>
                                                 <text  fill="#ffffff" id="j9" left="0" top="0" transform="matrix(1,0,0,1,-25, 97)" class="text_joueur" style="font-size: 24px; font-family: Arial; text-anchor: start;"><?php echo $bu ?></text>

@@ -148,8 +148,11 @@
 
                                 //On vérifie si la feuille de match est remplir
                                 if ($sql -> feuilleMatchRempli($donnees[3])) {
-
-                                    //Si la feuille de match est remplie et que la date correspond a un jour apres le match, alors l'entraineur a acces pour rentrer le score et evaluer les joueurs qui étaient sur la feuille de match
+                                    
+                                    /***********************************************************************************************
+                                    ***********************************************************************************************/
+                                    //IMPORTANT !!!!!!!
+                                    //Si la feuille de match est remplie et que la date correspond a 3 heures apres le coup d'envoie du match, alors l'entraineur à acces pour rentrer le score et evaluer les joueurs qui étaient sur la feuille de match
                                     if ((strtotime($donnees[1])) < strtotime(date("Y-m-d H:i:s") . ' - 3 hours')) {   
 
                                         //Rentrer Score
@@ -213,13 +216,13 @@
                                         //Evaluer Performance
                                         $timeDiff = strtotime($donnees[1]) - strtotime(date("Y-m-d H:i:s"));
                                         //Si moins d'un jour afficher les heures
-                                        if ((floor($timeDiff / 3600)) > 24) {
+                                        if ((floor($timeDiff / 3600) + 3) > 24) {
                                             echo '<td> Encore : '. floor($timeDiff / 86400) . ' jours</td>';
                                         //Si moins d'une heure afficher les minutes
-                                        } elseif((floor($timeDiff / 60)) > 60) {
-                                            echo '<td> Encore : '. floor($timeDiff / 3600) . ' heures</td>';
+                                        } elseif(((floor($timeDiff / 60))) > 60) {
+                                            echo '<td> Encore : '. floor(($timeDiff / 3600) + 3). ' heures</td>';
                                         } else {
-                                            echo '<td> Encore : '. floor($timeDiff / 60) . ' minutes</td>';
+                                            echo '<td> Encore : '. floor(($timeDiff / 60) + 180) . ' minutes</td>';
                                         }
                                         
                                     }
