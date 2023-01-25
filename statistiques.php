@@ -107,7 +107,7 @@
 
                         </div>
                     </div>
-                    <div class="containerDroite">
+                    
                         <?php
                             if (isset($_POST['submitJoueur'])) {
                                 $licenceJoueur = $sql->joueurId($_POST['submitJoueur'])->fetch()['Licence'];
@@ -141,6 +141,7 @@
                                 }
 
                                 echo '
+                                <div class="containerDroite">
                                     <div class="container-info-joueur">
                                         <div class="infoEtImage">
                                             <div class="info">
@@ -158,6 +159,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                 ';
                             }
 
@@ -172,6 +174,7 @@
                                 $poucentageMatchNul = ($nbRencontreEgalite / $nbRencontre) * 100;
 
                                 echo '
+                                <div class="containerDroite">
                                     <div class="container-info-joueur">
                                         <div class="infoEtImage">
                                             <div class="info">
@@ -188,6 +191,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                 ';
                             }
                         ?>

@@ -89,7 +89,7 @@ svg:hover {
 
 .main-listes-container {
   display: flex;
-  /* background-color: var(--white); */
+  background-color: var(--white);
   max-width: 1200px;
   padding: 200px 50px 50px 50px;
   min-height: 100%;
