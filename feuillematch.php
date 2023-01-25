@@ -294,7 +294,7 @@
                                 <svg  width="100%" height="100%" id="svg" viewBox="0 0 1150 820" xmlns="http://www.w3.org/2000/svg">
                                     <!-- Principe : terrain de foot ou on peut choisir dynamiquement les joueurs pour faire la feuille de match-->
                                     <image  height="1220" id="field" width="1150" x="0" y="0" xlink:href="https://iutprojetphp.000webhostapp.com/img/terrain.png"></image>
-                                    <image  height="790" id="lines" width="1150" x="0" y="20" xlink:href="https://iutprojetphp.000webhostapp.com/img/ligne.png"></image>
+                                    <image  height="790" id="lines" width="1150" x="0" y="20" xlink:href="https://iutprojetphp.000webhostapp.com/img/lignes.png"></image>
                                     
                                     <!-- Poste -->
                                     <g left="0" top="0" transform="matrix(1,0,0,1,0,20)" class="contents">
