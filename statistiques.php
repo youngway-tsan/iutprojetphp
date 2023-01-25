@@ -166,34 +166,58 @@
                             if (isset($_POST['submitEquipe'])){
                                 //Requête Equipe
                                 $nbRencontre = $sql->getNbRencontre() -> fetch()[0];
-                                $nbRencontreGagne = $sql->getNbRencontreGagne()->fetch()[0];
-                                $nbRencontreEgalite = $sql->getNbRencontreGagne()->fetch()[0];
-                                $nbRencontrePerdu = $sql->getNbRencontreGagne()->fetch()[0];
-                                $pourcentageMatchGagne = ($nbRencontreGagne / $nbRencontre) * 100;
-                                $pourcentageMatchPerdu = ($nbRencontrePerdu / $nbRencontre) * 100;
-                                $poucentageMatchNul = ($nbRencontreEgalite / $nbRencontre) * 100;
+                              
 
-                                echo '
-                                <div class="containerDroite">
-                                    <div class="container-info-joueur">
-                                        <div class="infoEtImage">
-                                            <div class="info">
-                                                <h2>FC WOIPPY</h2>
-                                                <div class="stats">
-                                                    <span>Nombre total de match: '.$nbRencontre.' </span>
-                                                    <span>Pourcentage de matchs gagnés : '.$pourcentageMatchGagne.' % </span>
-                                                    <span>Pourcentage de matchs perdus : '.$pourcentageMatchPerdu.' %</span>
-                                                    <span>Pourcentage de matchs nuls : '.$poucentageMatchNul.' %</span>
+                                if ($nbRencontre != 0){
+                                    $nbRencontreGagne = $sql->getNbRencontreGagne()->fetch()[0];
+                                    $nbRencontreEgalite = $sql->getNbRencontreGagne()->fetch()[0];
+                                    $nbRencontrePerdu = $sql->getNbRencontreGagne()->fetch()[0];
+                                    $pourcentageMatchGagne = ($nbRencontreGagne / $nbRencontre) * 100;
+                                    $pourcentageMatchPerdu = ($nbRencontrePerdu / $nbRencontre) * 100;
+                                    $poucentageMatchNul = ($nbRencontreEgalite / $nbRencontre) * 100;
+                                    echo '
+                                    <div class="containerDroite">
+                                        <div class="container-info-joueur">
+                                            <div class="infoEtImage">
+                                                <div class="info">
+                                                    <h2>FC WOIPPY</h2>
+                                                    <div class="stats">
+                                                        <span>Nombre total de match: ' . $nbRencontre . ' </span>
+                                                        <span>Pourcentage de matchs gagnés : ' . $pourcentageMatchGagne . ' % </span>
+                                                        <span>Pourcentage de matchs perdus : ' . $pourcentageMatchPerdu . ' %</span>
+                                                        <span>Pourcentage de matchs nuls : ' . $poucentageMatchNul . ' %</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="image">
-                                                <img id="preview" src="img/FCWoippy-logo.png" alt="Photo " width="200" height="200" >
+                                                <div class="image">
+                                                    <img id="preview" src="img/FCWoippy-logo.png" alt="Photo " width="200" height="200" >
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                ';
-                            }
+                                    ';
+                                } else {
+                                    echo '
+                                    <div class="containerDroite">
+                                        <div class="container-info-joueur">
+                                            <div class="infoEtImage">
+                                                <div class="info">
+                                                    <h2>FC WOIPPY</h2>
+                                                    <div class="stats">
+                                                        <span>Aucun match joué </span>
+                                                        <span>Pourcentage de matchs gagnés : - % </span>
+                                                        <span>Pourcentage de matchs perdus : - %</span>
+                                                        <span>Pourcentage de matchs nuls :  -  %</span>
+                                                    </div>
+                                                </div>
+                                                <div class="image">
+                                                    <img id="preview" src="img/FCWoippy-logo.png" alt="Photo " width="200" height="200" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    ';
+                                }
+                                }
                         ?>
                     </div>
                 </div>

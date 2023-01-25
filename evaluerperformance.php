@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="containerDroite">
+                    
                         <?php
                             if (isset($_POST['submitJoueur'])){
                                 $licenceJoueur = $sql->joueurId($_POST['submitJoueur'])->fetch()['Licence'];
@@ -82,6 +82,7 @@
                                 $imageJoueur = $sql->joueurId($_POST['submitJoueur'])->fetch()['Image'];
                                 $notationJoueur = $sql -> getNotationJoueur($_GET['id'],$licenceJoueur) -> fetch()[0];
                             echo '
+                                <div class="containerDroite">
                                     <div class="container-info-joueur">
                                         <div class="infoEtImage">
                                             <div class="info">
@@ -92,13 +93,13 @@
                                                 echo '
                                                 <div class="notation">
                                                     <div class="note">
-                                                        <input type="radio" id="star5" name="rating" value="5" />
-                                                        <label for="star5">5</label>
+                                                        <input type="radio" id="star1" name="rating" value="1" />
+                                                        <label for="star1">1</label>
                                                     </div>
                                                     
                                                     <div class="note">
-                                                        <input type="radio" id="star4" name="rating" value="4" />
-                                                        <label for="star4">4</label>
+                                                        <input type="radio" id="star2" name="rating" value="2" />
+                                                        <label for="star2">2</label>
                                                     </div>
 
                                                     <div class="note">
@@ -107,13 +108,13 @@
                                                     </div>
 
                                                     <div class="note">
-                                                        <input type="radio" id="star2" name="rating" value="2" />
-                                                        <label for="star2">2</label>
+                                                        <input type="radio" id="star4" name="rating" value="4" />
+                                                        <label for="star4">4</label>
                                                     </div>
 
                                                     <div class="note">
-                                                        <input type="radio" id="star1" name="rating" value="1" />
-                                                        <label for="star1">1</label>
+                                                        <input type="radio" id="star5" name="rating" value="5" />
+                                                        <label for="star5">5</label>
                                                     </div>
 
                                                 </div>
@@ -133,10 +134,11 @@
                                             </div>
                                         <div>
                                     </div>
-                                ';
+                                </div>
+                            ';
                             }
                         ?>
-                    </div>
+                    
                 </div>
 
             </form>

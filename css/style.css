@@ -513,6 +513,7 @@ POPUP
   align-items: center;
   background-color: #ffffff;
   padding : 5px;
+  text-align: center;
 }
 
 .popup-body hr {

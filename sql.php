@@ -539,16 +539,27 @@ class requeteSQL {
     */
 
     public function supprimerJoueur($licence){
-        $req = $this -> linkpdo -> prepare("DELETE FROM joueur WHERE joueur.licence = :licence ");
-        $testreq = $req -> execute(array(
-            'licence' => $licence
-        ));
-        if ($testreq == false){
-            die("Erreur supprimerjoueur");
-        }    
+        try {
+            $req = $this->linkpdo->prepare("DELETE FROM joueur WHERE joueur.licence = :licence ");
+
+            $testreq = $req->execute(
+                array(
+                    'licence' => $licence
+                )
+            );
+        } catch (PDOException $e){
+            return 0;
+        }
+        return 1;
     }
 
     public function supprimerRencontre($id_rencontre){
+        $req = $this->linkpdo->prepare("DELETE FROM participer WHERE participer.id_rencontre = :id_rencontre");
+        $req->execute(
+            array(
+                "id_rencontre" => $id_rencontre
+            )
+        );
         $req = $this -> linkpdo -> prepare("DELETE FROM rencontre WHERE rencontre.id_rencontre = :id_rencontre ");
         $testreq = $req -> execute(array(
             'id_rencontre' => $id_rencontre

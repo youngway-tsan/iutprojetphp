@@ -185,7 +185,7 @@
                         </div>
 
                     </div>
-                    <input class="submit" type="submit" name="modifier" value="MODIFIER">
+                    <input class="submit" type="submit" name="modifier" value="Modifier">
                     <span><?php echo $info_execution?> </span>
                 </form>
             </section>

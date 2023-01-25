@@ -63,11 +63,13 @@
                     <div class="popup-body">
                         <span>
                             Voulez-vous vraiment supprimer ce joueur ?
+                            <br>
+                            (Notez qu'il sera impossible de le supprimer s'il est déjà inscrit à un match)
                         </span>
                         <hr>
                         <div class="popup-button">
-                            <input type="button" class="button-non" name="popupnon" value="Non" onclick='popUpNon()'>
-                            <input type="button" class="button-oui" name="popupoui" value="Oui" onclick='popUpOui()'>
+                            <input type="button" class="submit button-non" name="popupnon" value="Non" onclick='popUpNon()'>
+                            <input type="button" class="submit button-oui" name="popupoui" value="Oui" onclick='popUpOui()'>
                         </div>
                     </div>
                 </div>
@@ -84,8 +86,8 @@
                             <hr>
                             <div class="popup-button">
                                 <input type="hidden" name="idJoueurCommentaire" id="idJoueurCommentaire">
-                                <input type="submit" class="button-non" name="popupannuler" value="Annuler" onclick="popUpAnnuler()">
-                                <input type="submit" class="button-oui" name="popupconfirmer" value="Confirmer" onclick="popUpConfirmer()">
+                                <input type="submit" class="submit button-non" name="popupannuler" value="Annuler" onclick="popUpAnnuler()">
+                                <input type="submit" class="submit button-oui" name="popupconfirmer" value="Confirmer" onclick="popUpConfirmer()">
                             </div>
                         </form>
                     </div>
@@ -154,7 +156,7 @@
                                     echo '
                                         </select>
                                         <input type="hidden" name="hidden-licence" value="'.$id_joueur.'">
-                                        <input type="submit" class="submit-ok submit" name="submit-ok" value="Ok">
+                                        <input type="submit" class="submit-ok submit" name="submit-ok" value="ok">
                                     </td>
                                     <td>
                                         <label>
