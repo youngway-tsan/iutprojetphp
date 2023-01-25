@@ -23,7 +23,7 @@ class header{
                                 <li class="navbar-item"><a href="listematch.php" class="navbar-link">Liste des matchs</a></li>
                             </ul>
                         </li>
-                        <li class="navbar-item"><a href="#" class="navbar-link">Statistiques</a></li>
+                        <li class="navbar-item"><a href="statistiques.php" class="navbar-link">Statistiques</a></li>
                         <li class="navbar-item deconnexion"><a href="index.php" class="btn-connexion">Déconnexion</a></li>
                     </ul>
             </div>

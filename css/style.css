@@ -73,11 +73,11 @@ svg:hover {
 }
 
 .main-listes {
-  min-height: 100vh;
   display: flex;
+  min-height: 100vh;
   justify-content: center;
   padding: 0 75px;
-  background-color: var(--black-grey);
+  background-image: url(../img/foot.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -85,10 +85,11 @@ svg:hover {
 
 
 .main-listes-container {
-  background-color: var(--white-text);
+  display: flex;
+  background-color: var(--white);
   max-width: 1200px;
   padding: 200px 50px 50px 50px;
-  display: flex;
+  min-height: 100%;
   width: 100%;
   flex-direction: column;
   gap: 20px;
@@ -552,4 +553,126 @@ input[type="submit"].submit-ok{
 .container-feuille-remplacant{
   display :flex; 
   padding : 10px 10px 10px 10px;
+}
+
+.container{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.containerGauche {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 30%;
+  margin-right : 5px;
+  border: 1px solid black;
+}
+
+.containerDroite {
+  display: flex;
+  flex-direction: column;
+  height:fit-content;
+  width: 70%;
+  margin-left : 5px;
+  border : 1px solid black;
+}
+
+.listeElement{
+  display : flex;
+  flex-direction: column;
+}
+
+.listeElement h2{
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.element{
+  height: auto;
+  margin: 2%;
+  cursor : pointer;
+}
+
+.element:hover{
+  transform: scale(1.025);
+}
+
+.container-info-joueur{
+  display: flex;
+  /* align-items: center; */
+  height: 100%;
+}
+
+.infoEtImage{
+  display: flex;
+  width: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 60%;
+  margin : 3%;
+}
+
+.notation {
+  display: flex;
+  justify-content: center;
+  margin : 15%;
+}
+
+.note{
+  margin :10%;
+}
+
+.info label {
+  color: #bbb;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + label {
+  color: #ffc107;
+}
+
+
+.image {
+  margin : 3%;
+}
+
+button[type="submit"].submit{
+  box-shadow: var(--background-shadow);
+  border-radius: var(--border-radius);
+  color: var(--black);
+  background-color: var(--btn-submit);
+  border: 0px;
+  padding: 8px 25px;
+  font-weight: 600;
+  width: auto;
+  line-height: initial;
+  height: 32px;
+  cursor: pointer;
+}
+
+button[type="submit"].submit:hover{
+  transform: scale(1.025);
+}
+
+.noteMatch {
+  margin-top : 10%;
+}
+
+.stats{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 5%;
+}
+
+.stats span{
+  margin : 2%;
 }

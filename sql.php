@@ -127,6 +127,19 @@ class requeteSQL {
         return $req;
     }
 
+    public function getJoueursByPoste($poste){
+        $req = $this->linkpdo->prepare('SELECT * FROM joueur WHERE poste = :poste ORDER BY nom');
+        $testreq = $req -> execute(
+            array(
+                "poste" => $poste
+            )
+        );
+        if ($testreq == false){
+            die("Erreur getJoueursByPoste");
+        }
+        return $req;
+    }
+
     //Fonction qui retourne toute les informations d'un match grâce à son id
     public function matchId($id)
     {
@@ -213,6 +226,162 @@ class requeteSQL {
        
     }
 
+    public function getTitulaireRencontre($id_rencontre){
+        $req = $this->linkpdo->prepare("SELECT participer.licence, nom FROM participer, joueur WHERE participer.licence = joueur.licence AND titularisation = 1 AND id_rencontre = :id_rencontre ORDER BY nom");
+        $testreq = $req->execute(
+            array(
+                "id_rencontre" => $id_rencontre
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur getTitulaireRencontre");
+        }
+        return $req;
+    }
+
+    public function getRemplacantRencontre($id_rencontre){
+        $req = $this->linkpdo->prepare("SELECT participer.licence, nom FROM participer, joueur WHERE participer.licence = joueur.licence AND titularisation = 0 AND id_rencontre = :id_rencontre ORDER BY nom");
+        $testreq = $req->execute(
+            array(
+                "id_rencontre" => $id_rencontre
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur getRemplacantRencontre");
+        }
+        return $req;
+    }
+
+    public function getNomEquipeAdverse($id_rencontre){
+        $req = $this->linkpdo->prepare("SELECT nom_equipe_adverse FROM rencontre WHERE id_rencontre = :id_rencontre");
+        $testreq = $req->execute(
+            array(
+                "id_rencontre" => $id_rencontre
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur getNomEquipeAdverse");
+        }
+        return $req;
+    }
+
+    public function getNotationJoueur($id_rencontre, $licence){
+        $req = $this->linkpdo->prepare("SELECT notation FROM participer WHERE id_rencontre = :id_rencontre AND licence = :licence");
+        $testreq = $req->execute(
+            array(
+                "id_rencontre" => $id_rencontre,
+                "licence" => $licence
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur getNotationJoueur");
+        }
+        return $req;
+    }
+
+    public function getNbselectionTitulaire($licence){
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM participer WHERE titularisation = 1 AND licence = :licence");
+        $testreq = $req ->execute(
+            array(
+                "licence" => $licence
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur getNbselectionTitulaire");
+        }
+        return $req;
+    }
+
+    public function getNbselectionRemplacant($licence){
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM participer WHERE titularisation = 0 AND licence = :licence");
+        $testreq = $req ->execute(
+            array(
+                "licence" => $licence
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur getNbselectionRemplacant");
+        }
+        return $req;
+    }
+
+    public function getNoteMoyenneJoueur($licence){
+        $req = $this->linkpdo->prepare("SELECT ROUND(AVG(notation),2) FROM participer  WHERE licence = :licence GROUP BY licence");
+        $testreq = $req->execute(
+            array(
+                "licence" => $licence
+            )
+        );
+        $return = $req->fetch();
+        if (is_bool($return)){
+            return false;
+        } else {
+            return $return[0];
+        }
+    }
+
+    public function getNbRencontre(){
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM rencontre");
+        $testreq = $req->execute();
+        if ($testreq == false) {
+            die("Erreur getNbRencontre");
+        }
+        return $req;
+    }
+
+    public function getNbRencontreGagne(){
+        $req = $this->linkpdo->prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE SUBSTRING_INDEX(resultat, '-', 1) > SUBSTRING_INDEX(resultat, '-', -1)");
+        $testreq = $req->execute();
+        if ($testreq == false) {
+            die("Erreur getNbRencontreGagne");
+        }
+        return $req;
+    }
+
+    public function getNbRencontreEgalite(){
+        $req = $this->linkpdo->prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE SUBSTRING_INDEX(resultat, '-', 1) = SUBSTRING_INDEX(resultat, '-', -1)");
+        $testreq = $req->execute();
+        if ($testreq == false) {
+            die("Erreur getNbRencontreEgalite");
+        }
+        return $req;
+    }
+
+    public function getNbRencontrePerdu(){
+        $req = $this->linkpdo->prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre WHERE SUBSTRING_INDEX(resultat, '-', 1) < SUBSTRING_INDEX(resultat, '-', -1)");
+        $testreq = $req->execute();
+        if ($testreq == false) {
+            die("Erreur getNbRencontrePerdu");
+        }
+        return $req;
+    }
+
+
+    public function getNbRencontreParticiper($licence){
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM rencontre, participer WHERE rencontre.id_rencontre = participer.id_rencontre AND participer.licence = :licence");
+        $testreq = $req->execute(
+            array(
+                "licence" => $licence
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur getNbRencontreParticiper");
+        }
+        return $req;
+    }
+
+    public function getNbRencontreGagnéesJoueur($licence){
+        $req = $this -> linkpdo -> prepare("SELECT COUNT(*) as 'nb_matchs_gagnes' FROM rencontre, participer WHERE rencontre.id_rencontre = participer.id_rencontre AND participer.licence = :licence AND SUBSTRING_INDEX(resultat, '-', 1) > SUBSTRING_INDEX(resultat, '-', -1)");
+        $testreq = $req->execute(
+            array(
+                "licence" => $licence
+            )
+        );
+        if ($testreq == false) {
+            die("Erreur getNbRencontreGagnéesJoueur");
+        }
+        return $req;
+    }
 
     /*
     FONCTIONS D'AJOUT DANS LA BDD
@@ -347,6 +516,20 @@ class requeteSQL {
         echo 'TEST MODIFIERSTATU';
         if ($testreq == false){
             die ("Erreur modifierStatut");
+        }
+    }
+
+    public function setNoteJoueur($licence,$id_rencontre,$note){
+        $req = $this->linkpdo->prepare('UPDATE participer SET notation = :note WHERE id_rencontre = :id_rencontre AND licence = :licence');
+        $testreq = $req->execute(
+            array(
+                "note" => $note,
+                "id_rencontre" => $id_rencontre,
+                "licence" => $licence
+            )
+        );
+        if ($testreq == false){
+            die("Erreur setNoteJoueur");
         }
     }
 
