@@ -26,6 +26,7 @@
             }
         }
         ?>
+        <video src=""></video>
         <main class ="main-login main">
             <form action="" method="post">
 
@@ -58,7 +59,7 @@
                     </div>
                     
                     <div class ="valider">
-                        <input type="submit" name ="valider" value="Se Connecter">
+                        <input type="submit" class="submit" name ="valider" value="Se Connecter">
                     </div>
 
                     <?php
