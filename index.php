@@ -26,7 +26,6 @@
             }
         }
         ?>
-        <video src=""></video>
         <main class ="main-login main">
             <form action="" method="post">
 

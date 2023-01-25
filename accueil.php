@@ -20,22 +20,22 @@
         $random = random_int(0, 5);
         switch ($random) {
             case 0: 
-                $vid = "uefa_intro.mp4";
+                $vid = "video/uefa_intro.mp4";
                 break;
             case 1:
-                $vid = "panenkaBenzema.mp4";
+                $vid = "video/panenkaBenzema.mp4";
                 break;
             case 2:
-                $vid = "joseMourinho.mp4";
+                $vid = "video/joseMourinho.mp4";
                 break;
             case 3: 
-                $vid = "mbappe.mp4";
+                $vid = "video/mbappe.mp4";
                 break;
             case 4:
-                $vid = "messi.mp4";
+                $vid = "video/messi.mp4";
                 break;
             case 5:
-                $vid = "ronaldo.mp4";
+                $vid = "video/ronaldo.mp4";
                 break;
         }
 
@@ -43,7 +43,7 @@
 
     <body>
         <div class="containerAccueil">
-
+            
             <div class="video-container">
                 <video autoplay muted loop id="maVideo" class="maVideo">
                     <source src = <?php echo $vid;?> type="video/mp4">
