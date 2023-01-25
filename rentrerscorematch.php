@@ -41,7 +41,7 @@
                 $score = $_POST['score-match-domicile'].'-'.$_POST['score-match-visiteur'];
                 $sql->modifierScoreMatch($id,$score);
                 $info_execution = 'Le score a bien été enregistré !';
-                header("Refresh: 3;URL=listematch.php");
+                header("Refresh: 2;URL=listematch.php");
             }catch(Exception $e){
                 $info_execution = "Erreur : " . $e->getMessage();
             }
@@ -90,8 +90,9 @@
                                 <input type="number" id="score-match-visiteur" name="score-match-visiteur" min="0" max="99" value=0>
                         </div>
                     </div>
-                    <input class="submit" type="submit" name="ajouter" value="AJOUTER">
+                    <input class="submit" type="submit" name="ajouter" value="Valider">
                     <span><?php echo $info_execution?> </span>
+                    <span><?php if (isset($_POST['ajouter'])){echo "(redirection automatique vers la liste des matchs)";}?></span>
                 </form>
             </section>
         </main>
